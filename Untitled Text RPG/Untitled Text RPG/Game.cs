@@ -21,28 +21,52 @@ namespace Untitled_Text_RPG
         {
             //Initialize
             this.player = new Player();
-            
+            Room startRoom = new Room();
+
 
             //Show intro text with story information (Load from file)
 
             //Load the Main room and adjacent rooms
-            Room startRoom = new Room();
             Room.Load(startRoomFile, startRoom);
-            currentRoom = main;
+            currentRoom = startRoom;
 
-            //Initialize Player
-            Player player = new Player();
+            //Enter the Starting Room
+            currentRoom.Enter();
 
-            //Load main room
+            //EDIT: setup the input loop and end state
 
-            //call method in Main room to load adjacent rooms
+            //Get player input and translate into commands
+            GetPlayerInput();
+        }
+
+        /// <summary>
+        /// Read input from console, break into parts for ReadCommand and call ReadCommand to translate players intent
+        /// </summary>
+        private void GetPlayerInput()
+        {
+            //Get player input from console, grab the first keyword and store the rest
+            string playerInput = Console.ReadLine();
+
+            //Edit: Convert to lower case
+
+            // Split the input into words
+            string[] parts = playerInput.Split(' ', 2); // Split into at most 2 parts
+
+            // get the keyword (first word)
+            string keyword = parts[0];
+
+            // get the remainder (if any)
+            string remainder = parts.Length > 1 ? parts[1] : string.Empty;
+
+            // Call the ReadCommand method with the keyword and remainder
+            ReadCommand(keyword, remainder);
         }
 
         /// <summary>
         /// Reads player input and determines how best to handle it
         /// </summary>
         /// <param name="command"></param>
-        private void ReadCommand(string command)
+        private void ReadCommand(string command, string remainder)
         {
             switch (command)
             {
@@ -58,15 +82,15 @@ namespace Untitled_Text_RPG
                 case "Take":
                 case "Grab":
                     //Get rest of string to determine what item player is attempting to take
-                    Take(itemName);
+                    Take(remainder);
                     break;
                 case "Drop":
                     //Get rest of string to determine what item player is attempting to drop
-                    Drop(itemName);
+                    Drop(remainder);
                     break;
                 case "Use":
                     //Get rest of string to determine what item player is attempting to use
-                    Use(itemName);
+                    Use(remainder);
                     break;
 
                 //Directional inputs
@@ -84,7 +108,7 @@ namespace Untitled_Text_RPG
                     break;
                 case "East":
                 case "Right":
-                    ChangeRoom(Direction.West);
+                    ChangeRoom(Direction.East);
                     break;
 
                 // Any invalid commands or not yet programmed commands
