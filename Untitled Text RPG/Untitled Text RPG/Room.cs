@@ -18,6 +18,8 @@ public class Room
     string westRoomFileName = "";
     string eastRoomFileName = "";
     private ArrayList items = new ArrayList();
+    private Item item;
+    private Puzzle puzzle;
 
     /// <summary>
     /// Constructor does nothing.

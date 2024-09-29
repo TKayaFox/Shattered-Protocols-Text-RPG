@@ -11,5 +11,29 @@ namespace Untitled_Text_RPG
         public Player() 
         { 
         }
+
+        public Item inventory
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public string name
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public int description
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

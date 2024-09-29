@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Untitled_Text_RPG
 {
-    internal class Item
+    public class Puzzle
     {
-        public int name
+        public event EventHandler ReadCommand;
+
+        public int description
         {
             get => default;
             set
@@ -16,7 +17,7 @@ namespace Untitled_Text_RPG
             }
         }
 
-        public int description
+        public int item
         {
             get => default;
             set
