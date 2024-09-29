@@ -1,2 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Untitled_Text_RPG.Game">
+    <Position X="4.25" Y="1.75" Width="6.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAYAAEAAAAAAAAAAAAEAAABAAMAAgYgAAA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="player" />
+      <Field Name="currentRoom" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Untitled_Text_RPG.Item">
+    <Position X="10.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Room">
+    <Position X="6" Y="5.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAiCDAAggAAgAEIAwAAAAAAAAUAAAAAAAAQAAAAAI=</HashCode>
+      <FileName>Room.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="item" />
+      <Field Name="puzzle" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Untitled_Text_RPG.Puzzle">
+    <Position X="2.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAQAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Puzzle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Untitled_Text_RPG.Player">
+    <Position X="11.75" Y="4" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAEAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="inventory" />
+    </ShowAsAssociation>
+  </Class>
+  <Enum Name="Untitled_Text_RPG.Direction" Collapsed="true">
+    <Position X="16.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABAAQ=</HashCode>
+      <FileName>Direction.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
