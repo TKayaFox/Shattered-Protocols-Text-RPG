@@ -1,4 +1,4 @@
-# Untitled-Text-RPG
+# Shattered Protocol text based RPG
 Developed for CS3300 Software Development
 
 **Project Overview**
