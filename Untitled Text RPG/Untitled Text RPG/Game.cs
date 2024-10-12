@@ -9,6 +9,10 @@ namespace Untitled_Text_RPG
 {
     internal class Game
     {
+        //List all extraneous words that might be input so keyword can be matched
+        private static readonly string[] SKIP_WORDS = 
+            { "the", "move", "please", "kindly", "go", "walk", "to", "at", "on", "just" };
+
         private const string startRoomFile = "Room 1";
 
         private Player player;
@@ -24,10 +28,7 @@ namespace Untitled_Text_RPG
             Room startRoom = new Room();
 
 
-            //Show intro text with story information (Load from file)
-
-            //Load the Main room and adjacent rooms
-            Room.Load(startRoomFile, startRoom);
+            //Show intro text with story information
             currentRoom = startRoom;
 
             //Enter the Starting Room
@@ -44,22 +45,37 @@ namespace Untitled_Text_RPG
         /// </summary>
         private void GetPlayerInput()
         {
-            //Get player input from console, grab the first keyword and store the rest
+            //Get player input from console
             string playerInput = Console.ReadLine();
 
             //Edit: Convert to lower case
+            playerInput = playerInput.ToLower();
 
-            // Split the input into words
-            string[] parts = playerInput.Split(' ', 2); // Split into at most 2 parts
-
-            // get the keyword (first word)
-            string keyword = parts[0];
-
-            // get the remainder (if any)
-            string remainder = parts.Length > 1 ? parts[1] : string.Empty;
+            //Seperate keyword (first word) from input
+            string keyword, remainder;
+            GetKeyword(playerInput, out keyword, out remainder);
 
             // Call the ReadCommand method with the keyword and remainder
             ReadCommand(keyword, remainder);
+        }
+
+        private static void GetKeyword(string input, out string keyword, out string remainder)
+        {
+            //repeat if keyword is found in skipWords array
+            do
+            {
+                // Split the input into words
+                string[] parts = input.Split(' ', 2); // Split into at most 2 parts
+
+                // get the keyword (first word)
+                keyword = parts[0];
+
+                // get the remainder (if any)
+                remainder = parts.Length > 1 ? parts[1] : string.Empty;
+
+                //update input string for next iteration if necessary
+                input = remainder;
+            } while (SKIP_WORDS.Contains(keyword));
         }
 
         /// <summary>
@@ -70,44 +86,44 @@ namespace Untitled_Text_RPG
         {
             switch (command)
             {
-                case "Search":
+                case "search":
                 case "look":
                     Search();
                     break;
-                case "Help":
+                case "help":
                     Help();
                     break;
 
                 //Items
-                case "Take":
-                case "Grab":
+                case "take":
+                case "grab":
                     //Get rest of string to determine what item player is attempting to take
                     Take(remainder);
                     break;
-                case "Drop":
+                case "drop":
                     //Get rest of string to determine what item player is attempting to drop
                     Drop(remainder);
                     break;
-                case "Use":
+                case "use":
                     //Get rest of string to determine what item player is attempting to use
                     Use(remainder);
                     break;
 
                 //Directional inputs
-                case "North":
-                case "Up":
+                case "north":
+                case "up":
                     ChangeRoom(Direction.North);
                     break;
-                case "South":
-                case "Down":
+                case "south":
+                case "down":
                     ChangeRoom(Direction.South);
                     break;
-                case "West":
-                case "Left":
+                case "west":
+                case "left":
                     ChangeRoom(Direction.West);
                     break;
-                case "East":
-                case "Right":
+                case "east":
+                case "right":
                     ChangeRoom(Direction.East);
                     break;
 
@@ -150,7 +166,7 @@ namespace Untitled_Text_RPG
         /// </summary>
         public void Inventory()
         {
-            player.Inventory();
+            player.ShowInventory();
         }
 
         //======================== 

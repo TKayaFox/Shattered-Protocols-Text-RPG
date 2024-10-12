@@ -8,7 +8,7 @@ namespace Untitled_Text_RPG
 {
     internal class Item
     {
-        public int name
+        public int Name
         {
             get => default;
             set
@@ -16,7 +16,7 @@ namespace Untitled_Text_RPG
             }
         }
 
-        public int description
+        public int Description
         {
             get => default;
             set
