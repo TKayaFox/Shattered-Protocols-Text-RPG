@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Untitled_Text_RPG.Navigation;
 
 namespace Untitled_Text_RPG
 {
@@ -17,6 +18,7 @@ namespace Untitled_Text_RPG
 
         private Player player;
         private Room currentRoom;
+        private Map map = new Map();
 
         /// <summary>
         /// Initialize Game and start logic
@@ -154,7 +156,7 @@ namespace Untitled_Text_RPG
         /// <param name="direction"></param>
         public void ChangeRoom(Direction direction)
         {
-
+            map.Move(direction);
         }
 
         /// <summary>

@@ -12,6 +12,12 @@ public class Room
     private Room westRoom = null;
     private Room eastRoom = null;
 
+    // Events
+    public event Action<Room> OnEnter; // Triggered when the room is entered
+    public event Action<Item> OnItemAdded; // Triggered when an item is added
+    public event Action<Item> OnItemRemoved; // Triggered when an item is removed
+    public event Action<Puzzle> OnPuzzleSolved; // Triggered when a puzzle is solved
+
     #region Getters and Setters
     public Inventory Inventory
     {
@@ -23,6 +29,28 @@ public class Room
         get => roomPuzzle;
         set => roomPuzzle = value;
     }
+    #region Neighbor Rooms
+    public Room North
+    {
+        get => northRoom;
+        set => northRoom = value;
+    }
+    public Room South
+    {
+        get => southRoom;
+        set => southRoom = value;
+    }
+    public Room East
+    {
+        get => eastRoom;
+        set => eastRoom = value;
+    }
+    public Room West
+    {
+        get => westRoom;
+        set => westRoom = value;
+    }
+    #endregion
     #endregion
 
     /// <summary>
