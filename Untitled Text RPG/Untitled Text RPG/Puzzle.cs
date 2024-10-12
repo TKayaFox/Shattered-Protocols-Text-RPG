@@ -7,8 +7,7 @@ namespace Untitled_Text_RPG
 {
     public class Puzzle
     {
-        public event EventHandler ReadCommand;
-
+        #region Setters and Getters
         public int description
         {
             get => default;
@@ -24,5 +23,36 @@ namespace Untitled_Text_RPG
             {
             }
         }
+        #endregion
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Puzzle()
+        { }
+
+        /// <summary>
+        /// Starts Puzzle Logic
+        /// </summary>
+        public void Start()
+        {
+
+        }
+
+        /// <summary>
+        /// Reads player input and determines how best to handle it
+        /// </summary>
+        /// <param name="command"></param>
+        public void ReadCommand(string command, string remainder)
+        {
+            switch (command)
+            {
+                // Any invalid commands or not yet programmed commands
+                default:
+                    Console.WriteLine("Command not recognized. Type Help for a list of commands!");
+                    break;
+            }
+        }
+
     }
 }

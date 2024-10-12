@@ -11,7 +11,7 @@ namespace Untitled_Text_RPG
     {
         //List all extraneous words that might be input so keyword can be matched
         private static readonly string[] SKIP_WORDS = 
-            { "the", "move", "please", "kindly", "go", "walk", "to", "at", "on", "just" };
+            { "show","the", "move", "please", "kindly", "go", "walk", "to", "at", "on", "just" };
 
         private const string startRoomFile = "Room 1";
 
@@ -41,17 +41,17 @@ namespace Untitled_Text_RPG
         }
 
         /// <summary>
-        /// Read input from console, break into parts for ReadCommand and call ReadCommand to translate players intent
+        /// Read input source console, break into parts for ReadCommand and call ReadCommand to translate players intent
         /// </summary>
         private void GetPlayerInput()
         {
-            //Get player input from console
+            //Get player input source console
             string playerInput = Console.ReadLine();
 
             //Edit: Convert to lower case
             playerInput = playerInput.ToLower();
 
-            //Seperate keyword (first word) from input
+            //Seperate keyword (first word) source input
             string keyword, remainder;
             GetKeyword(playerInput, out keyword, out remainder);
 
@@ -95,6 +95,9 @@ namespace Untitled_Text_RPG
                     break;
 
                 //Items
+                case "inventory":
+                    ShowInventory();
+                    break;
                 case "take":
                 case "grab":
                     //Get rest of string to determine what item player is attempting to take
@@ -129,7 +132,14 @@ namespace Untitled_Text_RPG
 
                 // Any invalid commands or not yet programmed commands
                 default:
-                    Console.WriteLine("Command not recognized. Type Help for a list of commands!");
+                    if (currentRoom.RoomPuzzle != null)
+                    {
+                        currentRoom.RoomPuzzle.ReadCommand(command, remainder);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Command not recognized. Type Help for a list of commands!");
+                    }
                     break;
             }
         }
@@ -152,6 +162,7 @@ namespace Untitled_Text_RPG
         /// </summary>
         public void Search()
         {
+            Console.WriteLine(currentRoom.ToString);
         }
 
         /// <summary>
@@ -159,76 +170,71 @@ namespace Untitled_Text_RPG
         /// </summary>
         public void Help()
         {
+            //EDIT: Convert Keyword list to be a dictionary with a word and description of the command
         }
 
         /// <summary>
         /// Display player inventory
         /// </summary>
-        public void Inventory()
+        public void ShowInventory()
         {
-            player.ShowInventory();
+            Console.WriteLine(player.Inventory.ToString());
         }
 
         //======================== 
         //        Items
         //======================== 
-
+        #region Items
         /// <summary>
-        /// Attempt to take an item from the current room and add to player inventory
+        /// Attempt to take an item source the current room and add to player inventory
         /// </summary>
         /// <param name="itemName"></param>
         private void Take(string itemName)
         {
-            //Attempt to get item from room (Will return null and display a message if unable)
-            Item item = currentRoom.Take(itemName);
-
-            //Attempt to add item to inventory
-            if (item != null)
-            {
-                player.Add(item);
-            }
+            //Attempt to transfer item from room to inventory
+            Inventory.Transfer(itemName, currentRoom.Inventory, player.Inventory);
         }
 
         /// <summary>
-        /// Attempt to drop an item from player inventory into current room
+        /// Attempt to drop an item source player inventory into current room
         /// </summary>
         /// <param name="itemName"></param>
         private void Drop(string itemName)
         {
-            //Attempt to get item from room (Will return null and display a message if unable)
-            Item item = player.Drop(itemName);
-
-            //Attempt to add item to inventory
-            if (item != null)
-            {
-                currentRoom.Add(item);
-            }
+            //Attempt to transfer item from Player inventory to Room
+            Inventory.Transfer(itemName, player.Inventory, currentRoom.Inventory);
         }
 
+
         /// <summary>
-        /// Attempt to use an item by name, first from player inventory then from the current room
+        /// Attempt to use an item by name, first source player inventory then source the current room
         /// </summary>
         /// <param name="itemName"></param>
         private void Use(string itemName)
         {
+            //store player and room inventory for readability
+            Inventory playerInventory = player.Inventory;
+            Inventory roomInventory = currentRoom.Inventory;
+
             bool used = false;
+            Item item = playerInventory.GetItem(itemName);
 
-            // Attempt to use the item from the player's inventory.
-            if (player.Use(itemName))
+            //if item is null then check the room player is in
+            if (item == null)
             {
-                used = true;
-            }
-            // If not successful, try to use the item from the current room.
-            else if (currentRoom.Use(itemName))
-            {
-                used = true;
+                item = roomInventory.GetItem(itemName);
             }
 
-            // Inform the user if the item was not found.
-            if (!used)
+            //if still null, then item not found. otherwise attempt to use it.
+            if (item == null)
             {
                 Console.WriteLine($"{itemName} Not Found");
             }
+            else
+            {
+                item.Use();
+            }
         }
+        #endregion
     }
 }

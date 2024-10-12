@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Untitled_Text_RPG
 {
-    internal class Item
+    public class Item
     {
         public int Name
         {
@@ -22,6 +22,12 @@ namespace Untitled_Text_RPG
             set
             {
             }
+        }
+
+        public bool Use()
+        {
+            bool useSuccess = false;
+            return useSuccess;
         }
     }
 }

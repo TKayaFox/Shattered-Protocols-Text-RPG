@@ -7,19 +7,32 @@ using System.Threading.Tasks;
 using Untitled_Text_RPG;
 public class Room
 {
-    private string name = "Room";
+    private string name = "Unfinished Room";
     private string description = "This room not yet implemented";
+    private Inventory inventory = new Inventory();
+    private Puzzle roomPuzzle;
+
+    //Neighboring Rooms
     private Room northRoom = null;
     private Room southRoom = null;
     private Room westRoom = null;
     private Room eastRoom = null;
-    private ArrayList items = new ArrayList();
-    private Puzzle puzzle;
+
+    #region Getters and Setters
+    public Inventory Inventory
+    {
+        get => inventory;
+        set => inventory = value;
+    }
+    public Puzzle RoomPuzzle
+    {
+        get => roomPuzzle;
+        set => roomPuzzle = value;
+    }
+    #endregion
 
     /// <summary>
-    /// Constructor does nothing.
-    ///     See Load static method instead for loading room data
-    ///     See Enter method for when player first enters the room
+    /// Constructor
     /// </summary>
     public Room() 
     { 
@@ -40,30 +53,26 @@ public class Room
     public void Puzzle()
     {
         //puzzle logic
-        if (puzzle != null)
+        if (roomPuzzle != null)
         {
             //Start Puzzle
-            puzzle.Start();
+            roomPuzzle.Start();
         }
     }
 
     /// <summary>
-    /// OVerride ToString to display room info
+    /// Override ToString to display room info
     /// </summary>
     /// <returns></returns>
     public override string ToString()
     {
         //Display room name and description
         String roomData = $"{name}- {description}\n";
-        
+
         //Show any items in the room
-        if (items.Count >0)
+        if (!inventory.IsEmpty())
         {
-            roomData += $"\tItems\n";
-            foreach (var item in items)
-            {
-                roomData += $"{item.ToString()}\n" ;
-            }
+            Console.WriteLine (inventory.ToString);
         }
 
         //Determine all possible Exits
