@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Untitled_Text_RPG;
+﻿using Untitled_Text_RPG;
 public class Room
 {
     private string name = "Unfinished Room";
@@ -45,17 +39,17 @@ public class Room
         //Display room name and description using ToString
         Console.WriteLine(ToString());
 
-        //Run Puzzle Logic if applicable
-        Puzzle();
+        //Run ShowPuzzle Logic if applicable
+        ShowPuzzle();
     }
 
-    ///Puzzle Logic if Applicable
-    public void Puzzle()
+    ///ShowPuzzle Logic if Applicable
+    public void ShowPuzzle()
     {
         //puzzle logic
         if (roomPuzzle != null)
         {
-            //Start Puzzle
+            //Start ShowPuzzle
             roomPuzzle.Start();
         }
     }
@@ -72,7 +66,7 @@ public class Room
         //Show any items in the room
         if (!inventory.IsEmpty())
         {
-            Console.WriteLine (inventory.ToString);
+            Console.WriteLine (inventory.ToString());
         }
 
         //Determine all possible Exits
