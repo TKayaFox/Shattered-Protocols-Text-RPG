@@ -4,9 +4,9 @@ using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Untitled_Text_RPG.Navigation;
+using Shattered_Protocols.Navigation;
 
-namespace Untitled_Text_RPG
+namespace Shattered_Protocols
 {
     internal class Game
     {

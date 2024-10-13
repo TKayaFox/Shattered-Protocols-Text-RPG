@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Untitled_Text_RPG
+namespace Shattered_Protocols
 {
     public class Player
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Untitled_Text_RPG.Navigation
+namespace Shattered_Protocols.Navigation
 {
     /// <summary>
     /// Linked List style Map management for Text RPG

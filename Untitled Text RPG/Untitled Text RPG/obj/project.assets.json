@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Untitled-Text-RPG\\Untitled Text RPG\\Untitled Text RPG\\Untitled Text RPG.csproj",
-      "projectName": "Untitled Text RPG",
-      "projectPath": "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Untitled-Text-RPG\\Untitled Text RPG\\Untitled Text RPG\\Untitled Text RPG.csproj",
+      "projectUniqueName": "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Untitled-Text-RPG\\Untitled Text RPG\\Untitled Text RPG\\Shattered_Protocols.csproj",
+      "projectName": "Shattered_Protocols",
+      "projectPath": "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Untitled-Text-RPG\\Untitled Text RPG\\Untitled Text RPG\\Shattered_Protocols.csproj",
       "packagesPath": "C:\\Users\\Tkaya\\.nuget\\packages\\",
       "outputPath": "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Untitled-Text-RPG\\Untitled Text RPG\\Untitled Text RPG\\obj\\",
       "projectStyle": "PackageReference",
