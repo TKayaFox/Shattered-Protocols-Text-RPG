@@ -8,25 +8,24 @@ namespace Shattered_Protocols
 {
     public class Item
     {
-        public int Name
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        // Properties for the name and description of the item
+        public string Name { get; set; }
+        public string Description { get; set; }
 
-        public int Description
+        // Constructor to initialize an item with a name and description
+        public Item()
         {
-            get => default;
-            set
-            {
-            }
+            Name = "Generic Item";
+            Description = "this is a placeholder";
         }
 
         public bool Use()
         {
+            Console.WriteLine($"Using {Name}");
             bool useSuccess = false;
+
+            //Item based logic for what using does, and whether it can be used here
+
             return useSuccess;
         }
     }

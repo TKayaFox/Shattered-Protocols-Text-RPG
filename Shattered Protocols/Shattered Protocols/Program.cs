@@ -12,13 +12,9 @@ namespace Shattered_Protocols
         ArrayList roomList = new ArrayList();
 
         ///Starts the Game Logic
-        public void Main ()
+        public static void Main ()
         {
-            Console.WriteLine("Hello, World!");
-
-            //  use the current time as a seed to ensure Randomness between program runs
-            int seed = DateTime.Now.Millisecond;
-            Random randomizer = new Random(seed);
+            //Edit: Dispaly Intro
 
             //Start the Game Logic
             Game game = new Game();

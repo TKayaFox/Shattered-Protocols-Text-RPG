@@ -1,9 +1,9 @@
 ﻿using Shattered_Protocols;
 public class Room
 {
-    private string name = "Unfinished Room";
-    private string description = "This room not yet implemented";
-    private Inventory inventory = new Inventory();
+    public string name { get; set; }
+    private string description = "";
+    public Inventory inventory { get; set; }
     private Puzzle roomPuzzle;
 
     //Neighboring Rooms
@@ -56,8 +56,11 @@ public class Room
     /// <summary>
     /// Constructor
     /// </summary>
-    public Room() 
-    { 
+    public Room()
+    {
+        name = "Unfinished Room";
+        description = "This room not yet implemented";
+        inventory = new Inventory();
     }
 
 

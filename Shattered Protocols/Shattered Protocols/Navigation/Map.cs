@@ -52,6 +52,7 @@ namespace Shattered_Protocols.Navigation
             //Make sure room is valid
             if (room != null)
             {
+                Console.WriteLine($"Entering new Room: {room.name}");
                 currentRoom = room;
                 room.Enter();
             }

@@ -54,10 +54,10 @@ namespace Shattered_Protocols
         }
 
         /// <summary>
-        /// Drops an item from the inventory.
+        /// Removes (and returns) an item from the inventory.
         /// </summary>
         /// <param name="itemName">The name of the item to drop.</param>
-        /// <returns></returns>
+        /// <returns>The removed item</returns>
         public Item RemoveItem(String itemName)
         {
             Item item = GetItem(itemName);
@@ -71,16 +71,28 @@ namespace Shattered_Protocols
         /// <summary>
         /// Check if a user has an item
         /// </summary>
-        /// <param name="itemName"></param>
-        /// <returns>returns the matching item</returns>
+        /// <param name="itemName">The name of the item to look for</param>
+        /// <returns>Boolean designating whether the item is in inventory</returns>
         public bool HasItem(string itemName)
         {
             return GetItem(itemName) != null;
         }
 
+        /// <summary>
+        /// Get an item reference from inventory (if stored) and return it, without deleting from inventory
+        /// </summary>
+        /// <param name="itemName">The name of the item to get</param>
+        /// <returns>The Item or a Null reference</returns>
         public Item GetItem(string itemName)
         {
-            return inventory.Find(item => item.Name.Equals(itemName));
+            foreach (var item in inventory)
+            {
+                if (item.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return item;
+                }
+            }
+            return null;
         }
 
         /// <summary>

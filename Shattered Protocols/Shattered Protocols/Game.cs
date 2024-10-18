@@ -11,14 +11,13 @@ namespace Shattered_Protocols
     internal class Game
     {
         //List all extraneous words that might be input so keyword can be matched
-        private static readonly string[] SKIP_WORDS = 
+        private static readonly string[] SKIP_WORDS =
             { "show","the", "move", "please", "kindly", "go", "walk", "to", "at", "on", "just" };
-
-        private const string startRoomFile = "Room 1";
 
         private Player player;
         private Room currentRoom;
         private Map map = new Map();
+        public bool gameEnd = false;
 
         /// <summary>
         /// Initialize Game and start logic
@@ -36,10 +35,12 @@ namespace Shattered_Protocols
             //Enter the Starting Room
             currentRoom.Enter();
 
-            //EDIT: setup the input loop and end state
-
-            //Get player input and translate into commands
-            GetPlayerInput();
+            //Loop until Game Ends or is Exited  (gameEnd variable set to false)
+            while (!gameEnd)
+            {
+                //Get player input and translate into commands
+                GetPlayerInput();
+            }
         }
 
         /// <summary>
@@ -48,9 +49,20 @@ namespace Shattered_Protocols
         private void GetPlayerInput()
         {
             //Get player input source console
-            string playerInput = Console.ReadLine();
+            string playerInput = "";
 
-            //Edit: Convert to lower case
+            // Check for empty input
+            while (string.IsNullOrWhiteSpace(playerInput))
+            {
+                playerInput = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(playerInput))
+                {
+                    Console.WriteLine("No command detected. Please enter a valid command.");
+                }
+            }
+
+            //Convert to lower case
             playerInput = playerInput.ToLower();
 
             //Seperate keyword (first word) source input
@@ -63,6 +75,8 @@ namespace Shattered_Protocols
 
         private static void GetKeyword(string input, out string keyword, out string remainder)
         {
+            input = input.Trim();
+
             //repeat if keyword is found in skipWords array
             do
             {
@@ -131,6 +145,10 @@ namespace Shattered_Protocols
                 case "right":
                     ChangeRoom(Direction.East);
                     break;
+                case "exit":
+                    Console.WriteLine("Exiting Game- Thank you for Playing!");
+                    gameEnd = true;
+                    break;
 
                 // Any invalid commands or not yet programmed commands
                 default:
@@ -149,7 +167,7 @@ namespace Shattered_Protocols
         //====================================================================
         //                     Player Command Methods
         //====================================================================
-        
+
         /// <summary>
         /// Handles Movement between rooms
         /// </summary>
@@ -164,7 +182,7 @@ namespace Shattered_Protocols
         /// </summary>
         public void Search()
         {
-            Console.WriteLine(currentRoom.ToString);
+            Console.WriteLine(currentRoom.ToString());
         }
 
         /// <summary>
@@ -172,7 +190,25 @@ namespace Shattered_Protocols
         /// </summary>
         public void Help()
         {
-            //EDIT: Convert Keyword list to be a dictionary with a word and description of the command
+            // Display standard help menu commands
+            Console.WriteLine(@"Help Information:
+                When typing commands, avoid using extraneous words such as ""please"", ""do"" and ""the"".
+
+                    Note: This game is currently in its testing phase. If you are having significant difficulty, please notify the development team with as many specifics as possible.
+                    If unable to show the error directly/in person, take a screenshot using (Win + Shift + S) together.
+
+                Keyword Commands:
+                    Help - Display list of all available commands
+                    North, South, East or West - Attempt to enter a room in the chosen direction.
+                    Up, Down, Left, Right - Attempt to enter a room in the chosen direction.
+                    Inventory - Display all items you are currently carrying in your inventory.
+                    Use [Item] - Attempts to use an item from your inventory or the current room.
+                    Take [Item] - Attempts to take an item from your current room and add it to your inventory.
+                    Drop [Item] - Attempts to drop an item you are carrying into the current room.
+                    Exit - Close the game
+                ");
+
+            //Edit: Display current puzzle information and commands
         }
 
         /// <summary>
