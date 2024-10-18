@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Untitled_Text_RPG.Navigation.Rooms;
 
 namespace Shattered_Protocols.Navigation
 {
@@ -13,19 +14,22 @@ namespace Shattered_Protocols.Navigation
     {
         Room startRoom;
         Room currentRoom;
+        public Room CurrentRoom { get => currentRoom; set => currentRoom = value; }
+
         /// <summary>
         /// Constructor
         /// </summary>
         public Map()
         {
             //set Map current room as the start room
-            startRoom = new Room();
+            //  Rooms currently add neighboring rooms for themselves. Edit: Move that to here
+            startRoom = new Room_Start();
             currentRoom = startRoom;
 
-            //Add all Rooms to Map
-            startRoom.North = new Room(); //etc
-            //Edit with actual rooms when able
+            //Enter the Starting Room
+            currentRoom.Enter();
         }
+
 
         //Moves the current Room to another direction if able
         public void Move(Direction direction)
@@ -52,7 +56,7 @@ namespace Shattered_Protocols.Navigation
             //Make sure room is valid
             if (room != null)
             {
-                Console.WriteLine($"Entering new Room: {room.name}");
+                Console.WriteLine($"Entering new Room: {room.Name}");
                 currentRoom = room;
                 room.Enter();
             }

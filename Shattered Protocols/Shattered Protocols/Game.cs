@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Shattered_Protocols.Navigation;
+using Untitled_Text_RPG.Navigation.Rooms;
 
 namespace Shattered_Protocols
 {
@@ -15,8 +16,7 @@ namespace Shattered_Protocols
             { "show","the", "move", "please", "kindly", "go", "walk", "to", "at", "on", "just" };
 
         private Player player;
-        private Room currentRoom;
-        private Map map = new Map();
+        private Map map;
         public bool gameEnd = false;
 
         /// <summary>
@@ -26,14 +26,13 @@ namespace Shattered_Protocols
         {
             //Initialize
             this.player = new Player();
-            Room startRoom = new Room();
+            Room startRoom = new Room_Start();
 
 
             //Show intro text with story information
-            currentRoom = startRoom;
 
-            //Enter the Starting Room
-            currentRoom.Enter();
+            //Load map
+            map = new Map();
 
             //Loop until Game Ends or is Exited  (gameEnd variable set to false)
             while (!gameEnd)
@@ -152,6 +151,8 @@ namespace Shattered_Protocols
 
                 // Any invalid commands or not yet programmed commands
                 default:
+                    Room currentRoom = map.CurrentRoom;
+
                     if (currentRoom.RoomPuzzle != null)
                     {
                         currentRoom.RoomPuzzle.ReadCommand(command, remainder);
@@ -182,7 +183,7 @@ namespace Shattered_Protocols
         /// </summary>
         public void Search()
         {
-            Console.WriteLine(currentRoom.ToString());
+            Console.WriteLine(map.CurrentRoom.ToString());
         }
 
         /// <summary>
@@ -230,7 +231,7 @@ namespace Shattered_Protocols
         private void Take(string itemName)
         {
             //Attempt to transfer item from room to inventory
-            Inventory.Transfer(itemName, currentRoom.Inventory, player.Inventory);
+            Inventory.Transfer(itemName, map.CurrentRoom.Inventory, player.Inventory);
         }
 
         /// <summary>
@@ -240,7 +241,7 @@ namespace Shattered_Protocols
         private void Drop(string itemName)
         {
             //Attempt to transfer item from Player inventory to Room
-            Inventory.Transfer(itemName, player.Inventory, currentRoom.Inventory);
+            Inventory.Transfer(itemName, player.Inventory, map.CurrentRoom.Inventory);
         }
 
 
@@ -252,7 +253,7 @@ namespace Shattered_Protocols
         {
             //store player and room inventory for readability
             Inventory playerInventory = player.Inventory;
-            Inventory roomInventory = currentRoom.Inventory;
+            Inventory roomInventory = map.CurrentRoom.Inventory;
 
             bool used = false;
             Item item = playerInventory.GetItem(itemName);

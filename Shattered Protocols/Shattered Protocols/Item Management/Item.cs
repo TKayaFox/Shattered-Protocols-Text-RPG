@@ -13,10 +13,10 @@ namespace Shattered_Protocols
         public string Description { get; set; }
 
         // Constructor to initialize an item with a name and description
-        public Item()
+        public Item(string name, string description)
         {
-            Name = "Generic Item";
-            Description = "this is a placeholder";
+            Name = name;
+            Description = description;
         }
 
         public bool Use()

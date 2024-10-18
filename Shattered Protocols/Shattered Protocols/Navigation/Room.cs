@@ -1,9 +1,9 @@
 ﻿using Shattered_Protocols;
-public class Room
+public abstract class Room
 {
-    public string name { get; set; }
-    private string description = "";
-    public Inventory inventory { get; set; }
+    private string name;
+    private Inventory inventory;
+    private string description;
     private Puzzle roomPuzzle;
 
     //Neighboring Rooms
@@ -12,13 +12,17 @@ public class Room
     private Room westRoom = null;
     private Room eastRoom = null;
 
-    // Events
-    public event Action<Room> OnEnter; // Triggered when the room is entered
-    public event Action<Item> OnItemAdded; // Triggered when an item is added
-    public event Action<Item> OnItemRemoved; // Triggered when an item is removed
-    public event Action<Puzzle> OnPuzzleSolved; // Triggered when a puzzle is solved
-
     #region Getters and Setters
+    public string Name
+    {
+        get => name;
+        set => name = value;
+    }
+    public string Description
+    {
+        get => description;
+        set => description = value;
+    }
     public Inventory Inventory
     {
         get => inventory;
@@ -60,19 +64,31 @@ public class Room
     {
         name = "Unfinished Room";
         description = "This room not yet implemented";
+        roomPuzzle = null;
+
+        //Room Items
         inventory = new Inventory();
     }
 
 
     ///Called when first entering a room
     public void Enter()
-    { 
+    {
+        //Load all room neighbors
+        LoadNeighboringRooms();
+
         //Display room name and description using ToString
         Console.WriteLine(ToString());
 
         //Run ShowPuzzle Logic if applicable
         ShowPuzzle();
     }
+
+    /// <summary>
+    /// Attempt to load all neighboring rooms (if not already loaded)
+    ///     Make sure to check first that Room is not already loaded!
+    /// </summary>
+    public abstract void LoadNeighboringRooms();
 
     ///ShowPuzzle Logic if Applicable
     public void ShowPuzzle()
@@ -97,7 +113,11 @@ public class Room
         //Show any items in the room
         if (!inventory.IsEmpty())
         {
-            Console.WriteLine (inventory.ToString());
+            roomData += inventory.ToString() + "\n"; // Append to roomData instead of printing
+        }
+        else
+        {
+            roomData += "\tThe Room has no items you can interact with\n";
         }
 
         //Determine all possible Exits
@@ -120,13 +140,17 @@ public class Room
         }
 
         //Add to strring all possible exits
-        if (exits.Count > 0)
+        if (exits.Count > 1)
         {
-            roomData += $"There are doorways to the {string.Join(", ", exits)}.";
+            roomData += $"\tThere are Doorways to the {string.Join(", ", exits)}.";
+        }
+        else if (exits.Count > 0)
+        {
+            roomData += $"\tThere is a doorway to the {string.Join(", ", exits)}.";
         }
         else
         {
-            roomData += "There are no exits.";
+            roomData += "\tThere are no exits.";
         }
 
         return roomData;

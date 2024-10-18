@@ -8,7 +8,26 @@ namespace Shattered_Protocols
 {
     public class Inventory
     {
+        string name;
         List<Item> inventory = new List<Item>();
+
+        #region Getters and Setters
+        public string Name 
+        { 
+            get => name; 
+            set => name = value; 
+        }
+        #endregion
+
+        /// <summary>
+        /// Constructor overloaded to allow custom inventory naming
+        /// </summary>
+        public Inventory() : this("Room") { }
+        public Inventory(string name)
+        {
+            this.name = name;
+        }
+
 
         /// <summary>
         /// returns true if inventory list is empty
@@ -120,6 +139,7 @@ namespace Shattered_Protocols
                 {
                     destination.Add(item);
                     success = true;
+                    Console.WriteLine($"{itemName} moved to {source.Name}");
                 }
             }
             return success;
