@@ -1,0 +1,15 @@
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\obj\Debug\net8.0\Shattered_Protocols.GeneratedMSBuildEditorConfig.editorconfig
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\obj\Debug\net8.0\Shattered_Protocols.AssemblyInfoInputs.cache
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\obj\Debug\net8.0\Shattered_Protocols.AssemblyInfo.cs
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\obj\Debug\net8.0\Shattered_Protocols.csproj.CoreCompileInputs.cache
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\obj\Debug\net8.0\Shattered_Protocols.sourcelink.json
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\bin\Debug\net8.0\Shattered_Protocols.exe
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\bin\Debug\net8.0\Shattered_Protocols.deps.json
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\bin\Debug\net8.0\Shattered_Protocols.runtimeconfig.json
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\bin\Debug\net8.0\Shattered_Protocols.dll
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\bin\Debug\net8.0\Shattered_Protocols.pdb
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\obj\Debug\net8.0\Shattered_Protocols.dll
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\obj\Debug\net8.0\refint\Shattered_Protocols.dll
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\obj\Debug\net8.0\Shattered_Protocols.pdb
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\obj\Debug\net8.0\Shattered_Protocols.genruntimeconfig.cache
+D:\Files\Documents\__ School\CS 3300- Software Development\PRoject\Untitled-Text-RPG\Shattered Protocols\Shattered Protocols\obj\Debug\net8.0\ref\Shattered_Protocols.dll
