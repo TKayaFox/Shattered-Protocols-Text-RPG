@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Untitled-Text-RPG\\Shattered Protocols\\Shattered Protocols\\Shattered_Protocols.csproj": {}
+    "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Shattered Protocols\\Shattered Protocols\\Shattered Protocols.csproj": {}
   },
   "projects": {
-    "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Untitled-Text-RPG\\Shattered Protocols\\Shattered Protocols\\Shattered_Protocols.csproj": {
+    "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Shattered Protocols\\Shattered Protocols\\Shattered Protocols.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Untitled-Text-RPG\\Shattered Protocols\\Shattered Protocols\\Shattered_Protocols.csproj",
-        "projectName": "Shattered_Protocols",
-        "projectPath": "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Untitled-Text-RPG\\Shattered Protocols\\Shattered Protocols\\Shattered_Protocols.csproj",
+        "projectUniqueName": "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Shattered Protocols\\Shattered Protocols\\Shattered Protocols.csproj",
+        "projectName": "Shattered Protocols",
+        "projectPath": "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Shattered Protocols\\Shattered Protocols\\Shattered Protocols.csproj",
         "packagesPath": "C:\\Users\\Tkaya\\.nuget\\packages\\",
-        "outputPath": "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Untitled-Text-RPG\\Shattered Protocols\\Shattered Protocols\\obj\\",
+        "outputPath": "D:\\Files\\Documents\\__ School\\CS 3300- Software Development\\PRoject\\Shattered Protocols\\Shattered Protocols\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Tkaya\\AppData\\Roaming\\NuGet\\NuGet.Config",

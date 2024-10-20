@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Shattered Protocols")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b75f68c89b1883c621e37647021a5b5f9ad0aad7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Shattered Protocols")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Shattered Protocols")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

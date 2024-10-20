@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Shattered_Protocols
 {
-    public class Puzzle
+    public abstract class Puzzle
     {
         #region Setters and Getters
         public int description
@@ -36,7 +36,6 @@ namespace Shattered_Protocols
         /// </summary>
         public void Start()
         {
-
         }
 
         /// <summary>
