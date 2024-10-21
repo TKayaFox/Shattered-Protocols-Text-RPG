@@ -11,9 +11,9 @@ namespace Shattered_Protocols
 {
     internal class Game
     {
-        //List all extraneous words that might be input so keyword can be matched
+        // List all extraneous words that might be input so keyword can be matched
         private static readonly string[] SKIP_WORDS =
-            { "show","the", "move", "please", "kindly", "go", "walk", "to", "at", "on", "just" };
+            { "show", "the", "move", "please", "kindly", "go", "walk", "to", "at", "on", "just" };
 
         private Player player;
         private Map map;
@@ -24,20 +24,21 @@ namespace Shattered_Protocols
         /// </summary>
         public Game()
         {
-            //Initialize
+            // Initialize
             this.player = new Player();
+            this.map = new Map();
+
+            // Load and set the starting room
             Room startRoom = new Room_Start();
+            map.SetCurrentRoom(startRoom); // Ensure to set the starting room in the map
+            startRoom.Enter();
 
+            // Show intro text with story information
+            Console.WriteLine("Welcome to Shattered Protocols!");
 
-            //Show intro text with story information
-
-            //Load map
-            map = new Map();
-
-            //Loop until Game Ends or is Exited  (gameEnd variable set to false)
+            // Loop until Game Ends or is Exited (gameEnd variable set to false)
             while (!gameEnd)
             {
-                //Get player input and translate into commands
                 GetPlayerInput();
             }
         }
@@ -47,7 +48,7 @@ namespace Shattered_Protocols
         /// </summary>
         private void GetPlayerInput()
         {
-            //Get player input source console
+            // Get player input source console
             string playerInput = "";
 
             // Check for empty input
@@ -61,10 +62,10 @@ namespace Shattered_Protocols
                 }
             }
 
-            //Convert to lower case
+            // Convert to lower case
             playerInput = playerInput.ToLower();
 
-            //Seperate keyword (first word) source input
+            // Separate keyword (first word) source input
             string keyword, remainder;
             GetKeyword(playerInput, out keyword, out remainder);
 
@@ -76,19 +77,19 @@ namespace Shattered_Protocols
         {
             input = input.Trim();
 
-            //repeat if keyword is found in skipWords array
+            // Repeat if keyword is found in skipWords array
             do
             {
                 // Split the input into words
                 string[] parts = input.Split(' ', 2); // Split into at most 2 parts
 
-                // get the keyword (first word)
+                // Get the keyword (first word)
                 keyword = parts[0];
 
-                // get the remainder (if any)
+                // Get the remainder (if any)
                 remainder = parts.Length > 1 ? parts[1] : string.Empty;
 
-                //update input string for next iteration if necessary
+                // Update input string for next iteration if necessary
                 input = remainder;
             } while (SKIP_WORDS.Contains(keyword));
         }
@@ -109,25 +110,25 @@ namespace Shattered_Protocols
                     Help();
                     break;
 
-                //Items
+                // Items
                 case "inventory":
                     ShowInventory();
                     break;
                 case "take":
                 case "grab":
-                    //Get rest of string to determine what item player is attempting to take
+                    // Get rest of string to determine what item player is attempting to take
                     Take(remainder);
                     break;
                 case "drop":
-                    //Get rest of string to determine what item player is attempting to drop
+                    // Get rest of string to determine what item player is attempting to drop
                     Drop(remainder);
                     break;
                 case "use":
-                    //Get rest of string to determine what item player is attempting to use
+                    // Get rest of string to determine what item player is attempting to use
                     Use(remainder);
                     break;
 
-                //Directional inputs
+                // Directional inputs
                 case "north":
                 case "up":
                     ChangeRoom(Direction.North);
@@ -145,7 +146,7 @@ namespace Shattered_Protocols
                     ChangeRoom(Direction.East);
                     break;
                 case "exit":
-                    Console.WriteLine("Exiting Game- Thank you for Playing!");
+                    Console.WriteLine("Exiting Game - Thank you for Playing!");
                     gameEnd = true;
                     break;
 
@@ -208,8 +209,6 @@ namespace Shattered_Protocols
                     Drop [Item] - Attempts to drop an item you are carrying into the current room.
                     Exit - Close the game
                 ");
-
-            //Edit: Display current puzzle information and commands
         }
 
         /// <summary>
@@ -217,33 +216,41 @@ namespace Shattered_Protocols
         /// </summary>
         public void ShowInventory()
         {
-            Console.WriteLine(player.Inventory.ToString());
+            if (player.Inventory.Items.Count == 0)
+            {
+                Console.WriteLine("Your inventory is empty.");
+            }
+            else
+            {
+                Console.WriteLine("Your Inventory:");
+                Console.WriteLine(player.Inventory.ToString());
+            }
         }
 
         //======================== 
         //        Items
         //======================== 
         #region Items
+
         /// <summary>
-        /// Attempt to take an item source the current room and add to player inventory
+        /// Attempt to take an item from the current room and add it to player inventory
         /// </summary>
         /// <param name="itemName"></param>
         private void Take(string itemName)
         {
-            //Attempt to transfer item from room to inventory
+            // Attempt to transfer item from room to inventory
             Inventory.Transfer(itemName, map.CurrentRoom.Inventory, player.Inventory);
         }
 
         /// <summary>
-        /// Attempt to drop an item source player inventory into current room
+        /// Attempt to drop an item from player inventory into current room
         /// </summary>
         /// <param name="itemName"></param>
         private void Drop(string itemName)
         {
-            //Attempt to transfer item from Player inventory to Room
+            // Attempt to transfer item from Player inventory to Room
             Inventory.Transfer(itemName, player.Inventory, map.CurrentRoom.Inventory);
         }
-
 
         /// <summary>
         /// Attempt to use an item by name, first source player inventory then source the current room
@@ -251,27 +258,45 @@ namespace Shattered_Protocols
         /// <param name="itemName"></param>
         private void Use(string itemName)
         {
-            //store player and room inventory for readability
+            // Store player and room inventory for readability
             Inventory playerInventory = player.Inventory;
             Inventory roomInventory = map.CurrentRoom.Inventory;
 
-            bool used = false;
-            Item item = playerInventory.GetItem(itemName);
+            Item item = playerInventory.GetItem(itemName) ?? roomInventory.GetItem(itemName);
 
-            //if item is null then check the room player is in
             if (item == null)
             {
-                item = roomInventory.GetItem(itemName);
-            }
-
-            //if still null, then item not found. otherwise attempt to use it.
-            if (item == null)
-            {
-                Console.WriteLine($"{itemName} Not Found");
+                Console.WriteLine($"{itemName} not found in your inventory or the current room.");
+                ShowAvailableItems(); // Show available items if the item isn't found
             }
             else
             {
                 item.Use();
+            }
+        }
+
+        /// <summary>
+        /// Show available items in player inventory and current room
+        /// </summary>
+        private void ShowAvailableItems()
+        {
+            Console.WriteLine("Available items:");
+            if (player.Inventory.Items.Count > 0)
+            {
+                Console.WriteLine("In your inventory:");
+                foreach (var item in player.Inventory.Items)
+                {
+                    Console.WriteLine($" - {item.Name}");
+                }
+            }
+
+            if (map.CurrentRoom.Inventory.Items.Count > 0)
+            {
+                Console.WriteLine("In the current room:");
+                foreach (var item in map.CurrentRoom.Inventory.Items)
+                {
+                    Console.WriteLine($" - {item.Name}");
+                }
             }
         }
         #endregion
