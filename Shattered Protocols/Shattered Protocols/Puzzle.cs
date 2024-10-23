@@ -9,6 +9,7 @@ namespace Shattered_Protocols
     {
         public string Description { get; set; }
         public string ItemRequired { get; set; } // Consider renaming `item` for clarity.
+        public bool IsSolved { get; private set; } = false;
 
         // Constructor to initialize description and required item
         protected Puzzle(string description, string itemRequired)
@@ -31,28 +32,44 @@ namespace Shattered_Protocols
     // Binary Lock Puzzle (Heart of Operations)
     public class BinaryLockPuzzle : Puzzle
     {
+        private int failedAttempts = 0;
+
         public BinaryLockPuzzle() : base("Solve the binary lock puzzle.", "Binary input") { }
 
         public override void Start()
         {
             Console.WriteLine(Description);
             Console.WriteLine("Enter the binary representation of the number 42:");
-            
-            string input = Console.ReadLine();
 
+            string input = Console.ReadLine();
+            CheckInput(input);
+        }
+
+        private void CheckInput(string input)
+        {
             if (CheckBinaryInput(input, 42))
             {
                 Console.WriteLine("Correct! Puzzle solved.");
+                MarkAsSolved();
             }
             else
             {
+                failedAttempts++;
                 Console.WriteLine("Incorrect, try again.");
+                if (failedAttempts == 2)
+                {
+                    Console.WriteLine("Hint: The number 42 in binary is a 6-digit number.");
+                }
+                else if (failedAttempts == 4)
+                {
+                    Console.WriteLine("Hint: 42 in binary is made of alternating 1s and 0s.");
+                }
             }
         }
 
         public override void ReadCommand(string command, string remainder)
         {
-            // Implement command handling logic if necessary
+            // Handle specific commands, if necessary
         }
 
         private static bool CheckBinaryInput(string userInput, int correctNumber)
@@ -63,63 +80,62 @@ namespace Shattered_Protocols
     }
 
     // Network Simulation Puzzle (Server Room)
-    public class NetworkSimulationPuzzle : Puzzle
+    public class CodeInjectionPuzzle : Puzzle
     {
-        public NetworkSimulationPuzzle() : base("Simulate the network using Dijkstra's algorithm.", "Network input") { }
+        private int attempts;
 
+        // Constructor with a description and itemRequired
+        public CodeInjectionPuzzle() : base("Bypass the firewall using a terminal command.", "Terminal command") 
+        {
+            attempts = 0; // Track the number of attempts
+        }
+
+        // Override Start to begin the puzzle
         public override void Start()
         {
-            // Example: you would want to provide logic for the user to interact with the network simulation
             Console.WriteLine(Description);
-            // Simulate network operations...
+            Console.WriteLine("Enter the correct terminal command to bypass the firewall:");
         }
 
+        // Read user input and compare it with the expected command
         public override void ReadCommand(string command, string remainder)
         {
-            // Handle specific commands related to the network puzzle
-        }
-        
-        public static int[] DijkstrasAlgorithm(int[,] graph, int source)
-        {
-            int verticesCount = graph.GetLength(0);
-            int[] distance = new int[verticesCount];
-            bool[] shortestPathTreeSet = new bool[verticesCount];
+            attempts++; // Increment attempts on every input
 
-            for (int i = 0; i < verticesCount; i++)
+            // Simulated "correct" terminal command (this can be more complex based on the story)
+            string correctCommand = "sudo firewall-bypass";
+
+            // Check if user input matches the correct command
+            if (command + " " + remainder == correctCommand)
             {
-                distance[i] = int.MaxValue;
-                shortestPathTreeSet[i] = false;
+                Console.WriteLine("Firewall bypassed! Puzzle solved.");
+                IsSolved = true; // Set the puzzle as solved
             }
-
-            distance[source] = 0;
-
-            for (int count = 0; count < verticesCount - 1; count++)
+            else
             {
-                int u = MinDistance(distance, shortestPathTreeSet, verticesCount);
-                shortestPathTreeSet[u] = true;
-
-                for (int v = 0; v < verticesCount; v++)
-                    if (!shortestPathTreeSet[v] && Convert.ToBoolean(graph[u, v]) && distance[u] != int.MaxValue && distance[u] + graph[u, v] < distance[v])
-                        distance[v] = distance[u] + graph[u, v];
+                Console.WriteLine("Incorrect command.");
+                GiveHint(); // Provide hints based on attempts
             }
-
-            return distance;
         }
 
-        private static int MinDistance(int[] distance, bool[] shortestPathTreeSet, int verticesCount)
+        // Provide a hint depending on the number of failed attempts
+        private void GiveHint()
         {
-            int min = int.MaxValue, minIndex = -1;
-
-            for (int v = 0; v < verticesCount; v++)
-                if (!shortestPathTreeSet[v] && distance[v] <= min)
-                {
-                    min = distance[v];
-                    minIndex = v;
-                }
-
-            return minIndex;
+            if (attempts == 2)
+            {
+                Console.WriteLine("Hint: The command requires elevated privileges.");
+            }
+            else if (attempts == 4)
+            {
+                Console.WriteLine("Hint: Try using the 'sudo' command.");
+            }
+            else if (attempts >= 6)
+            {
+                Console.WriteLine("You’ve tried multiple times. Think about how you would gain root access.");
+            }
         }
     }
+}
 
     // Regex-Based Decryption (Development Labs)
     public class RegexPuzzle : Puzzle
