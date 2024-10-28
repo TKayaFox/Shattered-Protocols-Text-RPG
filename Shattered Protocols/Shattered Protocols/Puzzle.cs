@@ -8,8 +8,8 @@ namespace Shattered_Protocols
     public abstract class Puzzle
     {
         public string Description { get; set; }
-        public string ItemRequired { get; set; } // Consider renaming `item` for clarity.
-        public bool IsSolved { get; private set; } = false;
+        public string ItemRequired { get; set; } // Consider renaming `ItemRequired` for clarity if needed.
+        public bool IsSolved { get; protected set; } = false;
 
         // Constructor to initialize description and required item
         protected Puzzle(string description, string itemRequired)
@@ -21,7 +21,7 @@ namespace Shattered_Protocols
         /// <summary>
         /// Starts the puzzle logic.
         /// </summary>
-        public abstract void Start(); // Abstract method
+        public abstract void Start();
 
         /// <summary>
         /// Reads player input and determines how best to handle it.
@@ -40,9 +40,6 @@ namespace Shattered_Protocols
         {
             Console.WriteLine(Description);
             Console.WriteLine("Enter the binary representation of the number 42:");
-
-            string input = Console.ReadLine();
-            CheckInput(input);
         }
 
         private void CheckInput(string input)
@@ -50,7 +47,7 @@ namespace Shattered_Protocols
             if (CheckBinaryInput(input, 42))
             {
                 Console.WriteLine("Correct! Puzzle solved.");
-                MarkAsSolved();
+                IsSolved = true;
             }
             else
             {
@@ -69,7 +66,7 @@ namespace Shattered_Protocols
 
         public override void ReadCommand(string command, string remainder)
         {
-            // Handle specific commands, if necessary
+            CheckInput(remainder);
         }
 
         private static bool CheckBinaryInput(string userInput, int correctNumber)
@@ -79,46 +76,36 @@ namespace Shattered_Protocols
         }
     }
 
-    // Network Simulation Puzzle (Server Room)
+    // Code Injection Puzzle (Server Room)
     public class CodeInjectionPuzzle : Puzzle
     {
-        private int attempts;
+        private int attempts = 0;
 
-        // Constructor with a description and itemRequired
-        public CodeInjectionPuzzle() : base("Bypass the firewall using a terminal command.", "Terminal command") 
-        {
-            attempts = 0; // Track the number of attempts
-        }
+        public CodeInjectionPuzzle() : base("Bypass the firewall using a terminal command.", "Terminal command") { }
 
-        // Override Start to begin the puzzle
         public override void Start()
         {
             Console.WriteLine(Description);
             Console.WriteLine("Enter the correct terminal command to bypass the firewall:");
         }
 
-        // Read user input and compare it with the expected command
         public override void ReadCommand(string command, string remainder)
         {
-            attempts++; // Increment attempts on every input
-
-            // Simulated "correct" terminal command (this can be more complex based on the story)
+            attempts++;
             string correctCommand = "sudo firewall-bypass";
 
-            // Check if user input matches the correct command
             if (command + " " + remainder == correctCommand)
             {
                 Console.WriteLine("Firewall bypassed! Puzzle solved.");
-                IsSolved = true; // Set the puzzle as solved
+                IsSolved = true;
             }
             else
             {
                 Console.WriteLine("Incorrect command.");
-                GiveHint(); // Provide hints based on attempts
+                GiveHint();
             }
         }
 
-        // Provide a hint depending on the number of failed attempts
         private void GiveHint()
         {
             if (attempts == 2)
@@ -135,221 +122,166 @@ namespace Shattered_Protocols
             }
         }
     }
-}
 
-    // Regex-Based Decryption (Development Labs)
-    public class RegexPuzzle : Puzzle
+    // Password Cracker Puzzle
+    public class PasswordCrackerPuzzle : Puzzle
     {
-        public RegexPuzzle() : base("Decrypt data using regex patterns.", "Regex pattern") { }
+        private string hashedPassword = "5e88489da4b7..."; // SHA256 of "password123"
+        private int attemptCount = 0;
+
+        public PasswordCrackerPuzzle() : base("Crack the system password.", "Password attempt") { }
 
         public override void Start()
         {
-            // Logic for filtering data with regex
             Console.WriteLine(Description);
+            Console.WriteLine("Hint: The password is commonly used and matches the SHA256 hash.");
         }
 
         public override void ReadCommand(string command, string remainder)
         {
-            // Handle regex commands
+            if (attemptCount >= 3)
+            {
+                Console.WriteLine("Hint: Try a common password.");
+            }
+
+            if (CheckPassword(remainder))
+            {
+                Console.WriteLine("Access granted! Puzzle solved.");
+                IsSolved = true;
+            }
+            else
+            {
+                attemptCount++;
+                Console.WriteLine("Access denied. Try again.");
+            }
         }
 
-        public static List<string> FilterDataWithRegex(string pattern, string[] data)
+        private bool CheckPassword(string input)
         {
-            List<string> matchedData = new List<string>();
-            foreach (var item in data)
+            return GetSHA256Hash(input) == hashedPassword;
+        }
+
+        private string GetSHA256Hash(string input)
+        {
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
             {
-                if (System.Text.RegularExpressions.Regex.IsMatch(item, pattern))
-                {
-                    matchedData.Add(item);
-                }
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
+                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
             }
-            return matchedData;
         }
     }
 
-    // Hash Collision Puzzle (Testing Lab)
-    public class HashCollisionPuzzle : Puzzle
+    // SQL Injection Puzzle
+    public class SQLInjectionPuzzle : Puzzle
     {
-        public HashCollisionPuzzle() : base("Find hash collisions.", "Hash input") { }
+        private int attemptCount = 0;
+
+        public SQLInjectionPuzzle() : base("Bypass the SQL login check.", "SQL input") { }
 
         public override void Start()
         {
-            // Logic for checking hash collisions
             Console.WriteLine(Description);
+            Console.WriteLine("Enter SQL statement to access restricted information:");
         }
 
         public override void ReadCommand(string command, string remainder)
         {
-            // Handle hash-related commands
-        }
-
-        public static string GetSHA256Hash(string input)
-        {
-            using (System.Security.Cryptography.SHA256 sha256 = System.Security.Cryptography.SHA256.Create())
+            if (remainder.Contains("1'='1") || remainder.Contains("' OR '1'='1"))
             {
-                byte[] bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(input));
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
+                Console.WriteLine("Access granted! Puzzle solved.");
+                IsSolved = true;
             }
-        }
-
-        public static bool CheckHashCollision(string input1, string input2)
-        {
-            return GetSHA256Hash(input1) == GetSHA256Hash(input2);
+            else
+            {
+                attemptCount++;
+                Console.WriteLine("Access denied. Try again.");
+                if (attemptCount >= 2)
+                {
+                    Console.WriteLine("Hint: SQL injections are often used to force conditions to be true.");
+                }
+            }
         }
     }
 
-    // Algorithm Optimization Challenge (Meeting Room)
-    public class AlgorithmOptimizationPuzzle : Puzzle
+    // Reverse String Puzzle
+    public class ReverseStringPuzzle : Puzzle
     {
-        public AlgorithmOptimizationPuzzle() : base("Optimize the algorithm using QuickSort.", "Sorting data") { }
+        private string encryptedMessage = "edoc terces";
+
+        public ReverseStringPuzzle() : base("Decrypt the reversed message.", "Decryption input") { }
 
         public override void Start()
         {
-            // Logic for sorting data
             Console.WriteLine(Description);
+            Console.WriteLine($"Encrypted Message: {encryptedMessage}");
+            Console.WriteLine("Enter the correct decryption:");
         }
 
         public override void ReadCommand(string command, string remainder)
         {
-            // Handle sorting-related commands
-        }
-
-        public static int[] QuickSort(int[] data)
-        {
-            QuickSort(data, 0, data.Length - 1);
-            return data;
-        }
-
-        private static void QuickSort(int[] data, int left, int right)
-        {
-            if (left < right)
+            if (remainder == ReverseString(encryptedMessage))
             {
-                int pivot = Partition(data, left, right);
-                QuickSort(data, left, pivot - 1);
-                QuickSort(data, pivot + 1, right);
+                Console.WriteLine("Correct! Puzzle solved.");
+                IsSolved = true;
+            }
+            else
+            {
+                Console.WriteLine("Incorrect. Try again.");
             }
         }
 
-        private static int Partition(int[] data, int left, int right)
+        private string ReverseString(string input)
         {
-            int pivot = data[right];
-            int low = left - 1;
-
-            for (int j = left; j < right; j++)
-            {
-                if (data[j] <= pivot)
-                {
-                    low++;
-                    int temp = data[low];
-                    data[low] = data[j];
-                    data[j] = temp;
-                }
-            }
-
-            int temp1 = data[low + 1];
-            data[low + 1] = data[right];
-            data[right] = temp1;
-
-            return low + 1;
+            char[] charArray = input.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
         }
     }
 
-    // Turing Test (Testing Lab)
-    public class TuringTestPuzzle : Puzzle
+    // Caesar Cipher Puzzle
+    public class CaesarCipherPuzzle : Puzzle
     {
-        public TuringTestPuzzle() : base("Determine if the AI is sentient.", "User input") { }
+        private string encryptedMessage = "Khoor Zruog"; // "Hello World" shifted by 3
+        private int shiftAmount = 3;
+
+        public CaesarCipherPuzzle() : base("Decrypt the Caesar ciphered message.", "Decryption input") { }
 
         public override void Start()
         {
             Console.WriteLine(Description);
-            // Logic for Turing Test
+            Console.WriteLine($"Encrypted Message: {encryptedMessage}");
+            Console.WriteLine("Enter the correct decryption:");
         }
 
         public override void ReadCommand(string command, string remainder)
         {
-            // Handle Turing Test commands
-        }
-
-        public static string GetAIResponse(string userInput)
-        {
-            if (userInput.ToLower().Contains("logic"))
+            if (remainder == DecryptCaesar(encryptedMessage, shiftAmount))
             {
-                return "I am a logical being.";
+                Console.WriteLine("Correct! Puzzle solved.");
+                IsSolved = true;
             }
-            else if (userInput.ToLower().Contains("human"))
+            else
             {
-                return "What is it to be human?";
+                Console.WriteLine("Incorrect. Try again.");
             }
-            return "I cannot compute.";
         }
 
-        public static bool IsSentient(string response)
+        private string DecryptCaesar(string input, int shift)
         {
-            return response.Contains("human") || response.Contains("being");
-        }
-    }
-
-    // Memory Management Puzzle (Break Room)
-    public class MemoryManagementPuzzle : Puzzle
-    {
-        public MemoryManagementPuzzle() : base("Manage memory allocation.", "Memory input") { }
-
-        public override void Start()
-        {
-            // Logic for memory management
-            Console.WriteLine(Description);
-        }
-
-        public override void ReadCommand(string command, string remainder)
-        {
-            // Handle memory management commands
-        }
-
-        public static bool FreeMemory(string[] allocatedMemory, string memoryToFree)
-        {
-            for (int i = 0; i < allocatedMemory.Length; i++)
+            StringBuilder decrypted = new StringBuilder();
+            foreach (char c in input)
             {
-                if (allocatedMemory[i] == memoryToFree)
+                if (char.IsLetter(c))
                 {
-                    allocatedMemory[i] = null;
-                    return true;
+                    char d = char.IsUpper(c) ? 'A' : 'a';
+                    decrypted.Append((char)((((c - d - shift) + 26) % 26) + d));
+                }
+                else
+                {
+                    decrypted.Append(c);
                 }
             }
-            return false;
-        }
-    }
-
-    // Encryption Key in Source Code (Front Desks)
-    public class SourceCodePuzzle : Puzzle
-    {
-        public SourceCodePuzzle() : base("Extract the encryption key from the source code.", "Source code") { }
-
-        public override void Start()
-        {
-            // Logic for extracting the key
-            Console.WriteLine(Description);
-        }
-
-        public override void ReadCommand(string command, string remainder)
-        {
-            // Handle extraction commands
-        }
-
-        public static string ExtractKeyFromSourceCode(string[] sourceCode)
-        {
-            foreach (string line in sourceCode)
-            {
-                if (line.Contains("encryption_key"))
-                {
-                    return line.Split('=')[1].Trim(); // Simple extraction logic
-                }
-            }
-            return null; // Key not found
+            return decrypted.ToString();
         }
     }
 }
