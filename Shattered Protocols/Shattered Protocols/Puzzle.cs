@@ -66,7 +66,8 @@ namespace Shattered_Protocols
 
         public override void ReadCommand(string command, string remainder)
         {
-            CheckInput(remainder);
+            string newInput = command + remainder;
+            CheckInput(newInput);
         }
 
         private static bool CheckBinaryInput(string userInput, int correctNumber)

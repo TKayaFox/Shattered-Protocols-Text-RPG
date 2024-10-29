@@ -1,6 +1,7 @@
 
 Shattered Protocols/.vs/
 /Shattered Protocols/Shattered Protocols/obj
+**/obj/
 /Shattered Protocols/Shattered Protocols/obj/Debug/net8.0
 Shattered Protocols/Shattered Protocols/obj/Debug/net8.0/Shattered Protocols.AssemblyInfo.cs
 /Shattered Protocols/Shattered Protocols/obj/Debug
