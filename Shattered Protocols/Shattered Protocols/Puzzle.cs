@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -66,8 +66,7 @@ namespace Shattered_Protocols
 
         public override void ReadCommand(string command, string remainder)
         {
-            string newInput = command + remainder;
-            CheckInput(newInput);
+            CheckInput(remainder);
         }
 
         private static bool CheckBinaryInput(string userInput, int correctNumber)
