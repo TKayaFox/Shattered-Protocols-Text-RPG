@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Text;
+using Shattered_Protocols.Puzzles;
 
 // Caesar Cipher Puzzle
-public class CaesarCipherPuzzle : Puzzle
+public class PuzzleCaesarCypher : Puzzle
 {
     private string encryptedMessage = "Khoor Zruog"; // "Hello World" shifted by 3
     private int shiftAmount = 3;
 
-    public CaesarCipherPuzzle() : base("Decrypt the Caesar ciphered message.", "Decryption input") { }
+    public PuzzleCaesarCypher() : base("Decrypt the Caesar ciphered message.", "Decryption input") { }
 
     public override void Start()
     {

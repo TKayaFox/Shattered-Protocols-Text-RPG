@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Shattered_Protocols
+namespace Shattered_Protocols.Puzzles
 {
     public abstract class Puzzle
     {
@@ -274,7 +274,7 @@ namespace Shattered_Protocols
                 if (char.IsLetter(c))
                 {
                     char d = char.IsUpper(c) ? 'A' : 'a';
-                    decrypted.Append((char)((((c - d - shift) + 26) % 26) + d));
+                    decrypted.Append((char)((c - d - shift + 26) % 26 + d));
                 }
                 else
                 {
