@@ -64,7 +64,7 @@ public abstract class Room
     {
         name = "Unfinished Room";
         description = "This room not yet implemented";
-        roomPuzzle = null;
+        roomPuzzle = class PuzzleBinaryLock;
 
         //Room Items
         inventory = new Inventory();
