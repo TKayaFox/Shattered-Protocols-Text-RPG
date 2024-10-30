@@ -1,11 +1,12 @@
 ﻿using System;
+using Shattered_Protocols.Puzzles;
 
 // Code Injection Puzzle (Server Room)
-public class CodeInjectionPuzzle : Puzzle
+public class PuzzleCodeInjection : Puzzle
 {
     private int attempts = 0;
 
-    public CodeInjectionPuzzle() : base("Bypass the firewall using a terminal command.", "Terminal command") { }
+    public PuzzleCodeInjection() : base("Bypass the firewall using a terminal command.", "Terminal command") { }
 
     public override void Start()
     {

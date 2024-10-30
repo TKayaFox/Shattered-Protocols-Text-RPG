@@ -1,10 +1,11 @@
 ﻿using System;
+using Shattered_Protocols.Puzzles;
 
-public class BinaryLockPuzzle : Puzzle
+public class PuzzleBinaryLock : Puzzle
 {
     private int failedAttempts = 0;
 
-    public BinaryLockPuzzle() : base("Solve the binary lock puzzle.", "Binary input") { }
+    public PuzzleBinaryLock() : base("Solve the binary lock puzzle.", "Binary input") { }
 
     public override void Start()
     {

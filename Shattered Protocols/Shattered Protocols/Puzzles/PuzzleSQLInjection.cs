@@ -1,11 +1,12 @@
 ﻿using System;
+using Shattered_Protocols.Puzzles;
 
 // SQL Injection Puzzle
-public class SQLInjectionPuzzle : Puzzle
+public class PuzzleSQLInjection : Puzzle
 {
     private int attemptCount = 0;
 
-    public SQLInjectionPuzzle() : base("Bypass the SQL login check.", "SQL input") { }
+    public PuzzleSQLInjection() : base("Bypass the SQL login check.", "SQL input") { }
 
     public override void Start()
     {

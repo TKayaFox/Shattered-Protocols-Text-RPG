@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Untitled_Text_RPG.Navigation.Rooms
+namespace Shattered_Protocols.Navigation
 {
     internal class Room_Testing : Room
     {

@@ -1,4 +1,6 @@
 ﻿using Shattered_Protocols;
+using Shattered_Protocols.Puzzles;
+using Shattered_Protocols.Navigation;
 public abstract class Room
 {
     private string name;
@@ -64,7 +66,7 @@ public abstract class Room
     {
         name = "Unfinished Room";
         description = "This room not yet implemented";
-        roomPuzzle = class PuzzleBinaryLock;
+        roomPuzzle = null;
 
         //Room Items
         inventory = new Inventory();

@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
+using Shattered_Protocols.Puzzles;
 
 // Password Cracker Puzzle
-public class PasswordCrackerPuzzle : Puzzle
+public class PuzzlePasswordCrracker : Puzzle
 {
     private string hashedPassword = "5e88489da4b7..."; // SHA256 of "password123"
     private int attemptCount = 0;
 
-    public PasswordCrackerPuzzle() : base("Crack the system password.", "Password attempt") { }
+    public PuzzlePasswordCrracker() : base("Crack the system password.", "Password attempt") { }
 
     public override void Start()
     {
