@@ -13,7 +13,7 @@ namespace Untitled_Text_RPG.Navigation.Rooms
         {
             Name = "Meeting Room";
             Description = "Here ideas were challenged, brains were stormed, and presentations were slept through. There is one big table in the middle with many chairs surrounding it.";
-            RoomPuzzle = null;
+            RoomPuzzle = new PuzzleCaesarCypher();
 
             //Room Items
             Inventory = new Inventory();

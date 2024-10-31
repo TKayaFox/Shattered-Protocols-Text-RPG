@@ -15,7 +15,7 @@ namespace Untitled_Text_RPG.Navigation.Rooms
         {
             this.Name = "Front Lobby";
             this.Description = "Welcome to the front Lobby. There are empty desks where receptionists would welcome guests. Each desk holds a computer and accompanying phone. Calling for help would be pointless here, you are on your own... Also the phones probably dont event work anymore.";
-            this.RoomPuzzle = null;
+            this.RoomPuzzle = new PuzzleReverseString();
 
             //Room Items
             this.Inventory = new Inventory();

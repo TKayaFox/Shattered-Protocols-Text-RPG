@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 namespace Shattered_Protocols
 {
     public abstract class Puzzle
@@ -30,11 +31,11 @@ namespace Shattered_Protocols
     }
 
     // Binary Lock Puzzle (Heart of Operations)
-    public class BinaryLockPuzzle : Puzzle
+    public class PuzzleBinaryLock : Puzzle
     {
         private int failedAttempts = 0;
 
-        public BinaryLockPuzzle() : base("Solve the binary lock puzzle.", "Binary input") { }
+        public PuzzleBinaryLock() : base("Solve the binary lock puzzle.", "Binary input") { }
 
         public override void Start()
         {
@@ -77,11 +78,11 @@ namespace Shattered_Protocols
     }
 
     // Code Injection Puzzle (Server Room)
-    public class CodeInjectionPuzzle : Puzzle
+    public class PuzzleCodeInjection : Puzzle
     {
         private int attempts = 0;
 
-        public CodeInjectionPuzzle() : base("Bypass the firewall using a terminal command.", "Terminal command") { }
+        public PuzzleCodeInjection() : base("Bypass the firewall using a terminal command.", "Terminal command") { }
 
         public override void Start()
         {
@@ -172,11 +173,11 @@ namespace Shattered_Protocols
     }
 
     // SQL Injection Puzzle
-    public class SQLInjectionPuzzle : Puzzle
+    public class PuzzleSQLInjection : Puzzle
     {
         private int attemptCount = 0;
 
-        public SQLInjectionPuzzle() : base("Bypass the SQL login check.", "SQL input") { }
+        public PuzzleSQLInjection() : base("Bypass the SQL login check.", "SQL input") { }
 
         public override void Start()
         {
@@ -239,12 +240,12 @@ namespace Shattered_Protocols
     }
 
     // Caesar Cipher Puzzle
-    public class CaesarCipherPuzzle : Puzzle
+    public class PuzzleCaesarCypher : Puzzle
     {
         private string encryptedMessage = "Khoor Zruog"; // "Hello World" shifted by 3
         private int shiftAmount = 3;
 
-        public CaesarCipherPuzzle() : base("Decrypt the Caesar ciphered message.", "Decryption input") { }
+        public PuzzleCaesarCypher() : base("Decrypt the Caesar ciphered message.", "Decryption input") { }
 
         public override void Start()
         {
