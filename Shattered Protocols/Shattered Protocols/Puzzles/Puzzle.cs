@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 
 namespace Shattered_Protocols.Puzzles
-namespace Shattered_Protocols
 {
     public abstract class Puzzle
     {

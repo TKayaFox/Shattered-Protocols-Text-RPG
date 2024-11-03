@@ -1,7 +1,6 @@
 ﻿using System;
-using Shattered_Protocols.Puzzles;
 
-namespace Shattered_Protocols
+namespace Shattered_Protocols.Puzzles
 {
     // Reverse String Puzzle
     public class PuzzleRevserString : Puzzle

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Shattered_Protocols
+namespace Shattered_Protocols.Puzzles
 {
     public class PuzzleBinaryLock : Puzzle
     {

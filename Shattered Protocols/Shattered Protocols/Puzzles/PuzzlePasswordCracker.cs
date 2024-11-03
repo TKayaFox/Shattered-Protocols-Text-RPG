@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace Shattered_Protocols
+namespace Shattered_Protocols.Puzzles
 {
     public class PuzzlePasswordCracker : Puzzle
     {

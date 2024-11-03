@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Shattered_Protocols
+namespace Shattered_Protocols.Puzzles
 {
     // Code Injection Puzzle (Server Room)
     public class PuzzleCodeInjection : Puzzle

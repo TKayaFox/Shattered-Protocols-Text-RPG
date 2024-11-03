@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shattered_Protocols.Puzzles;
 
 namespace Shattered_Protocols.Navigation
 {
@@ -11,8 +12,8 @@ namespace Shattered_Protocols.Navigation
     {
         public Room_Development()
         {
-            Name = "Meeting Room";
-            Description = "Here ideas were challenged, brains were stormed, and presentations were slept through. There is one big table in the middle with many chairs surrounding it.";
+            Name = "Development Room";
+            Description = "temp description";
             RoomPuzzle = new PuzzleSQLInjection();
 
             //Room Items

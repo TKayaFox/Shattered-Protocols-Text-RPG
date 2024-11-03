@@ -5,6 +5,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shattered_Protocols.Puzzles;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Shattered_Protocols.Navigation
@@ -15,7 +16,7 @@ namespace Shattered_Protocols.Navigation
         {
             this.Name = "Front Lobby";
             this.Description = "Welcome to the front Lobby. There are empty desks where receptionists would welcome guests. Each desk holds a computer and accompanying phone. Calling for help would be pointless here, you are on your own... Also the phones probably dont event work anymore.";
-            this.RoomPuzzle = new PuzzleReverseString();
+            this.RoomPuzzle = null;
 
             //Room Items
             Inventory = new Inventory();
