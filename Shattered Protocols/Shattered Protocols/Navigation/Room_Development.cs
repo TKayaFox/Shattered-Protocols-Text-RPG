@@ -1,4 +1,4 @@
-﻿using Shattered_Protocols;
+using Shattered_Protocols;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace Shattered_Protocols.Navigation
         {
             Name = "Meeting Room";
             Description = "Here ideas were challenged, brains were stormed, and presentations were slept through. There is one big table in the middle with many chairs surrounding it.";
-            RoomPuzzle = null;
+            RoomPuzzle = new PuzzleSQLInjection();
 
             //Room Items
             Inventory = new Inventory();

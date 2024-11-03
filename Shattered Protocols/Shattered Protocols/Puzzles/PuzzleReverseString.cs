@@ -1,14 +1,16 @@
 ﻿using System;
-using Shattered_Protocols.Puzzles;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Shattered_Protocols
 {
     // Reverse String Puzzle
-    public class PuzzleRevserString : Puzzle
+    public class PuzzleReverseString : Puzzle
     {
         private string encryptedMessage = "edoc terces";
 
-        public PuzzleRevserString() : base("Decrypt the reversed message.", "Decryption input") { }
+        public PuzzleReverseString() : base("Decrypt the reversed message.", "Decryption input") { }
 
         public override void Start()
         {

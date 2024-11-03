@@ -1,29 +1,44 @@
-﻿using System;
-using Shattered_Protocols.Puzzles;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-public class PuzzleBinaryLock : Puzzle
+namespace Shattered_Protocols
 {
-    private int failedAttempts = 0;
-
-    public PuzzleBinaryLock() : base("Solve the binary lock puzzle.", "Binary input") { }
-
-    public override void Start()
+    public class PuzzleBinaryLock : Puzzle
     {
-        Console.WriteLine(Description);
-        Console.WriteLine("Enter the binary representation of the number 42:");
-    }
+        private int failedAttempts = 0;
 
-    private void CheckInput(string input)
-    {
-        if (CheckBinaryInput(input, 42))
+        public PuzzleBinaryLock() : base("Solve the binary lock puzzle.", "Binary input") { }
+
+        public override void Start()
         {
-            Console.WriteLine("Correct! Puzzle solved.");
-            IsSolved = true;
+            Console.WriteLine(Description);
+            Console.WriteLine("Enter the binary representation of the number 42:");
         }
-        else
+
+        private void CheckInput(string input)
         {
-            failedAttempts++;
-            Console.WriteLine("Incorrect, try again.");
+            if (CheckBinaryInput(input, 42))
+            {
+                Console.WriteLine("Correct! Puzzle solved.");
+                IsSolved = true;
+            }
+            else
+            {
+                failedAttempts++;
+                Console.WriteLine("Incorrect, try again.");
+                ProvideHint();
+            }
+        }
+
+        public override void ReadCommand(string command, string remainder)
+        {
+            CheckInput(remainder);
+        }
+
+        private void ProvideHint()
+        {
             if (failedAttempts == 2)
             {
                 Console.WriteLine("Hint: The number 42 in binary is a 6-digit number.");
@@ -33,16 +48,11 @@ public class PuzzleBinaryLock : Puzzle
                 Console.WriteLine("Hint: 42 in binary is made of alternating 1s and 0s.");
             }
         }
-    }
 
-    public override void ReadCommand(string command, string remainder)
-    {
-        CheckInput(remainder);
-    }
-
-    private static bool CheckBinaryInput(string userInput, int correctNumber)
-    {
-        string correctBinary = Convert.ToString(correctNumber, 2);
-        return userInput == correctBinary;
+        private static bool CheckBinaryInput(string userInput, int correctNumber)
+        {
+            string correctBinary = Convert.ToString(correctNumber, 2);
+            return userInput == correctBinary;
+        }
     }
 }

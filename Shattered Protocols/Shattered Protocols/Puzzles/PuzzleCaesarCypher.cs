@@ -1,50 +1,55 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Shattered_Protocols.Puzzles;
 
-// Caesar Cipher Puzzle
-public class PuzzleCaesarCypher : Puzzle
+namespace Shattered_Protocols
 {
-    private string encryptedMessage = "Khoor Zruog"; // "Hello World" shifted by 3
-    private int shiftAmount = 3;
-
-    public PuzzleCaesarCypher() : base("Decrypt the Caesar ciphered message.", "Decryption input") { }
-
-    public override void Start()
+    // Caesar Cipher Puzzle
+    public class PuzzleCaesarCypher : Puzzle
     {
-        Console.WriteLine(Description);
-        Console.WriteLine($"Encrypted Message: {encryptedMessage}");
-        Console.WriteLine("Enter the correct decryption:");
-    }
+        private string encryptedMessage = "Khoor Zruog"; // "Hello World" shifted by 3
+        private int shiftAmount = 3;
 
-    public override void ReadCommand(string command, string remainder)
-    {
-        if (remainder == DecryptCaesar(encryptedMessage, shiftAmount))
+        public PuzzleCaesarCypher() : base("Decrypt the Caesar ciphered message.", "Decryption input") { }
+
+        public override void Start()
         {
-            Console.WriteLine("Correct! Puzzle solved.");
-            IsSolved = true;
+            Console.WriteLine(Description);
+            Console.WriteLine($"Encrypted Message: {encryptedMessage}");
+            Console.WriteLine("Enter the correct decryption:");
         }
-        else
-        {
-            Console.WriteLine("Incorrect. Try again.");
-        }
-    }
 
-    private string DecryptCaesar(string input, int shift)
-    {
-        StringBuilder decrypted = new StringBuilder();
-        foreach (char c in input)
+        public override void ReadCommand(string command, string remainder)
         {
-            if (char.IsLetter(c))
+            if (remainder == DecryptCaesar(encryptedMessage, shiftAmount))
             {
-                char d = char.IsUpper(c) ? 'A' : 'a';
-                decrypted.Append((char)((((c - d - shift) + 26) % 26) + d));
+                Console.WriteLine("Correct! Puzzle solved.");
+                IsSolved = true;
             }
             else
             {
-                decrypted.Append(c);
+                Console.WriteLine("Incorrect. Try again.");
             }
         }
-        return decrypted.ToString();
+
+        private string DecryptCaesar(string input, int shift)
+        {
+            StringBuilder decrypted = new StringBuilder();
+            foreach (char c in input)
+            {
+                if (char.IsLetter(c))
+                {
+                    char d = char.IsUpper(c) ? 'A' : 'a';
+                    decrypted.Append((char)((((c - d - shift) + 26) % 26) + d));
+                }
+                else
+                {
+                    decrypted.Append(c);
+                }
+            }
+            return decrypted.ToString();
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Shattered_Protocols;
+using Shattered_Protocols;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -13,9 +13,9 @@ namespace Shattered_Protocols.Navigation
     {
         public Room_Start()
         {
-            Name = "Front Lobby";
-            Description = "Welcome to the front Lobby. There are empty desks where receptionists would welcome guests. Each desk holds a computer and accompanying phone. Calling for help would be pointless here, you are on your own... Also the phones probably dont event work anymore.";
-            RoomPuzzle = null;
+            this.Name = "Front Lobby";
+            this.Description = "Welcome to the front Lobby. There are empty desks where receptionists would welcome guests. Each desk holds a computer and accompanying phone. Calling for help would be pointless here, you are on your own... Also the phones probably dont event work anymore.";
+            this.RoomPuzzle = new PuzzleReverseString();
 
             //Room Items
             Inventory = new Inventory();
