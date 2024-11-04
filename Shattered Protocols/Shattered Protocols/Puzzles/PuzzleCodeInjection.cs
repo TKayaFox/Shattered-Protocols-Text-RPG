@@ -1,49 +1,54 @@
-﻿using System;
-using Shattered_Protocols.Puzzles;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-// Code Injection Puzzle (Server Room)
-public class PuzzleCodeInjection : Puzzle
+namespace Shattered_Protocols.Puzzles
 {
-    private int attempts = 0;
-
-    public PuzzleCodeInjection() : base("Bypass the firewall using a terminal command.", "Terminal command") { }
-
-    public override void Start()
+    // Code Injection Puzzle (Server Room)
+    public class PuzzleCodeInjection : Puzzle
     {
-        Console.WriteLine(Description);
-        Console.WriteLine("Enter the correct terminal command to bypass the firewall:");
-    }
+        private int attempts = 0;
 
-    public override void ReadCommand(string command, string remainder)
-    {
-        attempts++;
-        string correctCommand = "sudo firewall-bypass";
+        public PuzzleCodeInjection() : base("Bypass the firewall using a terminal command.", "Terminal command") { }
 
-        if (command + " " + remainder == correctCommand)
+        public override void Start()
         {
-            Console.WriteLine("Firewall bypassed! Puzzle solved.");
-            IsSolved = true;
+            Console.WriteLine(Description);
+            Console.WriteLine("Enter the correct terminal command to bypass the firewall:");
         }
-        else
-        {
-            Console.WriteLine("Incorrect command.");
-            GiveHint();
-        }
-    }
 
-    private void GiveHint()
-    {
-        if (attempts == 2)
+        public override void ReadCommand(string command)
         {
-            Console.WriteLine("Hint: The command requires elevated privileges.");
+            attempts++;
+            string correctCommand = "sudo firewall-bypass";
+
+            if (command == correctCommand)
+            {
+                Console.WriteLine("Firewall bypassed! Puzzle solved.");
+                IsSolved = true;
+            }
+            else
+            {
+                Console.WriteLine("Incorrect command.");
+                GiveHint();
+            }
         }
-        else if (attempts == 4)
+
+        private void GiveHint()
         {
-            Console.WriteLine("Hint: Try using the 'sudo' command.");
-        }
-        else if (attempts >= 6)
-        {
-            Console.WriteLine("You’ve tried multiple times. Think about how you would gain root access.");
+            if (attempts == 2)
+            {
+                Console.WriteLine("Hint: The command requires elevated privileges.");
+            }
+            else if (attempts == 4)
+            {
+                Console.WriteLine("Hint: Try using the 'sudo' command.");
+            }
+            else if (attempts >= 6)
+            {
+                Console.WriteLine("You’ve tried multiple times. Think about how you would gain root access.");
+            }
         }
     }
 }

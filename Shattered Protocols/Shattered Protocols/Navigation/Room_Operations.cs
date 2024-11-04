@@ -1,20 +1,20 @@
-using Shattered_Protocols;
+﻿using Shattered_Protocols.Puzzles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Shattered_Protocols.Puzzles;
+using System.Xml.Linq;
 
 namespace Shattered_Protocols.Navigation
 {
-    internal class Room_Development : Room
+    internal class Room_Operations : Room
     {
-        public Room_Development()
+        public Room_Operations()
         {
-            Name = "Development Room";
+            Name = "Heart of Operations";
             Description = "temp description";
-            RoomPuzzle = new PuzzleSQLInjection();
+            RoomPuzzle = new PuzzlePasswordCracker();
 
             //Room Items
             Inventory = new Inventory();
@@ -25,14 +25,10 @@ namespace Shattered_Protocols.Navigation
         /// </summary>
         public override void LoadNeighboringRooms()
         {
-            if (East == null)
-            {
-                East = new Room_Meeting();
-                East.West = this;
-            }
+            //Load rooms if not yet loaded
             if (North == null)
             {
-                North = new Room_Break();
+                North = new Room_Testing();
                 North.South = this;
             }
         }

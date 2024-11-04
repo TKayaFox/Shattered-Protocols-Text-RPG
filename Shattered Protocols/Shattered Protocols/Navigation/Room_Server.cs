@@ -1,21 +1,20 @@
-﻿using Shattered_Protocols;
+﻿using Shattered_Protocols.Puzzles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Shattered_Protocols.Navigation;
-using Shattered_Protocols.Puzzles;
+using System.Xml.Linq;
 
 namespace Shattered_Protocols.Navigation
 {
-    internal class Room_Meeting : Room
+    internal class Room_Server : Room
     {
-        public Room_Meeting()
+        public Room_Server()
         {
-            Name = "Meeting Room";
-            Description = "Here ideas were challenged, brains were stormed, and presentations were slept through. There is one big table in the middle with many chairs surrounding it.";
-            RoomPuzzle = new PuzzleBinaryLock();
+            Name = "Server Room";
+            Description = "temp description";
+            RoomPuzzle = new PuzzleCodeInjection();
 
             //Room Items
             Inventory = new Inventory();
@@ -29,17 +28,12 @@ namespace Shattered_Protocols.Navigation
             //Load rooms if not yet loaded
             if (South == null)
             {
-                South = new Room_Start();
+                South = new Room_Operations();
                 South.North = this;
-            }
-            if (North == null)
-            {
-                North = new Room_Testing();
-                North.South = this;
             }
             if (West == null)
             {
-                West = new Room_Development();
+                West = new Room_Testing();
                 West.East = this;
             }
         }

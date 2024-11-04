@@ -1,23 +1,27 @@
-﻿using Shattered_Protocols;
-using Shattered_Protocols.Puzzles;
+﻿using Shattered_Protocols.Puzzles;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Shattered_Protocols.Navigation
 {
-    internal class Room_Testing : Room
+    internal class Room_Break : Room
     {
-        public Room_Testing()
+        public Room_Break()
         {
-            Name = "Testing Room";
+            Name = "Breakroom";
             Description = "temp description";
-            RoomPuzzle = new PuzzleReverseString();
+            RoomPuzzle = new PuzzleCaesarCypher();
 
             //Room Items
             Inventory = new Inventory();
+            Item key = new Item("Emergency Shutdown Key", "This key should shut doen the full system if I can just find the right place to use it!");
+            Inventory.Add(key);
         }
 
         /// <summary>
@@ -28,18 +32,14 @@ namespace Shattered_Protocols.Navigation
             //Load rooms if not yet loaded
             if (South == null)
             {
-                South = new Room_Testing();
+                South = new Room_Development();
                 South.North = this;
             }
+            //Load rooms if not yet loaded
             if (East == null)
             {
-                East = new Room_Break();
+                East = new Room_Testing();
                 East.West = this;
-            }
-            if (West == null)
-            {
-                West = new Room_Server();
-                West.East = this;
             }
         }
     }
