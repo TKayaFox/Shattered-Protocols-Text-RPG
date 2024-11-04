@@ -1,33 +1,38 @@
 ﻿using System;
-using Shattered_Protocols.Puzzles;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-// SQL Injection Puzzle
-public class PuzzleSQLInjection : Puzzle
+namespace Shattered_Protocols.Puzzles
 {
-    private int attemptCount = 0;
-
-    public PuzzleSQLInjection() : base("Bypass the SQL login check.", "SQL input") { }
-
-    public override void Start()
+    // SQL Injection Puzzle
+    public class PuzzleSQLInjection : Puzzle
     {
-        Console.WriteLine(Description);
-        Console.WriteLine("Enter SQL statement to access restricted information:");
-    }
+        private int attemptCount = 0;
 
-    public override void ReadCommand(string command, string remainder)
-    {
-        if (remainder.Contains("1'='1") || remainder.Contains("' OR '1'='1"))
+        public PuzzleSQLInjection() : base("Bypass the SQL login check.", "SQL input") { }
+
+        public override void Start()
         {
-            Console.WriteLine("Access granted! Puzzle solved.");
-            IsSolved = true;
+            Console.WriteLine(Description);
+            Console.WriteLine("Enter SQL statement to access restricted information:");
         }
-        else
+
+        public override void ReadCommand(string command)
         {
-            attemptCount++;
-            Console.WriteLine("Access denied. Try again.");
-            if (attemptCount >= 2)
+            if (command.Contains("1'='1") || command.Contains("' OR '1'='1"))
             {
-                Console.WriteLine("Hint: SQL injections are often used to force conditions to be true.");
+                Console.WriteLine("Access granted! Puzzle solved.");
+                IsSolved = true;
+            }
+            else
+            {
+                attemptCount++;
+                Console.WriteLine("Access denied. Try again.");
+                if (attemptCount >= 2)
+                {
+                    Console.WriteLine("Hint: SQL injections are often used to force conditions to be true.");
+                }
             }
         }
     }
