@@ -19,14 +19,14 @@ namespace Shattered_Protocols.Puzzles
             Console.WriteLine("Hint: The password is commonly used and matches the SHA256 hash.");
         }
 
-        public override void ReadCommand(string command, string remainder)
+        public override void ReadCommand(string command)
         {
             if (attemptCount >= 3)
             {
                 Console.WriteLine("Hint: Try a common password.");
             }
 
-            if (CheckPassword(remainder))
+            if (CheckPassword(command))
             {
                 Console.WriteLine("Access granted! Puzzle solved.");
                 IsSolved = true;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shattered_Protocols.Puzzles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Shattered_Protocols.Navigation
         {
             Name = "Heart of Operations";
             Description = "temp description";
-            RoomPuzzle = null;
+            RoomPuzzle = new PuzzlePasswordCracker();
 
             //Room Items
             Inventory = new Inventory();
@@ -25,10 +26,10 @@ namespace Shattered_Protocols.Navigation
         public override void LoadNeighboringRooms()
         {
             //Load rooms if not yet loaded
-            if (South == null)
+            if (North == null)
             {
-                South = new Room_Testing();
-                South.North = this;
+                North = new Room_Testing();
+                North.South = this;
             }
         }
     }

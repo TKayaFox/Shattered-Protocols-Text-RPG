@@ -32,9 +32,9 @@ namespace Shattered_Protocols.Puzzles
             }
         }
 
-        public override void ReadCommand(string command, string remainder)
+        public override void ReadCommand(string command)
         {
-            CheckInput(remainder);
+            CheckInput(command);
         }
 
         private void ProvideHint()

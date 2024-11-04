@@ -20,14 +20,6 @@ namespace Shattered_Protocols.Navigation
 
             //Room Items
             Inventory = new Inventory();
-
-            Item testItem = new Item("Pants", "A pair of pants");
-            Item computer = new Item("Computer", "A receptionist's computer. It's too heavily corrupted to use.");
-            Item phone = new Item("Phone", "A receptionists phone. It's attached to the desk.");
-
-            Inventory.Add(testItem);
-            Inventory.Add(computer);
-            Inventory.Add(phone);
         }
 
 

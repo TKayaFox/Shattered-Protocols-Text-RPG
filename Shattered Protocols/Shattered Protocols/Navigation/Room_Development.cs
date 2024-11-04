@@ -30,6 +30,11 @@ namespace Shattered_Protocols.Navigation
                 East = new Room_Meeting();
                 East.West = this;
             }
+            if (North == null)
+            {
+                North = new Room_Break();
+                North.South = this;
+            }
         }
     }
 }

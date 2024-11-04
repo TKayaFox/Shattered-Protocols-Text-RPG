@@ -18,12 +18,12 @@ namespace Shattered_Protocols.Puzzles
             Console.WriteLine("Enter the correct terminal command to bypass the firewall:");
         }
 
-        public override void ReadCommand(string command, string remainder)
+        public override void ReadCommand(string command)
         {
             attempts++;
             string correctCommand = "sudo firewall-bypass";
 
-            if ($"{command} {remainder}" == correctCommand)
+            if (command == correctCommand)
             {
                 Console.WriteLine("Firewall bypassed! Puzzle solved.");
                 IsSolved = true;

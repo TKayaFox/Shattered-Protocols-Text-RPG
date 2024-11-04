@@ -26,6 +26,25 @@ namespace Shattered_Protocols.Puzzles
         /// <summary>
         /// Reads player input and determines how best to handle it.
         /// </summary>
-        public abstract void ReadCommand(string command, string remainder);
+        public void ReadCommand(string command, string remainder)
+        {
+            //Unless there is an override for ReadCommand(string,string) then convert to ReadCommand(string) for simplicity
+            string stringInput = "";
+
+            if (remainder != null)
+            {
+                stringInput = $"{command} {remainder}";
+            }
+            else
+            {
+                stringInput = command;
+            }
+
+            //trim of blankspace after or before string
+            stringInput = stringInput.Trim();
+
+            ReadCommand(stringInput);
+        }
+        public abstract void ReadCommand(string stringInput);
     }
 }

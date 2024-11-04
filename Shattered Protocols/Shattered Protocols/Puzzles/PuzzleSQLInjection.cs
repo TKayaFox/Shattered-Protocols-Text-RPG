@@ -18,9 +18,9 @@ namespace Shattered_Protocols.Puzzles
             Console.WriteLine("Enter SQL statement to access restricted information:");
         }
 
-        public override void ReadCommand(string command, string remainder)
+        public override void ReadCommand(string command)
         {
-            if (remainder.Contains("1'='1") || remainder.Contains("' OR '1'='1"))
+            if (command.Contains("1'='1") || command.Contains("' OR '1'='1"))
             {
                 Console.WriteLine("Access granted! Puzzle solved.");
                 IsSolved = true;

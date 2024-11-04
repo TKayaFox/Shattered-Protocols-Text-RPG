@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shattered_Protocols.Puzzles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Shattered_Protocols.Navigation
         {
             Name = "Server Room";
             Description = "temp description";
-            RoomPuzzle = null;
+            RoomPuzzle = new PuzzleCodeInjection();
 
             //Room Items
             Inventory = new Inventory();
@@ -27,8 +28,13 @@ namespace Shattered_Protocols.Navigation
             //Load rooms if not yet loaded
             if (South == null)
             {
-                South = new Room_Testing();
+                South = new Room_Operations();
                 South.North = this;
+            }
+            if (West == null)
+            {
+                West = new Room_Testing();
+                West.East = this;
             }
         }
     }

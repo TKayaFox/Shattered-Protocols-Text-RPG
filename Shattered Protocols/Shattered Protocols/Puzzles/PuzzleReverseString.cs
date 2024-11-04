@@ -19,9 +19,9 @@ namespace Shattered_Protocols.Puzzles
             Console.WriteLine("Enter the correct decryption:");
         }
 
-        public override void ReadCommand(string command, string remainder)
+        public override void ReadCommand(string command)
         {
-            if (remainder == ReverseString(encryptedMessage))
+            if (command == ReverseString(encryptedMessage))
             {
                 Console.WriteLine("Correct! Puzzle solved.");
                 IsSolved = true;
