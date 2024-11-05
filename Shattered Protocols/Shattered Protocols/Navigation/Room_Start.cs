@@ -14,8 +14,12 @@ namespace Shattered_Protocols.Navigation
     {
         public Room_Start()
         {
-            this.Name = "Front Lobby";
-            this.Description = "Welcome to the front Lobby. There are empty desks where receptionists would welcome guests. Each desk holds a computer and accompanying phone. Calling for help would be pointless here, you are on your own... Also the phones probably dont event work anymore.";
+            this.Name = "Front Desks";
+            this.Description = @"
+             Welcome to the Front Desks. There are empty chairs where receptionists would welcome guests.
+             There are computers with an accompanying phone on each one. Calling for help would be pointless
+             here you are on your own… also, the phones probably don't work anymore.
+             ";
             this.RoomPuzzle = null;
 
             //Room Items

@@ -15,7 +15,11 @@ namespace Shattered_Protocols.Navigation
         public Room_Break()
         {
             Name = "Breakroom";
-            Description = "temp description";
+            Description = @"
+             Welcome to the Break Room. A freezer full of frozen burritos and a microwave stained with various
+             food remains were previously used for refueling energy deprived programmers. A couple of lockers
+             are broken open in the corner of the room.
+             ";
             RoomPuzzle = new PuzzleCaesarCypher();
 
             //Room Items
