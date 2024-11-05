@@ -1,41 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace Shattered_Protocols
 {
+    // reset attempt count when player first encounters the puzzle
+    public void ResetattemptCount()
+    {
+        attemptCount = 0;
+    }
     public abstract class Puzzle
     {
         public string Description { get; set; }
-        public string ItemRequired { get; set; } // Consider renaming `ItemRequired` for clarity if needed.
+        public string ItemRequired { get; set; }
         public bool IsSolved { get; protected set; } = false;
 
-        // Constructor to initialize description and required item
         protected Puzzle(string puzzleDescription, string itemRequired)
         {
             Description = puzzleDescription;
             ItemRequired = itemRequired;
         }
 
-        /// <summary>
-        /// Starts the puzzle logic.
-        /// </summary>
         public abstract void Start();
-
-        /// <summary>
-        /// Reads player input and determines how best to handle it.
-        /// </summary>
         public abstract void ReadCommand(string command, string remainder);
     }
 
     // Caesar Cipher Puzzle
-    public class PuzzleCaesarCypher : Puzzle
+    public class PuzzleCaesarCipher : Puzzle
     {
-        private string encryptedMessage = "Khoor Zruog"; // "Hello World" shifted by 3
-        private int shiftAmount = 3;
+        private readonly string encryptedMessage = "Khoor Zruog"; // "Hello World" shifted by 3
+        private readonly int shiftAmount = 3;
+        private int attemptCount = 0;
 
-        public PuzzleCaesarCypher() : base("Decrypt the Caesar ciphered message.", "Decryption input") { }
+        public PuzzleCaesarCipher() : base("Decrypt the Caesar ciphered message.", "Decryption input") { }
 
         public override void Start()
         {
@@ -46,7 +42,10 @@ namespace Shattered_Protocols
 
         public override void ReadCommand(string command, string remainder)
         {
-            if (remainder == DecryptCaesar(encryptedMessage, shiftAmount))
+            attemptCount++;
+            string correctDecryption = DecryptCaesar(encryptedMessage, shiftAmount);
+
+            if (remainder.Trim().Equals(correctDecryption, StringComparison.OrdinalIgnoreCase))
             {
                 Console.WriteLine("Correct! Puzzle solved.");
                 IsSolved = true;
@@ -54,6 +53,11 @@ namespace Shattered_Protocols
             else
             {
                 Console.WriteLine("Incorrect. Try again.");
+
+                if (attemptCount >= 4)
+                {
+                    Console.WriteLine("Hint: The original message is a common greeting that is shifted 3 times. Not gonna tell you which way...");
+                }
             }
         }
 

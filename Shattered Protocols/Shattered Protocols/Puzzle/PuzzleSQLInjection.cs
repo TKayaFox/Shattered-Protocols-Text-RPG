@@ -5,6 +5,12 @@ using System.Text;
 
 namespace Shattered_Protocols
 {
+    // set a reset for when the player first encounters the puzzle
+    public void ResetattemptCount()
+    {
+        attemptCount = 0;
+    }
+    
     public abstract class Puzzle
     {
         public string Description { get; set; }

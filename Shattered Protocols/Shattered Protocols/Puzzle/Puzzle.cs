@@ -33,7 +33,7 @@ namespace Shattered_Protocols
     // Binary Lock Puzzle (Heart of Operations)
     public class PuzzleBinaryLock : Puzzle
     {
-        private int failedAttempts = 0;
+        private int attemptCount = 0;
 
         public PuzzleBinaryLock() : base("Solve the binary lock puzzle.", "Binary input") { }
 
@@ -52,13 +52,13 @@ namespace Shattered_Protocols
             }
             else
             {
-                failedAttempts++;
+                attemptCount++;
                 Console.WriteLine("Incorrect, try again.");
-                if (failedAttempts == 2)
+                if (attemptCount == 2)
                 {
                     Console.WriteLine("Hint: The number 42 in binary is a 6-digit number.");
                 }
-                else if (failedAttempts == 4)
+                else if (attemptCount == 4)
                 {
                     Console.WriteLine("Hint: 42 in binary is made of alternating 1s and 0s.");
                 }
@@ -80,7 +80,7 @@ namespace Shattered_Protocols
     // Code Injection Puzzle (Server Room)
     public class PuzzleCodeInjection : Puzzle
     {
-        private int attempts = 0;
+        private int attemptCount = 0;
 
         public PuzzleCodeInjection() : base("Bypass the firewall using a terminal command.", "Terminal command") { }
 
@@ -92,7 +92,7 @@ namespace Shattered_Protocols
 
         public override void ReadCommand(string command, string remainder)
         {
-            attempts++;
+            attemptCount++;
             string correctCommand = "sudo firewall-bypass";
 
             if (command + " " + remainder == correctCommand)
@@ -109,15 +109,15 @@ namespace Shattered_Protocols
 
         private void GiveHint()
         {
-            if (attempts == 2)
+            if (attemptCount == 2)
             {
                 Console.WriteLine("Hint: The command requires elevated privileges.");
             }
-            else if (attempts == 4)
+            else if (attemptCount == 4)
             {
                 Console.WriteLine("Hint: Try using the 'sudo' command.");
             }
-            else if (attempts >= 6)
+            else if (attemptCount >= 6)
             {
                 Console.WriteLine("You’ve tried multiple times. Think about how you would gain root access.");
             }

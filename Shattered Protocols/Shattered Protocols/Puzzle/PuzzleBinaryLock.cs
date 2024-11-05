@@ -5,6 +5,13 @@ using System.Text;
 
 namespace Shattered_Protocols
 {
+    // set a reset for when the player first encounters the puzzle
+    public void ResetattemptCount()
+    {
+        attemptCount = 0;
+    }
+
+
     public abstract class Puzzle
     {
         public string Description { get; set; }
@@ -31,7 +38,7 @@ namespace Shattered_Protocols
 
     public class PuzzleBinaryLock : Puzzle
     {
-        private int failedAttempts = 0;
+        private int attemptCount = 0;
 
         public PuzzleBinaryLock() : base("Solve the binary lock puzzle.", "Binary input") { }
 
@@ -50,24 +57,26 @@ namespace Shattered_Protocols
             }
             else
             {
-                failedAttempts++;
+                attemptCount++;
                 Console.WriteLine("Incorrect, try again.");
                 ProvideHint();
             }
         }
 
+        // Reads the player's input and processes it
         public override void ReadCommand(string command, string remainder)
         {
             CheckInput(remainder);
         }
 
+        // Hints starts here
         private void ProvideHint()
         {
-            if (failedAttempts == 2)
+            if (attemptCount == 2)
             {
                 Console.WriteLine("Hint: The number 42 in binary is a 6-digit number.");
             }
-            else if (failedAttempts == 4)
+            else if (attemptCount == 4)
             {
                 Console.WriteLine("Hint: 42 in binary is made of alternating 1s and 0s.");
             }

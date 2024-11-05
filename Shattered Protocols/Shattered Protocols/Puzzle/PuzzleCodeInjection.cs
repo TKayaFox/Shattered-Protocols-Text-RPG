@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Shattered_Protocols
 {
+    public void ResetattemptCount()
+    {
+        attemptCount = 0;
+    }
     public abstract class Puzzle
     {
         public string Description { get; set; }
@@ -32,19 +36,19 @@ namespace Shattered_Protocols
     // Code Injection Puzzle (Server Room)
     public class PuzzleCodeInjection : Puzzle
     {
-        private int attempts = 0;
+        private int attemptCount = 0;
 
         public PuzzleCodeInjection() : base("Bypass the firewall using a terminal command.", "Terminal command") { }
 
         public override void Start()
         {
             Console.WriteLine(Description);
-            Console.WriteLine("Enter the correct terminal command to bypass the firewall:");
+            Console.WriteLine("Enter the correct terminal command to bypass the firewall in Linux:");
         }
 
         public override void ReadCommand(string command, string remainder)
         {
-            attempts++;
+            attemptCount++;
             string correctCommand = "sudo firewall-bypass";
 
             if ($"{command} {remainder}" == correctCommand)
@@ -61,15 +65,15 @@ namespace Shattered_Protocols
 
         private void GiveHint()
         {
-            if (attempts == 2)
+            if (attemptCount == 2)
             {
                 Console.WriteLine("Hint: The command requires elevated privileges.");
             }
-            else if (attempts == 4)
+            else if (attemptCount == 4)
             {
                 Console.WriteLine("Hint: Try using the 'sudo' command.");
             }
-            else if (attempts >= 6)
+            else if (attemptCount >= 6)
             {
                 Console.WriteLine("You’ve tried multiple times. Think about how you would gain root access.");
             }

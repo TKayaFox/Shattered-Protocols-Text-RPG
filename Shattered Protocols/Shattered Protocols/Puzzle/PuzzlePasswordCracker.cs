@@ -1,38 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 
 namespace Shattered_Protocols
 {
+    public void ResetattemptCount()
+    {
+        attemptCount = 0;
+    }
     public abstract class Puzzle
     {
         public string Description { get; set; }
-        public string ItemRequired { get; set; } // Consider renaming `ItemRequired` for clarity if needed.
+        public string ItemRequired { get; set; }
         public bool IsSolved { get; protected set; } = false;
 
-        // Constructor to initialize description and required item
         protected Puzzle(string puzzleDescription, string itemRequired)
         {
             Description = puzzleDescription;
             ItemRequired = itemRequired;
         }
 
-        /// <summary>
-        /// Starts the puzzle logic.
-        /// </summary>
         public abstract void Start();
-
-        /// <summary>
-        /// Reads player input and determines how best to handle it.
-        /// </summary>
         public abstract void ReadCommand(string command, string remainder);
     }
 
     public class PuzzlePasswordCracker : Puzzle
     {
-        private readonly string hashedPassword = "5e88489da4b7..."; // SHA256 of "password123"
+        private readonly string hashedPassword = "ef92b778bafe771e89245b89ecbcfdaf24ecff4b6b28f2c23403e6e85c70f3a2"; // SHA256 of "password123"
         private int attemptCount = 0;
 
         public PuzzlePasswordCracker() : base("Crack the system password.", "Password attempt") { }
@@ -40,25 +34,27 @@ namespace Shattered_Protocols
         public override void Start()
         {
             Console.WriteLine(Description);
-            Console.WriteLine("Hint: The password is commonly used and matches the SHA256 hash.");
+            Console.WriteLine("Enter the password that matches the given SHA256 hash.");
         }
 
         public override void ReadCommand(string command, string remainder)
         {
-            if (attemptCount >= 3)
-            {
-                Console.WriteLine("Hint: Try a common password.");
-            }
+            attemptCount++;
 
-            if (CheckPassword(remainder))
+            if (CheckPassword(remainder.Trim()))
             {
                 Console.WriteLine("Access granted! Puzzle solved.");
                 IsSolved = true;
             }
             else
             {
-                attemptCount++;
                 Console.WriteLine("Access denied. Try again.");
+
+                // Display a hint after 3 failed attemptCount
+                if (attemptCount >= 3)
+                {
+                    Console.WriteLine("Hint: The password is a commonly used weak password.");
+                }
             }
         }
 
