@@ -12,8 +12,13 @@ namespace Shattered_Protocols.Navigation
     {
         public Room_Development()
         {
-            Name = "Development Room";
-            Description = "temp description";
+            Name = "Development Labs";
+            Description = @"
+             Welcome to the Development Labs. Here, there are computers scattered across desks. The layers
+             of dust are only matched by the layers of Cheeto powder across the keyboards. This room was used
+             to make many general-purpose AI for the task of gathering information, and generating advice
+             based on the data.
+             ";
             RoomPuzzle = new PuzzleSQLInjection();
 
             //Room Items
