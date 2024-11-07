@@ -6,7 +6,7 @@ namespace Shattered_Protocols
     // reset attempt count when player first encounters the puzzle
     public void ResetattemptCount()
     {
-        attemptCount = 0;
+        int attemptCount = 0;
     }
     public abstract class Puzzle
     {

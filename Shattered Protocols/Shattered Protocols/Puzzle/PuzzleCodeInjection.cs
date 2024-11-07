@@ -7,7 +7,7 @@ namespace Shattered_Protocols
 {
     public void ResetattemptCount()
     {
-        attemptCount = 0;
+        int attemptCount = 0;
     }
     public abstract class Puzzle
     {

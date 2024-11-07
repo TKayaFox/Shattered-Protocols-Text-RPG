@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Shattered Protocols")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e2f1ef1c552fe559d321148475e84d70e8858d6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad94ef8d9a87bc55081ff37ec38639dfbccc27f8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Shattered Protocols")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Shattered Protocols")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
