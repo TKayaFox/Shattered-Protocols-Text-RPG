@@ -41,7 +41,6 @@ namespace Shattered_Protocols
             map = new Map();
 
             //Subscribe all objects to eventManager
-            GlobalEventManager.ManageObject(map);
             GlobalEventManager.ManageObject(player);
             GlobalEventManager.ManageObject(gameLog);
 

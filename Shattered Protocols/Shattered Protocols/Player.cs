@@ -47,5 +47,24 @@ namespace Shattered_Protocols
             set => description = value;
         }
         #endregion
+
+
+        //======================== 
+        //        Events
+        //======================== 
+
+        #region Event Management
+        public void ManageMe()
+        {
+            //Subscribe to events here, make sure to also include unsubscription
+        }
+        public void UnManageMe()
+        {
+            //UnSubscribe to events here
+        }
+        #endregion
+        #region Events
+
+        #endregion
     }
 }

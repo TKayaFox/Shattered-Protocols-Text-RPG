@@ -13,7 +13,7 @@ namespace Shattered_Protocols.Navigation
     /// <summary>
     /// Linked List style Map management for Text RPG
     /// </summary>
-    internal class Map : IEventManagable
+    internal class Map
     {
         Room startRoom;
         Room currentRoom;
@@ -28,11 +28,29 @@ namespace Shattered_Protocols.Navigation
         /// </summary>
         public Map()
         {
+            //Get all needed room constructors into dictionary
+            InitializeConstructorLibrary();
+
             //Set initial room as the current room
             currentRoom = GetRoom(RoomEnum.Room_Start);
 
             //Enter the Starting Room
             currentRoom.Enter();
+        }
+
+        /// <summary>
+        /// Adds Room Constructor Methods to dictionary
+        /// </summary>
+        private void InitializeConstructorLibrary()
+        {
+            //Build Room constructor dictionary
+            RoomConstructorDictionary.Add(RoomEnum.Room_Break, () => new Room_Break());
+            RoomConstructorDictionary.Add(RoomEnum.Room_Development, () => new Room_Development());
+            RoomConstructorDictionary.Add(RoomEnum.Room_Meeting, () => new Room_Meeting());
+            RoomConstructorDictionary.Add(RoomEnum.Room_Operations, () => new Room_Operations());
+            RoomConstructorDictionary.Add(RoomEnum.Room_Server, () => new Room_Server());
+            RoomConstructorDictionary.Add(RoomEnum.Room_Start, () => new Room_Start());
+            RoomConstructorDictionary.Add(RoomEnum.Room_Testing, () => new Room_Testing());
         }
 
         #region Map Navigation
@@ -116,24 +134,6 @@ namespace Shattered_Protocols.Navigation
 
             return room;
         }
-
-        #endregion
-
-        //======================== 
-        //        Events
-        //======================== 
-
-        #region Event Management
-        public void ManageMe()
-        {
-            //Subscribe to events here, make sure to also include unsubscription
-        }
-        public void UnManageMe()
-        {
-            //UnSubscribe to events here
-        }
-        #endregion
-        #region Events
 
         #endregion
     }

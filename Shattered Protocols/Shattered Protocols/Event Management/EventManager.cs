@@ -71,7 +71,7 @@ namespace Shattered_Protocols
         /// </summary>
         public void Reset()
         {
-            eventDictionary = new Dictionary<string, Action<TEventArgs>>();
+            eventDictionary = new Dictionary<string, Action<EventArgs>>();
         }
 
         // Subscribe to all desired events for an object that implements IEventManagable

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shattered_Protocols.Navigation
 {
-    public enum RoomEnum
+    public enum RoomType
     {
         Null,
         Room_Start,

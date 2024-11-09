@@ -24,7 +24,7 @@ namespace Shattered_Protocols.Navigation.Rooms
 
             //Room Items
             Inventory = new Inventory();
-            Item key = new Item("Emergency Shutdown Key", "This key should shut doen the full system if I can just find the right place to use it!");
+            Item key = new Item("flashdrive", "This drive holds the access codes needed to shut doen the full system if I can just find the right place to use it!");
             Inventory.Add(key);
 
             //Define Neighboring Rooms

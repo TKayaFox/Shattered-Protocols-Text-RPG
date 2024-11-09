@@ -86,8 +86,8 @@ public abstract class Room
     ///ShowPuzzle Logic if Applicable
     public void ShowPuzzle()
     {
-        //puzzle logic
-        if (roomPuzzle != null)
+        //puzzle logic (If there is a puzzle and it is not already solved)
+        if (roomPuzzle != null && !roomPuzzle.IsSolved)
         {
             //Start ShowPuzzle
             roomPuzzle.Start();
@@ -115,19 +115,19 @@ public abstract class Room
 
         //Determine all possible Exits
         List<string> exits = new List<string>();
-        if (northRoom != null)
+        if (northRoom != RoomEnum.Null)
         {
             exits.Add("north");
         }
-        if (southRoom != null)
+        if (southRoom != RoomEnum.Null)
         {
             exits.Add("south");
         }
-        if (eastRoom != null)
+        if (eastRoom != RoomEnum.Null)
         {
             exits.Add("east");
         }
-        if (westRoom != null)
+        if (westRoom != RoomEnum.Null)
         {
             exits.Add("west");
         }

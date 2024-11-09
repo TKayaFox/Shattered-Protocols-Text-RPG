@@ -26,7 +26,7 @@ namespace Shattered_Protocols.Navigation.Rooms
 
             //Define Neighboring Rooms
             South = RoomEnum.Room_Operations;
-            East = RoomEnum.Room_Testing;
+            West = RoomEnum.Room_Testing;
         }
     }
 }
