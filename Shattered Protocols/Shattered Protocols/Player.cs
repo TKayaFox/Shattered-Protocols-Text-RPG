@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shattered_Protocols.Event_Management;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Shattered_Protocols
 {
-    public class Player
+    public class Player : IEventManagable
     {
         private Inventory inventory;
         private string name;

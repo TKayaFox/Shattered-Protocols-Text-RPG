@@ -8,8 +8,9 @@ namespace Shattered_Protocols.Event_Management
 {
     public interface IEventManagable
     {
-        // Method to register this object with the EventManager
-        void ManageMe(EventManager eventManager);
+        // Methods to register or unregister this object with the EventManager
+        void ManageMe();
+        void UnManageMe();
     }
 
 }

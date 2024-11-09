@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Shattered_Protocols.Navigation
+namespace Shattered_Protocols.Navigation.Rooms
 {
     internal class Room_Operations : Room
     {
@@ -22,19 +22,10 @@ namespace Shattered_Protocols.Navigation
 
             //Room Items
             Inventory = new Inventory();
-        }
 
-        /// <summary>
-        /// Attempt to load all neighboring rooms (if not already loaded)
-        /// </summary>
-        public override void LoadNeighboringRooms()
-        {
-            //Load rooms if not yet loaded
-            if (North == null)
-            {
-                North = new Room_Testing();
-                North.South = this;
-            }
+
+            //Define Neighboring Rooms
+            North = RoomEnum.Room_Server;
         }
     }
 }

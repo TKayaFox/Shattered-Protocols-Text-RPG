@@ -1,4 +1,3 @@
-using Shattered_Protocols;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Shattered_Protocols.Puzzles;
 
-namespace Shattered_Protocols.Navigation
+namespace Shattered_Protocols.Navigation.Rooms
 {
     internal class Room_Development : Room
     {
@@ -23,23 +22,10 @@ namespace Shattered_Protocols.Navigation
 
             //Room Items
             Inventory = new Inventory();
-        }
 
-        /// <summary>
-        /// Attempt to load all neighboring rooms (if not already loaded)
-        /// </summary>
-        public override void LoadNeighboringRooms()
-        {
-            if (East == null)
-            {
-                East = new Room_Meeting();
-                East.West = this;
-            }
-            if (North == null)
-            {
-                North = new Room_Break();
-                North.South = this;
-            }
+            //Define Neighboring Rooms
+            North = RoomEnum.Room_Break;
+            East = RoomEnum.Room_Meeting;
         }
     }
 }

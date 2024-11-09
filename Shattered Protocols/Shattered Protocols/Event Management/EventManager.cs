@@ -26,10 +26,10 @@ namespace Shattered_Protocols
             Action<> to hold the delegated event method
                 object to pass eventargs or other through the event
         /*/
-        private Dictionary<string, Action<object>> 
-            eventDictionary = new Dictionary<string, Action<object>>();
+        private Dictionary<string, Action<EventArgs>> 
+            eventDictionary = new Dictionary<string, Action<EventArgs>>();
 
-        public void Subscribe(string eventName, Action<object> listener)
+        public void Subscribe(string eventName, Action<EventArgs> listener)
         {
             //Check if such an event exists in the dictionary yet
             if (!eventDictionary.ContainsKey(eventName))
@@ -41,7 +41,7 @@ namespace Shattered_Protocols
             eventDictionary[eventName] += listener;
         }
 
-        public void Unsubscribe(string eventName, Action<object> listener)
+        public void Unsubscribe(string eventName, Action<EventArgs> listener)
         {
             if (eventDictionary.ContainsKey(eventName))
             {
@@ -57,12 +57,12 @@ namespace Shattered_Protocols
         }
 
         // Method for publishing an event to notify all listeners
-        public void Publish(string eventName, object eventParams = null)
+        public void Publish(string eventName, EventArgs args = null)
         {
             if (eventDictionary.ContainsKey(eventName))
             {
                 // Invoke all listeners associated with the event
-                eventDictionary[eventName]?.Invoke(eventParams);
+                eventDictionary[eventName]?.Invoke(args);
             }
         }
 
@@ -71,13 +71,13 @@ namespace Shattered_Protocols
         /// </summary>
         public void Reset()
         {
-            eventDictionary = new Dictionary<string, Action<object>>();
+            eventDictionary = new Dictionary<string, Action<TEventArgs>>();
         }
 
         // Subscribe to all desired events for an object that implements IEventManagable
         public void ManageObject(IEventManagable objectToManage)
         {
-            objectToManage.ManageMe(this);
+            objectToManage.ManageMe();
         }
     }
 }

@@ -9,10 +9,10 @@ public abstract class Room
     private Puzzle roomPuzzle;
 
     //Neighboring Rooms
-    private Room northRoom = null;
-    private Room southRoom = null;
-    private Room westRoom = null;
-    private Room eastRoom = null;
+    private RoomEnum northRoom = RoomEnum.Null;
+    private RoomEnum southRoom = RoomEnum.Null;
+    private RoomEnum westRoom = RoomEnum.Null;
+    private RoomEnum eastRoom = RoomEnum.Null;
 
     #region Getters and Setters
     public string Name
@@ -36,22 +36,22 @@ public abstract class Room
         set => roomPuzzle = value;
     }
     #region Neighbor Rooms
-    public Room North
+    public RoomEnum North
     {
         get => northRoom;
         set => northRoom = value;
     }
-    public Room South
+    public RoomEnum South
     {
         get => southRoom;
         set => southRoom = value;
     }
-    public Room East
+    public RoomEnum East
     {
         get => eastRoom;
         set => eastRoom = value;
     }
-    public Room West
+    public RoomEnum West
     {
         get => westRoom;
         set => westRoom = value;
@@ -76,21 +76,12 @@ public abstract class Room
     ///Called when first entering a room
     public void Enter()
     {
-        //Load all room neighbors
-        LoadNeighboringRooms();
-
         //Display room name and description using ToString
         Console.WriteLine(ToString());
 
         //Run ShowPuzzle Logic if applicable
         ShowPuzzle();
     }
-
-    /// <summary>
-    /// Attempt to load all neighboring rooms (if not already loaded)
-    ///     Make sure to check first that Room is not already loaded!
-    /// </summary>
-    public abstract void LoadNeighboringRooms();
 
     ///ShowPuzzle Logic if Applicable
     public void ShowPuzzle()

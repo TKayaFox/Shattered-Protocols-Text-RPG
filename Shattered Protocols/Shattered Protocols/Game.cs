@@ -4,12 +4,14 @@ using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shattered_Protocols.Event_Management;
 using Shattered_Protocols.Navigation;
 
 namespace Shattered_Protocols
 {
-    internal class Game
+    internal class Game : IEventManagable
     {
+        #region Variables
         //List all extraneous words that might be input so keyword can be matched
         private static readonly string[] SKIP_WORDS =
             { "show","the", "move", "please", "kindly", "go", "walk", "to", "at", "on", "just" };
@@ -17,8 +19,9 @@ namespace Shattered_Protocols
         private Player player;
         private Map map;
         private EventManager eventManager;
-        public bool gameEnd = false;
+        private bool getInput = false;
         private TxtLogger gameLog;
+        #endregion
 
         /// <summary>
         /// Initialize Game and start logic
@@ -26,7 +29,6 @@ namespace Shattered_Protocols
         public Game()
         {
             //Initialize
-            eventManager = new EventManager();
             this.player = new Player();
 
             //make log object to track user inputs
@@ -38,18 +40,25 @@ namespace Shattered_Protocols
             //Load map
             map = new Map();
 
+            //Subscribe all objects to eventManager
+            GlobalEventManager.ManageObject(map);
+            GlobalEventManager.ManageObject(player);
+            GlobalEventManager.ManageObject(gameLog);
 
-            //Loop until Game Ends or is Exited  (gameEnd variable set to false)
-            while (!gameEnd)
+            //Loop until Game Ends or is Exited  (getInput variable set to false)
+            while (!getInput)
             {
                 //Get player input and translate into commands
                 GetPlayerInput();
             }
-
-            //clear event manager subscriptions
-            eventManager.Reset();
         }
 
+
+        //====================================================================
+        //                     Player Input Handling
+        //====================================================================
+
+        #region Player Input
         /// <summary>
         /// Read input source console, break into parts for ReadCommand and call ReadCommand to translate players intent
         /// </summary>
@@ -157,7 +166,7 @@ namespace Shattered_Protocols
                     break;
                 case "exit":
                     Console.WriteLine("Exiting Game- Thank you for Playing!");
-                    gameEnd = true;
+                    getInput = true;
                     break;
 
                 // Any invalid commands or not yet programmed commands
@@ -175,11 +184,12 @@ namespace Shattered_Protocols
                     break;
             }
         }
+        #endregion
 
         //====================================================================
         //                     Player Command Methods
         //====================================================================
-
+        #region Player Commands
         /// <summary>
         /// Handles Movement between rooms
         /// </summary>
@@ -230,6 +240,7 @@ namespace Shattered_Protocols
         {
             Console.WriteLine(player.Inventory.ToString());
         }
+        #endregion
 
         //======================== 
         //        Items
@@ -284,6 +295,38 @@ namespace Shattered_Protocols
             {
                 item.Use();
             }
+        }
+        #endregion
+
+        //======================== 
+        //        Events
+        //======================== 
+
+        #region Event Manager
+        public void ManageMe()
+        {
+            //Subscribe to events here, make sure to also include unsubscription
+            GlobalEventManager.Subscribe("GameEnd", OnGameEnd);
+        }
+        public void UnManageMe()
+        {
+            //UnSubscribe to events here
+            GlobalEventManager.Unsubscribe("GameEnd", OnGameEnd);
+        }
+        #endregion
+
+        #region Events
+
+        //Triggers Game End Logic
+        private void OnGameEnd(EventArgs args)
+        {
+            //Stop Input Loop
+            getInput = true;
+
+            //clear event manager subscriptions
+            GlobalEventManager.Reset();
+
+            //Display Game End prompt/Summary
         }
         #endregion
     }
