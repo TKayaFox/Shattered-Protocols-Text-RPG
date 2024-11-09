@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Shattered_Protocols.Navigation;
-using Untitled_Text_RPG.Navigation.Rooms;
 
 namespace Shattered_Protocols
 {
@@ -18,6 +17,7 @@ namespace Shattered_Protocols
         private Player player;
         private Map map;
         public bool gameEnd = false;
+        private TxtLogger gameLog;
 
         /// <summary>
         /// Initialize Game and start logic
@@ -28,9 +28,12 @@ namespace Shattered_Protocols
             this.player = new Player();
             Room startRoom = new Room_Start();
 
+            //make log object to track user inputs
+            string fileName = "user Input log [" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm") + "]";
+            gameLog = new TxtLogger(fileName); 
+
 
             //Show intro text with story information
-
             //Load map
             map = new Map();
 
@@ -63,6 +66,9 @@ namespace Shattered_Protocols
 
             //Convert to lower case
             playerInput = playerInput.ToLower();
+
+            //Log players input
+            gameLog.AddLine(playerInput);
 
             //Seperate keyword (first word) source input
             string keyword, remainder;
