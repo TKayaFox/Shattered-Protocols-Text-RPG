@@ -16,6 +16,7 @@ namespace Shattered_Protocols
 
         private Player player;
         private Map map;
+        private EventManager eventManager;
         public bool gameEnd = false;
         private TxtLogger gameLog;
 
@@ -25,8 +26,8 @@ namespace Shattered_Protocols
         public Game()
         {
             //Initialize
+            eventManager = new EventManager();
             this.player = new Player();
-            Room startRoom = new Room_Start();
 
             //make log object to track user inputs
             string fileName = "user Input log [" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm") + "]";
@@ -37,12 +38,16 @@ namespace Shattered_Protocols
             //Load map
             map = new Map();
 
+
             //Loop until Game Ends or is Exited  (gameEnd variable set to false)
             while (!gameEnd)
             {
                 //Get player input and translate into commands
                 GetPlayerInput();
             }
+
+            //clear event manager subscriptions
+            eventManager.Reset();
         }
 
         /// <summary>
