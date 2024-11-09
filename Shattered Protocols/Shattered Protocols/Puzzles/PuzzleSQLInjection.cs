@@ -14,6 +14,7 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
+            ResetattemptCount();
             Console.WriteLine(Description);
             Console.WriteLine("Enter SQL statement to access restricted information:");
         }

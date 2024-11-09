@@ -14,13 +14,14 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
+            ResetattemptCount();
             Console.WriteLine(Description);
-            Console.WriteLine("Enter the correct terminal command to bypass the firewall:");
+            Console.WriteLine("Enter the correct terminal command to bypass the firewall in Linux:"); ;
         }
 
         public override void ReadCommand(string command)
         {
-            attempts++;
+            AttemptCount ++;
             string correctCommand = "sudo firewall-bypass";
 
             if (command == correctCommand)
@@ -37,15 +38,15 @@ namespace Shattered_Protocols.Puzzles
 
         private void GiveHint()
         {
-            if (attempts == 2)
+            if (AttemptCount == 2)
             {
                 Console.WriteLine("Hint: The command requires elevated privileges.");
             }
-            else if (attempts == 4)
+            else if (AttemptCount == 4)
             {
                 Console.WriteLine("Hint: Try using the 'sudo' command.");
             }
-            else if (attempts >= 6)
+            else if (AttemptCount >= 6)
             {
                 Console.WriteLine("You’ve tried multiple times. Think about how you would gain root access.");
             }

@@ -14,6 +14,7 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
+            ResetattemptCount();
             Console.WriteLine(Description);
             Console.WriteLine($"Encrypted Message: {encryptedMessage}");
             Console.WriteLine("Enter the correct decryption:");

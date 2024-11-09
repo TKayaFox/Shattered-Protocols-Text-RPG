@@ -18,7 +18,7 @@ namespace Shattered_Protocols.Navigation
              mostly empty with a bunch of cameras on the ceiling. There are a couple of props in the corner.
              They were probably used so that the AI could learn to recognize objects.
              ";
-            RoomPuzzle = new PuzzleReverseString();
+            RoomPuzzle = new PuzzlePasswordCracker();
 
             //Room Items
             Inventory = new Inventory();
