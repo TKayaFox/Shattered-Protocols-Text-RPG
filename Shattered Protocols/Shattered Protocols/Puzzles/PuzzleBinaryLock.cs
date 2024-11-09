@@ -7,12 +7,11 @@ namespace Shattered_Protocols.Puzzles
 {
     public class PuzzleBinaryLock : Puzzle
     {
-        private int failedAttempts = 0;
-
         public PuzzleBinaryLock() : base("Solve the binary lock puzzle.", "Binary input") { }
 
         public override void Start()
         {
+            ResetattemptCount();
             Console.WriteLine(Description);
             Console.WriteLine("Enter the binary representation of the number 42:");
         }
@@ -26,7 +25,7 @@ namespace Shattered_Protocols.Puzzles
             }
             else
             {
-                failedAttempts++;
+                AttemptCount ++;
                 Console.WriteLine("Incorrect, try again.");
                 ProvideHint();
             }
@@ -39,11 +38,11 @@ namespace Shattered_Protocols.Puzzles
 
         private void ProvideHint()
         {
-            if (failedAttempts == 2)
+            if (AttemptCount == 2)
             {
                 Console.WriteLine("Hint: The number 42 in binary is a 6-digit number.");
             }
-            else if (failedAttempts == 4)
+            else if (AttemptCount == 4)
             {
                 Console.WriteLine("Hint: 42 in binary is made of alternating 1s and 0s.");
             }

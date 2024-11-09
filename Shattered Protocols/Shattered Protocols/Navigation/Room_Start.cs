@@ -19,8 +19,8 @@ namespace Shattered_Protocols.Navigation
              Welcome to the Front Desks. There are empty chairs where receptionists would welcome guests.
              There are computers with an accompanying phone on each one. Calling for help would be pointless
              here you are on your own… also, the phones probably don't work anymore.
-             ";
-            this.RoomPuzzle = null;
+             "; 
+            this.RoomPuzzle = new PuzzleRegex();
 
             //Room Items
             Inventory = new Inventory();

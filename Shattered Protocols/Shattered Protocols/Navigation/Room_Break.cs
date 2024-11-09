@@ -20,7 +20,7 @@ namespace Shattered_Protocols.Navigation
              food remains were previously used for refueling energy deprived programmers. A couple of lockers
              are broken open in the corner of the room.
              ";
-            RoomPuzzle = new PuzzleCaesarCypher();
+            RoomPuzzle = new PuzzleCaesarCipher();
 
             //Room Items
             Inventory = new Inventory();

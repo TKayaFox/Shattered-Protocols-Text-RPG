@@ -10,6 +10,7 @@ namespace Shattered_Protocols.Puzzles
         public string Description { get; set; }
         public string ItemRequired { get; set; } // Consider renaming `ItemRequired` for clarity if needed.
         public bool IsSolved { get; protected set; } = false;
+        public int AttemptCount { get; set; } = 0;
 
         // Constructor to initialize description and required item
         protected Puzzle(string description, string itemRequired)
@@ -21,7 +22,10 @@ namespace Shattered_Protocols.Puzzles
         /// <summary>
         /// Starts the puzzle logic.
         /// </summary>
-        public abstract void Start();
+        public virtual void Start()
+        {
+            ResetattemptCount();
+        }
 
         /// <summary>
         /// Reads player input and determines how best to handle it.
@@ -46,5 +50,12 @@ namespace Shattered_Protocols.Puzzles
             ReadCommand(stringInput);
         }
         public abstract void ReadCommand(string stringInput);
+
+
+        // set a reset for when the player first encounters the puzzle
+        public void ResetattemptCount()
+        {
+            int attemptCount = 0;
+        }
     }
 }
