@@ -15,6 +15,7 @@ namespace Shattered_Protocols.Navigation
         Room_Operations,
         Room_Testing,
         Room_Break,
-        Room_Server
+        Room_Server,
+        Locked
     }
 }

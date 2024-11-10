@@ -9,10 +9,8 @@ public abstract class Room
     private Puzzle roomPuzzle;
 
     //Neighboring Rooms
-    private RoomEnum northRoom = RoomEnum.Null;
-    private RoomEnum southRoom = RoomEnum.Null;
-    private RoomEnum westRoom = RoomEnum.Null;
-    private RoomEnum eastRoom = RoomEnum.Null;
+    private Dictionary<Direction, RoomType> roomDictionary = new Dictionary<Direction, RoomType>();
+    private Dictionary<Direction, RoomType> lockedRoomDictionary = new Dictionary<Direction, RoomType>();
 
     #region Getters and Setters
     public string Name
@@ -36,25 +34,25 @@ public abstract class Room
         set => roomPuzzle = value;
     }
     #region Neighbor Rooms
-    public RoomEnum North
+    public RoomType North
     {
-        get => northRoom;
-        set => northRoom = value;
+        get => GetUnlockedRoomType(Direction.North);
+        set => roomDictionary[Direction.North] = value;
     }
-    public RoomEnum South
+    public RoomType South
     {
-        get => southRoom;
-        set => southRoom = value;
+        get => GetUnlockedRoomType(Direction.South);
+        set => roomDictionary[Direction.South] = value;
     }
-    public RoomEnum East
+    public RoomType East
     {
-        get => eastRoom;
-        set => eastRoom = value;
+        get => GetUnlockedRoomType(Direction.East);
+        set => roomDictionary[Direction.East] = value;
     }
-    public RoomEnum West
+    public RoomType West
     {
-        get => westRoom;
-        set => westRoom = value;
+        get => GetUnlockedRoomType(Direction.West);
+        set => roomDictionary[Direction.West] = value;
     }
     #endregion
     #endregion
@@ -95,6 +93,33 @@ public abstract class Room
     }
 
     /// <summary>
+    /// This method will retorn RoomType Locked if the door is locked, or the correct roomtype if it is not locked
+    /// I really could not come up with a better name for this
+    /// </summary>
+    /// <param name="roomType"></param>
+    /// <returns></returns>
+    public RoomType GetUnlockedRoomType(Direction direction)
+    {
+        RoomType roomType = RoomType.Null;
+
+        //Check if door exists
+        if (roomDictionary.ContainsKey(direction))
+        {
+            //Check if door is locked AND puzzle is not solved
+            if (lockedRoomDictionary.ContainsKey(direction) && !roomPuzzle.IsSolved)
+            {
+                roomType = RoomType.Locked;
+            }
+            else
+            {
+                roomType = roomDictionary[direction];
+            }
+        }
+
+        return roomType;
+    }
+
+    /// <summary>
     /// Override ToString to display room info
     /// </summary>
     /// <returns></returns>
@@ -115,19 +140,19 @@ public abstract class Room
 
         //Determine all possible Exits
         List<string> exits = new List<string>();
-        if (northRoom != RoomEnum.Null)
+        if (northRoom != RoomType.Null)
         {
             exits.Add("north");
         }
-        if (southRoom != RoomEnum.Null)
+        if (southRoom != RoomType.Null)
         {
             exits.Add("south");
         }
-        if (eastRoom != RoomEnum.Null)
+        if (eastRoom != RoomType.Null)
         {
             exits.Add("east");
         }
-        if (westRoom != RoomEnum.Null)
+        if (westRoom != RoomType.Null)
         {
             exits.Add("west");
         }
