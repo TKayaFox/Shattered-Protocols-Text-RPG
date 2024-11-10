@@ -28,8 +28,8 @@ namespace Shattered_Protocols.Navigation.Rooms
             Inventory.Add(key);
 
             //Define Neighboring Rooms
-            South = RoomEnum.Room_Development;
-            East = RoomEnum.Room_Testing;
+            South = RoomType.Room_Development;
+            East = RoomType.Room_Testing;
         }
     }
 }

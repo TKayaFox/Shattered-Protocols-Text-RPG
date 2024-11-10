@@ -18,10 +18,10 @@ namespace Shattered_Protocols.Navigation
         Room startRoom;
         Room currentRoom;
         public Room CurrentRoom { get => currentRoom; set => currentRoom = value; }
-        private Dictionary<RoomEnum, Room>
-            roomDictionary = new Dictionary<RoomEnum, Room>();
-        private Dictionary<RoomEnum, Func<Room>>
-            RoomConstructorDictionary = new Dictionary<RoomEnum, Func<Room>>();
+        private Dictionary<RoomType, Room>
+            roomDictionary = new Dictionary<RoomType, Room>();
+        private Dictionary<RoomType, Func<Room>>
+            RoomConstructorDictionary = new Dictionary<RoomType, Func<Room>>();
 
         /// <summary>
         /// Constructor
@@ -32,7 +32,7 @@ namespace Shattered_Protocols.Navigation
             InitializeConstructorLibrary();
 
             //Set initial room as the current room
-            currentRoom = GetRoom(RoomEnum.Room_Start);
+            currentRoom = GetRoom(RoomType.Room_Start);
 
             //Enter the Starting Room
             currentRoom.Enter();
@@ -44,13 +44,13 @@ namespace Shattered_Protocols.Navigation
         private void InitializeConstructorLibrary()
         {
             //Build Room constructor dictionary
-            RoomConstructorDictionary.Add(RoomEnum.Room_Break, () => new Room_Break());
-            RoomConstructorDictionary.Add(RoomEnum.Room_Development, () => new Room_Development());
-            RoomConstructorDictionary.Add(RoomEnum.Room_Meeting, () => new Room_Meeting());
-            RoomConstructorDictionary.Add(RoomEnum.Room_Operations, () => new Room_Operations());
-            RoomConstructorDictionary.Add(RoomEnum.Room_Server, () => new Room_Server());
-            RoomConstructorDictionary.Add(RoomEnum.Room_Start, () => new Room_Start());
-            RoomConstructorDictionary.Add(RoomEnum.Room_Testing, () => new Room_Testing());
+            RoomConstructorDictionary.Add(RoomType.Room_Break, () => new Room_Break());
+            RoomConstructorDictionary.Add(RoomType.Room_Development, () => new Room_Development());
+            RoomConstructorDictionary.Add(RoomType.Room_Meeting, () => new Room_Meeting());
+            RoomConstructorDictionary.Add(RoomType.Room_Operations, () => new Room_Operations());
+            RoomConstructorDictionary.Add(RoomType.Room_Server, () => new Room_Server());
+            RoomConstructorDictionary.Add(RoomType.Room_Start, () => new Room_Start());
+            RoomConstructorDictionary.Add(RoomType.Room_Testing, () => new Room_Testing());
         }
 
         #region Map Navigation
@@ -58,38 +58,35 @@ namespace Shattered_Protocols.Navigation
         public void Move(Direction direction)
         {
             //Determine what roomtype to load
-            RoomEnum roomType = GetRoomType(direction);
+            RoomType roomType = GetRoomType(direction);
 
-            //Get the reference to the correct room
-            Room room = GetRoom(roomType);
-
-            //Make sure room is valid
-            if (room != null)
+            if (roomType == RoomType.Locked)
             {
-                Console.WriteLine($"Entering new Room: {room.Name}");
-                currentRoom = room;
-                room.Enter();
-
-                //preload adjacent rooms
-                LoadNeighbors();
+                Console.WriteLine($"This door is locked. You cannot go this way!");
+            }
+            else if (roomType == RoomType.Null)
+            {
+                Console.WriteLine($"You cannot go this way!");
             }
             else
-            {
-                Console.WriteLine($"You cannot go this way");
+                { 
+
+                //Get the reference to the correct room
+                Room room = GetRoom(roomType);
+
+                //Make sure room is valid
+                if (room != null)
+                {
+                    Console.WriteLine($"Entering new Room: {room.Name}");
+                    currentRoom = room;
+                    room.Enter();
+                }
             }
         }
 
-        private void LoadNeighbors()
+        private RoomType GetRoomType(Direction direction)
         {
-            GetRoom(currentRoom.North);
-            GetRoom(currentRoom.South);
-            GetRoom(currentRoom.East);
-            GetRoom(currentRoom.West);
-        }
-
-        private RoomEnum GetRoomType(Direction direction)
-        {
-            RoomEnum roomType = 0;
+            RoomType roomType = 0;
 
             //Get the next room using directional references in current room
             switch (direction)
@@ -111,26 +108,24 @@ namespace Shattered_Protocols.Navigation
             return roomType;
         }
 
-        private Room GetRoom(RoomEnum roomType)
+        private Room GetRoom(RoomType roomType)
         {
-            Room room;
 
-            //Check if room is Null, simply return a Null reference
-            if (roomType == RoomEnum.Null)
-            {
-                room = null;
-            }
-            //Get existing room from dictionary if possible
-            else if (roomDictionary.ContainsKey(roomType))
+            Room room = null;
+
+            //Check if roomtype already has a dictionary entry
+            if (roomDictionary.ContainsKey(roomType))
             {
                 room = roomDictionary[roomType];
             }
-            //If not null, and doesnt exist yet, then construct room and return it
-            else
+
+            //If not attempt to construct a dictionary entry
+            else if (RoomConstructorDictionary.ContainsKey(roomType))
             {
                 room = RoomConstructorDictionary[roomType]();
                 roomDictionary.Add(roomType, room);
             }
+            //If roomType is not in either dictionary then assume it is not implemented
 
             return room;
         }

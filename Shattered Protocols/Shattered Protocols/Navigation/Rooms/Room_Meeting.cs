@@ -23,9 +23,9 @@ namespace Shattered_Protocols.Navigation.Rooms
             Inventory = new Inventory();
 
             //Define Neighboring Rooms
-            North = RoomEnum.Room_Testing;
-            South = RoomEnum.Room_Start;
-            West = RoomEnum.Room_Development;
+            North = RoomType.Room_Testing;
+            South = RoomType.Room_Start;
+            West = RoomType.Room_Development;
         }
     }
 }

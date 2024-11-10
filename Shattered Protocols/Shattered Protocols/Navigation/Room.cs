@@ -140,19 +140,19 @@ public abstract class Room
 
         //Determine all possible Exits
         List<string> exits = new List<string>();
-        if (northRoom != RoomType.Null)
+        if (roomDictionary.ContainsKey(Direction.North))
         {
             exits.Add("north");
         }
-        if (southRoom != RoomType.Null)
+        if (roomDictionary.ContainsKey(Direction.South))
         {
             exits.Add("south");
         }
-        if (eastRoom != RoomType.Null)
+        if (roomDictionary.ContainsKey(Direction.East))
         {
             exits.Add("east");
         }
-        if (westRoom != RoomType.Null)
+        if (roomDictionary.ContainsKey(Direction.West))
         {
             exits.Add("west");
         }

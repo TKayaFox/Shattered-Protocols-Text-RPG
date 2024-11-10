@@ -25,7 +25,7 @@ namespace Shattered_Protocols.Navigation.Rooms
 
 
             //Define Neighboring Rooms
-            North = RoomEnum.Room_Server;
+            North = RoomType.Room_Server;
         }
     }
 }

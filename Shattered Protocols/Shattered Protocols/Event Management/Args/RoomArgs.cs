@@ -9,7 +9,7 @@ namespace Shattered_Protocols.Event_Management.Args
 {
     internal class RoomArgs : EventArgs
     {
-        public RoomEnum roomType;
+        public RoomType roomType;
         public Room room;
     }
 }

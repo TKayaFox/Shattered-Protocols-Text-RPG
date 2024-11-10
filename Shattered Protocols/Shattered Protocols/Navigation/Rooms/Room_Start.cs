@@ -24,7 +24,7 @@ namespace Shattered_Protocols.Navigation.Rooms
             //Room Items
             Inventory = new Inventory();
 
-            North = RoomEnum.Room_Meeting;
+            North = RoomType.Room_Meeting;
         }
     }
 }
