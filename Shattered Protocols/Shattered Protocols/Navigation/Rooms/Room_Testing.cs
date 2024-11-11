@@ -1,4 +1,5 @@
-﻿using Shattered_Protocols.Puzzles;
+﻿using Shattered_Protocols.Enumerations;
+using Shattered_Protocols.Puzzles;
 using System;
 using System.Collections.Generic;
 using System.Linq;

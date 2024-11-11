@@ -1,6 +1,8 @@
 ﻿using Shattered_Protocols;
 using Shattered_Protocols.Puzzles;
 using Shattered_Protocols.Navigation;
+using static System.Collections.Specialized.BitVector32;
+using Shattered_Protocols.Enumerations;
 public abstract class Room
 {
     private string name;
@@ -9,8 +11,7 @@ public abstract class Room
     private Puzzle roomPuzzle;
 
     //Neighboring Rooms
-    private Dictionary<Direction, RoomType> roomDictionary = new Dictionary<Direction, RoomType>();
-    private Dictionary<Direction, RoomType> lockedRoomDictionary = new Dictionary<Direction, RoomType>();
+    private Dictionary<Direction, Door> roomDictionary = new Dictionary<Direction, Door>();
 
     #region Getters and Setters
     public string Name
@@ -33,28 +34,6 @@ public abstract class Room
         get => roomPuzzle;
         set => roomPuzzle = value;
     }
-    #region Neighbor Rooms
-    public RoomType North
-    {
-        get => GetUnlockedRoomType(Direction.North);
-        set => roomDictionary[Direction.North] = value;
-    }
-    public RoomType South
-    {
-        get => GetUnlockedRoomType(Direction.South);
-        set => roomDictionary[Direction.South] = value;
-    }
-    public RoomType East
-    {
-        get => GetUnlockedRoomType(Direction.East);
-        set => roomDictionary[Direction.East] = value;
-    }
-    public RoomType West
-    {
-        get => GetUnlockedRoomType(Direction.West);
-        set => roomDictionary[Direction.West] = value;
-    }
-    #endregion
     #endregion
 
     /// <summary>
@@ -92,30 +71,33 @@ public abstract class Room
         }
     }
 
-    /// <summary>
-    /// This method will retorn RoomType Locked if the door is locked, or the correct roomtype if it is not locked
-    /// I really could not come up with a better name for this
-    /// </summary>
-    /// <param name="roomType"></param>
-    /// <returns></returns>
-    public RoomType GetUnlockedRoomType(Direction direction)
+
+    public RoomType UseDoor(Direction direction)
     {
         RoomType roomType = RoomType.Null;
 
-        //Check if door exists
+        //Make sure direction is in roomDictionary
         if (roomDictionary.ContainsKey(direction))
         {
-            //Check if door is locked AND puzzle is not solved
-            if (lockedRoomDictionary.ContainsKey(direction) && !roomPuzzle.IsSolved)
+            //Variables stored for readability
+            Door door = roomDictionary[direction];
+            bool doorLocked = roomPuzzle.IsSolved && door.PuzzleLocked;
+
+            //Check if door exists
+            if (door != null)
             {
-                roomType = RoomType.Locked;
-            }
-            else
-            {
-                roomType = roomDictionary[direction];
+                //Check if Door is locked (And puzzle not solved)
+                if (roomPuzzle != null && doorLocked)
+                {
+                    roomType = RoomType.Locked;
+                }
+                //else return correct roomType
+                else
+                {
+                    roomType = door.RoomType;
+                }
             }
         }
-
         return roomType;
     }
 
@@ -127,17 +109,14 @@ public abstract class Room
     {
         //Display room name and description
         String roomData = $"{name}- {description}\n";
+        roomData = GetRoomItemString(roomData);
+        roomData = GetRoomExitString(roomData);
 
-        //Show any items in the room
-        if (!inventory.IsEmpty())
-        {
-            roomData += inventory.ToString() + "\n"; // Append to roomData instead of printing
-        }
-        else
-        {
-            roomData += "\tThe Room has no items you can interact with\n";
-        }
+        return roomData;
+    }
 
+    private string GetRoomExitString(string roomData)
+    {
         //Determine all possible Exits
         List<string> exits = new List<string>();
         if (roomDictionary.ContainsKey(Direction.North))
@@ -157,7 +136,7 @@ public abstract class Room
             exits.Add("west");
         }
 
-        //Add to strring all possible exits
+        //Add to string all possible exits
         if (exits.Count > 1)
         {
             roomData += $"\tThere are Doorways to the {string.Join(", ", exits)}.";
@@ -169,6 +148,22 @@ public abstract class Room
         else
         {
             roomData += "\tThere are no exits.";
+        }
+
+        return roomData;
+    }
+
+    private string GetRoomItemString(string roomData)
+    {
+
+        //Show any items in the room
+        if (!inventory.IsEmpty())
+        {
+            roomData += inventory.ToString() + "\n"; // Append to roomData instead of printing
+        }
+        else
+        {
+            roomData += "\tThe Room has no items you can interact with\n";
         }
 
         return roomData;

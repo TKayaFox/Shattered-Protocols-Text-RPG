@@ -1,4 +1,4 @@
-﻿using Shattered_Protocols.Navigation;
+﻿using Shattered_Protocols.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shattered_Protocols.Enumerations;
 using Shattered_Protocols.Event_Management;
 using Shattered_Protocols.Navigation;
 

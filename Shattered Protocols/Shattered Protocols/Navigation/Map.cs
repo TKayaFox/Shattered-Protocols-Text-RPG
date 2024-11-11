@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shattered_Protocols.Enumerations;
 using Shattered_Protocols.Event_Management;
 using Shattered_Protocols.Event_Management.Args;
-using Shattered_Protocols.Navigation;
 using Shattered_Protocols.Navigation.Rooms;
 
 namespace Shattered_Protocols.Navigation
@@ -32,7 +32,7 @@ namespace Shattered_Protocols.Navigation
             InitializeConstructorLibrary();
 
             //Set initial room as the current room
-            currentRoom = GetRoom(RoomType.Room_Start);
+            currentRoom = FindRoomReference(RoomType.Room_Start);
 
             //Enter the Starting Room
             currentRoom.Enter();
@@ -58,7 +58,7 @@ namespace Shattered_Protocols.Navigation
         public void Move(Direction direction)
         {
             //Determine what roomtype to load
-            RoomType roomType = GetRoomType(direction);
+            RoomType roomType = currentRoom.UseDoor(direction);
 
             if (roomType == RoomType.Locked)
             {
@@ -72,7 +72,7 @@ namespace Shattered_Protocols.Navigation
                 { 
 
                 //Get the reference to the correct room
-                Room room = GetRoom(roomType);
+                Room room = FindRoomReference(roomType);
 
                 //Make sure room is valid
                 if (room != null)
@@ -84,31 +84,7 @@ namespace Shattered_Protocols.Navigation
             }
         }
 
-        private RoomType GetRoomType(Direction direction)
-        {
-            RoomType roomType = 0;
-
-            //Get the next room using directional references in current room
-            switch (direction)
-            {
-                case Direction.North:
-                    roomType = currentRoom.North;
-                    break;
-                case Direction.South:
-                    roomType = currentRoom.South;
-                    break;
-                case Direction.West:
-                    roomType = currentRoom.West;
-                    break;
-                case Direction.East:
-                    roomType = currentRoom.East;
-                    break;
-            }
-
-            return roomType;
-        }
-
-        private Room GetRoom(RoomType roomType)
+        private Room FindRoomReference(RoomType roomType)
         {
 
             Room room = null;
@@ -129,7 +105,6 @@ namespace Shattered_Protocols.Navigation
 
             return room;
         }
-
         #endregion
     }
 }

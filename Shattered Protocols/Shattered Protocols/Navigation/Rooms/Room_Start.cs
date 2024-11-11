@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shattered_Protocols.Enumerations;
 using Shattered_Protocols.Puzzles;
 using static System.Net.Mime.MediaTypeNames;
 
