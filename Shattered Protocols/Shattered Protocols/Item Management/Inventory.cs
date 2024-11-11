@@ -132,14 +132,14 @@ namespace Shattered_Protocols
                 //If item is null, then state that item was not found
                 if (item == null)
                 {
-                    Console.WriteLine($"{itemName} Not found!");
+                    GameController.Output($"{itemName} Not found!");
                 }
                 //Move Item source Room to Player Inventory
                 else
                 {
                     destination.Add(item);
                     success = true;
-                    Console.WriteLine($"{itemName} moved to {source.Name}");
+                    GameController.Output($"{itemName} moved to {source.Name}");
                 }
             }
             return success;

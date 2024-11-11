@@ -15,8 +15,8 @@ namespace Shattered_Protocols.Puzzles
         public override void Start()
         {
             ResetattemptCount();
-            Console.WriteLine(Description);
-            Console.WriteLine("Enter the password that matches the given SHA256 hash.");
+            GameController.Output(Description);
+            GameController.Output("Enter the password that matches the given SHA256 hash.");
         }
 
         public override void ReadCommand(string command)
@@ -25,19 +25,19 @@ namespace Shattered_Protocols.Puzzles
 
             if (CheckPassword(command.Trim()))
             {
-                Console.WriteLine("Access granted! Puzzle solved.");
+                GameController.Output("Access granted! Puzzle solved.");
                 IsSolved = true;
             }
             else
             {
                 AttemptCount ++;
-                Console.WriteLine("Access denied. Try again.");
+                GameController.Output("Access denied. Try again.");
             }
 
             // Display a hint after 3 failed attemptCount
             if (AttemptCount >= 3)
             {
-                Console.WriteLine("Hint: The password is a commonly used weak password.");
+                GameController.Output("Hint: The password is a commonly used weak password.");
             }
         }
 

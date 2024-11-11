@@ -1,4 +1,5 @@
 ﻿using Shattered_Protocols.Enumerations;
+using Shattered_Protocols.Event_Management.Args;
 using Shattered_Protocols.Puzzles;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,30 @@ namespace Shattered_Protocols.Navigation.Rooms
 
 
             //Define Neighboring Rooms
-            North = RoomType.Room_Server;
+            //  Direction relative to current roon, type of room
+            NewDoor(Direction.North, RoomType.Room_Server);
+        }
+
+        //Override OnUseItem to allow FlashDrive usage
+        internal override void OnUseItem(EventArgs args)
+        {
+            // Check if args is of type ItemArgs (if so store as itemArgs)
+            if (args is ItemArgs itemArgs)
+            {
+                // Unpack Args as ItemArgs
+                string name = itemArgs.Name;
+
+                // Check if name is "flashDrive"
+                if (name.Equals("flashdrive", StringComparison.OrdinalIgnoreCase))
+                {
+                    // End Game
+                    GameController.Publish(EventType.GameEnd, new EventArgs());
+                }
+            }
+            else
+            {
+                GameController.Output("This Item cannot be used here!");
+            }
         }
     }
 }

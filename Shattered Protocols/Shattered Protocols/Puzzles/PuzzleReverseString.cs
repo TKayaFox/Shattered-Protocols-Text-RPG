@@ -15,21 +15,21 @@ namespace Shattered_Protocols.Puzzles
         public override void Start()
         {
             ResetattemptCount();
-            Console.WriteLine(Description);
-            Console.WriteLine($"Encrypted Message: {encryptedMessage}");
-            Console.WriteLine("Enter the correct decryption:");
+            GameController.Output(Description);
+            GameController.Output($"Encrypted Message: {encryptedMessage}");
+            GameController.Output("Enter the correct decryption:");
         }
 
         public override void ReadCommand(string command)
         {
             if (command == ReverseString(encryptedMessage))
             {
-                Console.WriteLine("Correct! Puzzle solved.");
+                GameController.Output("Correct! Puzzle solved.");
                 IsSolved = true;
             }
             else
             {
-                Console.WriteLine("Incorrect. Try again.");
+                GameController.Output("Incorrect. Try again.");
             }
         }
 
