@@ -23,7 +23,6 @@ namespace Shattered_Protocols
 
         public bool Use()
         {
-            GameController.Output($"Using {Name}");
             bool useSuccess = false;
 
             //Make event args

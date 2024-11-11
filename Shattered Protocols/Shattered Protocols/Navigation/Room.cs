@@ -177,7 +177,6 @@ public abstract class Room
     {
         //By default Items do nothing, must override in child class.
         //  If Room does use item unpack args to check if correct item is being used.
-        GameController.Output("This Item cannot be used here!");
     }
     #endregion
 

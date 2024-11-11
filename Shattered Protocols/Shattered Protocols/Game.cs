@@ -35,7 +35,7 @@ namespace Shattered_Protocols
 
             //make log object to track user inputs
             string fileName = "user Input log [" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm") + "]";
-            gameLog = new TxtLogger(fileName); 
+            gameLog = new TxtLogger(fileName);
 
 
             //Show intro text with story information
@@ -48,9 +48,17 @@ namespace Shattered_Protocols
             //Loop until Game Ends or is Exited  (getInput variable set to false)
             while (!getInput)
             {
-                GameController.GetInput();
                 //Get player input and translate into commands
-                GetPlayerInput();
+                string input = Console.ReadLine().Trim();
+
+                //Raise an event for user input
+                NewLineArgs args = new NewLineArgs();
+                args.Line = input;
+
+                GameController.Publish(EventType.Input, args);
+
+                //Process input
+                PlayerInput(input);
             }
         }
 
@@ -63,11 +71,8 @@ namespace Shattered_Protocols
         /// <summary>
         /// Read input source console, break into parts for ReadCommand and call ReadCommand to translate players intent
         /// </summary>
-        private void OnPlayerInput(EventArgs args)
+        private void PlayerInput(string playerInput)
         {
-            //Get player input source console
-            string playerInput = "";
-
             // Check for empty input
             while (string.IsNullOrWhiteSpace(playerInput))
             {
@@ -81,9 +86,6 @@ namespace Shattered_Protocols
 
             //Convert to lower case
             playerInput = playerInput.ToLower();
-
-            //Log players input
-            gameLog.AddLine(playerInput);
 
             //Seperate keyword (first word) source input
             string keyword, remainder;
@@ -324,12 +326,14 @@ namespace Shattered_Protocols
             //Stop Input Loop
             getInput = true;
 
+            //Display Game End prompt/Summary
+            GameController.Output("==============");
+            GameController.Output("Game Complete!");
+            GameController.Output("==============");
+
             //clear event manager subscriptions
             GameController.Reset();
-
-            //Display Game End prompt/Summary
         }
-
         #endregion
     }
 }
