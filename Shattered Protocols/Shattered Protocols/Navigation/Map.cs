@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Shattered_Protocols.Enumerations;
-using Shattered_Protocols.Event_Management;
 using Shattered_Protocols.Event_Management.Args;
 using Shattered_Protocols.Navigation.Rooms;
 
@@ -15,7 +14,6 @@ namespace Shattered_Protocols.Navigation
     /// </summary>
     internal class Map
     {
-        Room startRoom;
         Room currentRoom;
         public Room CurrentRoom { get => currentRoom; set => currentRoom = value; }
         private Dictionary<RoomType, Room>
@@ -62,11 +60,11 @@ namespace Shattered_Protocols.Navigation
 
             if (roomType == RoomType.Locked)
             {
-                Console.WriteLine($"This door is locked. You cannot go this way!");
+                GameController.Output($"This door is locked. You cannot go this way!");
             }
             else if (roomType == RoomType.Null)
             {
-                Console.WriteLine($"You cannot go this way!");
+                GameController.Output($"You cannot go this way!");
             }
             else
                 { 
@@ -77,7 +75,7 @@ namespace Shattered_Protocols.Navigation
                 //Make sure room is valid
                 if (room != null)
                 {
-                    Console.WriteLine($"Entering new Room: {room.Name}");
+                    GameController.Output($"Entering new Room: {room.Name}");
                     currentRoom = room;
                     room.Enter();
                 }

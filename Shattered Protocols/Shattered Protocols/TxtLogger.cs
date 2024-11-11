@@ -1,4 +1,6 @@
-﻿using Shattered_Protocols.Event_Management;
+﻿using Shattered_Protocols.Enumerations;
+using Shattered_Protocols.Event_Management;
+using Shattered_Protocols.Event_Management.Args;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,19 +21,33 @@ namespace Shattered_Protocols
         //              make a specific event for WriteLine that replaces Console.Writeline
         //              Writeline instead, and it writes to console AND to text doc
 
-        private string filePath;
+        private string inputLogPath;
+        private string logPath;
 
         public TxtLogger(string fileName)
         {
             // Set file path to the base directory with the given filename
-            filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName + ".txt");
+            inputLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName + "-Inputs.txt");
+            logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName + "-Log.txt");
 
-            // Create a new file, or overwrite if it already exists
-            using (StreamWriter writer = new StreamWriter(filePath, false))
+            //Start file logs
+            StartFile(inputLogPath);
+            StartFile(logPath);
+
+            //Start event management
+            ManageMe();
+        }
+
+        private static void StartFile(string filePath)
+        {
+
+            // Create a new file (will only append if file already exists)
+            using (StreamWriter writer = new StreamWriter(filePath,true))
             {
-                writer.WriteLine("File created: " + DateTime.Now); // Optional initial line
+                writer.WriteLine("Log Started: " + DateTime.Now); // Optional initial line
             }
 
+            Console.WriteLine("===================================================");
             Console.WriteLine("Log File created at: " + filePath);
         }
 
@@ -39,7 +55,7 @@ namespace Shattered_Protocols
         /// Method to add a line of text to the file
         /// </summary>
         /// <param name="line"></param>
-        public void AddLine(string line)
+        private void AddLine(string line, string filePath)
         {// Append the line to the file
             using (StreamWriter writer = new StreamWriter(filePath, true))
             {
@@ -51,18 +67,64 @@ namespace Shattered_Protocols
         //        Events
         //======================== 
 
-        #region Event Management
+        #region Event Manager
         public void ManageMe()
         {
             //Subscribe to events here, make sure to also include unsubscription
+            GameController.Subscribe(EventType.Output, OnNewOutput);
+            GameController.Subscribe(EventType.Input, OnNewInput);
         }
         public void UnManageMe()
         {
             //UnSubscribe to events here
+            GameController.Unsubscribe(EventType.Output, OnNewOutput);
+            GameController.Unsubscribe(EventType.Input, OnNewInput);
         }
         #endregion
+
         #region Events
 
+        //Triggers Game End Logic
+        private void OnNewOutput(EventArgs args)
+        {
+            //Set default line as an error message that displays if there is issue with input
+            String line = "[ERROR: Line Not Found!]";
+
+            //Get string from event args
+            line = LineEventString(args);
+
+            //Display output in console
+            Console.WriteLine(line);
+
+            //Log output into the gamelog document
+            AddLine(line, logPath);
+        }
+
+        private void OnNewInput(EventArgs args)
+        {
+            //Set default line as an error message that displays if there is issue with input
+            String line = "[ERROR: Input Not Found!]";
+
+            //Get string from event args
+            line = LineEventString(args);
+
+            //Log output into the gamelog document
+            AddLine(line, logPath);
+            AddLine(line, inputLogPath);
+        }
+
+        private static string LineEventString(EventArgs args)
+        {
+            String line = "";
+
+            //Make sure correct eventtype
+            if (args is NewLineArgs lineArgs)
+            {
+                line = lineArgs.Line;
+            }
+
+            return line;
+        }
         #endregion
     }
 }

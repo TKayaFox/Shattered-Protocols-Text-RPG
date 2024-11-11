@@ -28,13 +28,13 @@ namespace Shattered_Protocols.Puzzles
         {
             ResetattemptCount();
 
-            Console.WriteLine(Description);
-            Console.WriteLine("You have the following data to filter:");
+            GameController.Output(Description);
+            GameController.Output("You have the following data to filter:");
             foreach (var item in dataToFilter)
             {
-                Console.WriteLine(item);
+                GameController.Output(item);
             }
-            Console.WriteLine("Enter a regex pattern to filter the data:");
+            GameController.Output("Enter a regex pattern to filter the data:");
         }
 
         public override void ReadCommand(string command)
@@ -44,33 +44,33 @@ namespace Shattered_Protocols.Puzzles
 
             if (filteredResults.Count > 0)
             {
-                Console.WriteLine("Filtered results:");
+                GameController.Output("Filtered results:");
                 foreach (var result in filteredResults)
                 {
-                    Console.WriteLine(result);
+                    GameController.Output(result);
                 }
 
                 // Check if the player guessed the correct pattern (this can be modified)
                 if (command == "Admin") // Example correct pattern
                 {
-                    Console.WriteLine("Correct! Puzzle solved.");
+                    GameController.Output("Correct! Puzzle solved.");
                     IsSolved = true;
                 }
                 else
                 {
-                    Console.WriteLine("Pattern not correct. Try again.");
+                    GameController.Output("Pattern not correct. Try again.");
                     if (attemptCount >= 3)
                     {
-                        Console.WriteLine("Hint: Try patterns that match specific user roles.");
+                        GameController.Output("Hint: Try patterns that match specific user roles.");
                     }
                 }
             }
             else
             {
-                Console.WriteLine("No matches found. Try a different pattern.");
+                GameController.Output("No matches found. Try a different pattern.");
                 if (attemptCount >= 4)
                 {
-                    Console.WriteLine("Hint: Consider how roles are structured in the data.");
+                    GameController.Output("Hint: Consider how roles are structured in the data.");
                 }
             }
         }

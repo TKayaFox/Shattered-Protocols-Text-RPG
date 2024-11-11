@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Shattered_Protocols.Enumerations;
 using Shattered_Protocols.Event_Management;
+using Shattered_Protocols.Event_Management.Args;
 using Shattered_Protocols.Navigation;
 
 namespace Shattered_Protocols
@@ -34,22 +35,30 @@ namespace Shattered_Protocols
 
             //make log object to track user inputs
             string fileName = "user Input log [" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm") + "]";
-            gameLog = new TxtLogger(fileName); 
+            gameLog = new TxtLogger(fileName);
 
 
             //Show intro text with story information
             //Load map
             map = new Map();
 
-            //Subscribe all objects to eventManager
-            GlobalEventManager.ManageObject(player);
-            GlobalEventManager.ManageObject(gameLog);
+            //Subscribe to eventmanager
+            ManageMe();
 
             //Loop until Game Ends or is Exited  (getInput variable set to false)
             while (!getInput)
             {
                 //Get player input and translate into commands
-                GetPlayerInput();
+                string input = Console.ReadLine().Trim();
+
+                //Raise an event for user input
+                NewLineArgs args = new NewLineArgs();
+                args.Line = input;
+
+                GameController.Publish(EventType.Input, args);
+
+                //Process input
+                PlayerInput(input);
             }
         }
 
@@ -62,11 +71,8 @@ namespace Shattered_Protocols
         /// <summary>
         /// Read input source console, break into parts for ReadCommand and call ReadCommand to translate players intent
         /// </summary>
-        private void GetPlayerInput()
+        private void PlayerInput(string playerInput)
         {
-            //Get player input source console
-            string playerInput = "";
-
             // Check for empty input
             while (string.IsNullOrWhiteSpace(playerInput))
             {
@@ -74,15 +80,12 @@ namespace Shattered_Protocols
 
                 if (string.IsNullOrWhiteSpace(playerInput))
                 {
-                    Console.WriteLine("No command detected. Please enter a valid command.");
+                    GameController.Output("No command detected. Please enter a valid command.");
                 }
             }
 
             //Convert to lower case
             playerInput = playerInput.ToLower();
-
-            //Log players input
-            gameLog.AddLine(playerInput);
 
             //Seperate keyword (first word) source input
             string keyword, remainder;
@@ -165,7 +168,7 @@ namespace Shattered_Protocols
                     ChangeRoom(Direction.East);
                     break;
                 case "exit":
-                    Console.WriteLine("Exiting Game- Thank you for Playing!");
+                    GameController.Output("Exiting Game- Thank you for Playing!");
                     getInput = true;
                     break;
 
@@ -179,7 +182,7 @@ namespace Shattered_Protocols
                     }
                     else
                     {
-                        Console.WriteLine("Command not recognized. Type Help for a list of commands!");
+                        GameController.Output("Command not recognized. Type Help for a list of commands!");
                     }
                     break;
             }
@@ -204,7 +207,7 @@ namespace Shattered_Protocols
         /// </summary>
         public void Search()
         {
-            Console.WriteLine(map.CurrentRoom.ToString());
+            GameController.Output(map.CurrentRoom.ToString());
         }
 
         /// <summary>
@@ -213,7 +216,7 @@ namespace Shattered_Protocols
         public void Help()
         {
             // Display standard help menu commands
-            Console.WriteLine(@"Help Information:
+            GameController.Output(@"Help Information:
                 When typing commands, avoid using extraneous words such as ""please"", ""do"" and ""the"".
 
                     Note: This game is currently in its testing phase. If you are having significant difficulty, please notify the development team with as many specifics as possible.
@@ -238,7 +241,7 @@ namespace Shattered_Protocols
         /// </summary>
         public void ShowInventory()
         {
-            Console.WriteLine(player.Inventory.ToString());
+            GameController.Output(player.Inventory.ToString());
         }
         #endregion
 
@@ -289,7 +292,7 @@ namespace Shattered_Protocols
             //if still null, then item not found. otherwise attempt to use it.
             if (item == null)
             {
-                Console.WriteLine($"{itemName} Not Found");
+                GameController.Output($"{itemName} Not Found");
             }
             else
             {
@@ -306,12 +309,12 @@ namespace Shattered_Protocols
         public void ManageMe()
         {
             //Subscribe to events here, make sure to also include unsubscription
-            GlobalEventManager.Subscribe("GameEnd", OnGameEnd);
+            GameController.Subscribe(EventType.GameEnd, OnGameEnd);
         }
         public void UnManageMe()
         {
             //UnSubscribe to events here
-            GlobalEventManager.Unsubscribe("GameEnd", OnGameEnd);
+            GameController.Unsubscribe(EventType.GameEnd, OnGameEnd);
         }
         #endregion
 
@@ -323,10 +326,13 @@ namespace Shattered_Protocols
             //Stop Input Loop
             getInput = true;
 
-            //clear event manager subscriptions
-            GlobalEventManager.Reset();
-
             //Display Game End prompt/Summary
+            GameController.Output("==============");
+            GameController.Output("Game Complete!");
+            GameController.Output("==============");
+
+            //clear event manager subscriptions
+            GameController.Reset();
         }
         #endregion
     }

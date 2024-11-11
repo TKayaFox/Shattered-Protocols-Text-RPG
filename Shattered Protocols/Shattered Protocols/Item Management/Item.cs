@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Shattered_Protocols.Event_Management.Args;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shattered_Protocols.Enumerations;
 
 namespace Shattered_Protocols
 {
@@ -21,12 +23,18 @@ namespace Shattered_Protocols
 
         public bool Use()
         {
-            Console.WriteLine($"Using {Name}");
             bool useSuccess = false;
 
-            //Item based logic for what using does, and whether it can be used here
+            //Make event args
+            ItemArgs args = new ItemArgs();
+            args.Name = Name;
+            args.Description = Description;
+
+            //Raise an event that the item was used
+            GameController.Publish(EventType.UseItem, args);
 
             return useSuccess;
+
         }
     }
 }
