@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shattered_Protocols.Event_Management;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Shattered_Protocols
     /// <summary>
     /// Txt Logger is a simple object that will take input strings and write them to a txt file.
     /// </summary>
-    internal class TxtLogger
+    internal class TxtLogger : IEventManagable
     {
         //EDIT: This DEFINITELY should be event based
         //      Once event based also show:
@@ -45,5 +46,23 @@ namespace Shattered_Protocols
                 writer.WriteLine(line);
             }
         }
+
+        //======================== 
+        //        Events
+        //======================== 
+
+        #region Event Management
+        public void ManageMe()
+        {
+            //Subscribe to events here, make sure to also include unsubscription
+        }
+        public void UnManageMe()
+        {
+            //UnSubscribe to events here
+        }
+        #endregion
+        #region Events
+
+        #endregion
     }
 }

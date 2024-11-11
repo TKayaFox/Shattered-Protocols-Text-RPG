@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shattered_Protocols.Event_Management;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Shattered_Protocols
 {
-    public class Player
+    public class Player : IEventManagable
     {
         private Inventory inventory;
         private string name;
@@ -45,6 +46,25 @@ namespace Shattered_Protocols
             get => description;
             set => description = value;
         }
+        #endregion
+
+
+        //======================== 
+        //        Events
+        //======================== 
+
+        #region Event Management
+        public void ManageMe()
+        {
+            //Subscribe to events here, make sure to also include unsubscription
+        }
+        public void UnManageMe()
+        {
+            //UnSubscribe to events here
+        }
+        #endregion
+        #region Events
+
         #endregion
     }
 }

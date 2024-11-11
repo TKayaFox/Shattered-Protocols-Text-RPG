@@ -1,4 +1,5 @@
-﻿using Shattered_Protocols.Puzzles;
+﻿using Shattered_Protocols.Enumerations;
+using Shattered_Protocols.Puzzles;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Shattered_Protocols.Navigation
+namespace Shattered_Protocols.Navigation.Rooms
 {
     internal class Room_Break : Room
     {
@@ -24,27 +25,12 @@ namespace Shattered_Protocols.Navigation
 
             //Room Items
             Inventory = new Inventory();
-            Item key = new Item("Emergency Shutdown Key", "This key should shut doen the full system if I can just find the right place to use it!");
+            Item key = new Item("flashdrive", "This drive holds the access codes needed to shut doen the full system if I can just find the right place to use it!");
             Inventory.Add(key);
-        }
 
-        /// <summary>
-        /// Attempt to load all neighboring rooms (if not already loaded)
-        /// </summary>
-        public override void LoadNeighboringRooms()
-        {
-            //Load rooms if not yet loaded
-            if (South == null)
-            {
-                South = new Room_Development();
-                South.North = this;
-            }
-            //Load rooms if not yet loaded
-            if (East == null)
-            {
-                East = new Room_Testing();
-                East.West = this;
-            }
+            //Define Neighboring Rooms
+            South = RoomType.Room_Development;
+            East = RoomType.Room_Testing;
         }
     }
 }
