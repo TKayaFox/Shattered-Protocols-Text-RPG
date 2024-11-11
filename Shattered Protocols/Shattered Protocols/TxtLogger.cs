@@ -71,14 +71,14 @@ namespace Shattered_Protocols
         public void ManageMe()
         {
             //Subscribe to events here, make sure to also include unsubscription
-            GameController.Subscribe(EventType.Input, OnNewOutput);
-            GameController.Subscribe(EventType.Output, OnNewInput);
+            GameController.Subscribe(EventType.Output, OnNewOutput);
+            GameController.Subscribe(EventType.Input, OnNewInput);
         }
         public void UnManageMe()
         {
             //UnSubscribe to events here
             GameController.Unsubscribe(EventType.Output, OnNewOutput);
-            GameController.Unsubscribe(EventType.Output, OnNewInput);
+            GameController.Unsubscribe(EventType.Input, OnNewInput);
         }
         #endregion
 
@@ -93,6 +93,9 @@ namespace Shattered_Protocols
             //Get string from event args
             line = LineEventString(args);
 
+            //Display output in console
+            Console.WriteLine(line);
+
             //Log output into the gamelog document
             AddLine(line, logPath);
         }
@@ -100,13 +103,10 @@ namespace Shattered_Protocols
         private void OnNewInput(EventArgs args)
         {
             //Set default line as an error message that displays if there is issue with input
-            String line = "[ERROR: Input Data Not Found!]";
+            String line = "[ERROR: Input Not Found!]";
 
             //Get string from event args
             line = LineEventString(args);
-
-            //Display output in console
-            Console.WriteLine(line);
 
             //Log output into the gamelog document
             AddLine(line, logPath);
@@ -123,8 +123,6 @@ namespace Shattered_Protocols
                 line = lineArgs.Line;
             }
 
-            //Display output in console
-            Console.WriteLine(line);
             return line;
         }
         #endregion

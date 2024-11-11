@@ -65,16 +65,6 @@ namespace Shattered_Protocols
 
             Publish(EventType.Output, args);
         }
-        public static void GetInput()
-        {
-            string input = Console.ReadLine().Trim();
-
-            //Raise an event printing message for user and logging
-            NewLineArgs args = new NewLineArgs();
-            args.Line = input;
-
-            Publish(EventType.Input, args);
-        }
         #endregion
     }
 }

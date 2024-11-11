@@ -14,7 +14,6 @@ namespace Shattered_Protocols.Navigation
     /// </summary>
     internal class Map
     {
-        Room startRoom;
         Room currentRoom;
         public Room CurrentRoom { get => currentRoom; set => currentRoom = value; }
         private Dictionary<RoomType, Room>
