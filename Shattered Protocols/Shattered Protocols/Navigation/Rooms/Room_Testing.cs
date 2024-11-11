@@ -24,9 +24,15 @@ namespace Shattered_Protocols.Navigation.Rooms
             Inventory = new Inventory();
 
             //Define Neighboring Rooms
-            South = RoomType.Room_Meeting;
-            West = RoomType.Room_Break;
-            East = RoomType.Room_Server;
+            //  Direction relative to current roon, type of room
+            NewDoor(Direction.South, RoomType.Room_Meeting);
+            NewDoor(Direction.East, RoomType.Room_Server);
+            NewDoor(Direction.West, RoomType.Room_Break);
+
+            //Lock appropriate rooms
+            ToggleLock(Direction.South, true);
+            ToggleLock(Direction.West, true);
+            ToggleLock(Direction.East, true);
         }
     }
 }

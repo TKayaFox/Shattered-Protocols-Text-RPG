@@ -26,8 +26,12 @@ namespace Shattered_Protocols.Navigation.Rooms
             Inventory = new Inventory();
 
             //Define Neighboring Rooms
-            South = RoomType.Room_Operations;
-            West = RoomType.Room_Testing;
+            //  Direction relative to current roon, type of 
+            NewDoor(Direction.South, RoomType.Room_Operations);
+            NewDoor(Direction.West, RoomType.Room_Testing);
+
+            //Lock appropriate rooms
+            ToggleLock(Direction.South, true);
         }
     }
 }

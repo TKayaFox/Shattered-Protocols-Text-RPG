@@ -1,4 +1,5 @@
-﻿using Shattered_Protocols.Event_Management;
+﻿using Shattered_Protocols.Enumerations;
+using Shattered_Protocols.Event_Management;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,43 +27,43 @@ namespace Shattered_Protocols
             Action<> to hold the delegated event method
                 object to pass eventargs or other through the event
         /*/
-        private Dictionary<string, Action<EventArgs>> 
-            eventDictionary = new Dictionary<string, Action<EventArgs>>();
+        private Dictionary<EventType, Action<EventArgs>> 
+            eventDictionary = new Dictionary<EventType, Action<EventArgs>>();
 
-        public void Subscribe(string eventName, Action<EventArgs> listener)
+        public void Subscribe(EventType eventType, Action<EventArgs> listener)
         {
             //Check if such an event exists in the dictionary yet
-            if (!eventDictionary.ContainsKey(eventName))
+            if (!eventDictionary.ContainsKey(eventType))
             {
                 // Initialize the event entry if it doesn't exist
-                eventDictionary[eventName] = delegate { };
+                eventDictionary[eventType] = delegate { };
             }
             // Add listener to the event
-            eventDictionary[eventName] += listener;
+            eventDictionary[eventType] += listener;
         }
 
-        public void Unsubscribe(string eventName, Action<EventArgs> listener)
+        public void Unsubscribe(EventType eventType, Action<EventArgs> listener)
         {
-            if (eventDictionary.ContainsKey(eventName))
+            if (eventDictionary.ContainsKey(eventType))
             {
                 // Remove listener from the event
-                eventDictionary[eventName] -= listener;
+                eventDictionary[eventType] -= listener;
 
                 // Clean up if no listeners remain
-                if (eventDictionary[eventName] == null)
+                if (eventDictionary[eventType] == null)
                 {
-                    eventDictionary.Remove(eventName);
+                    eventDictionary.Remove(eventType);
                 }
             }
         }
 
         // Method for publishing an event to notify all listeners
-        public void Publish(string eventName, EventArgs args = null)
+        public void Publish(EventType eventType, EventArgs args = null)
         {
-            if (eventDictionary.ContainsKey(eventName))
+            if (eventDictionary.ContainsKey(eventType))
             {
                 // Invoke all listeners associated with the event
-                eventDictionary[eventName]?.Invoke(args);
+                eventDictionary[eventType]?.Invoke(args);
             }
         }
 
@@ -71,13 +72,7 @@ namespace Shattered_Protocols
         /// </summary>
         public void Reset()
         {
-            eventDictionary = new Dictionary<string, Action<EventArgs>>();
-        }
-
-        // Subscribe to all desired events for an object that implements IEventManagable
-        public void ManageObject(IEventManagable objectToManage)
-        {
-            objectToManage.ManageMe();
+            eventDictionary.Clear();
         }
     }
 }

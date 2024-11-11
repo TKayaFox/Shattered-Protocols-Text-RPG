@@ -3,6 +3,7 @@ using Shattered_Protocols.Puzzles;
 using Shattered_Protocols.Navigation;
 using static System.Collections.Specialized.BitVector32;
 using Shattered_Protocols.Enumerations;
+using Shattered_Protocols.Event_Management.Args;
 public abstract class Room
 {
     private string name;
@@ -47,6 +48,9 @@ public abstract class Room
 
         //Room Items
         inventory = new Inventory();
+
+        //Subscribe to eventmanager
+        ManageMe();
     }
 
 
@@ -54,7 +58,7 @@ public abstract class Room
     public void Enter()
     {
         //Display room name and description using ToString
-        Console.WriteLine(ToString());
+        GameController.Output(ToString());
 
         //Run ShowPuzzle Logic if applicable
         ShowPuzzle();
@@ -100,6 +104,84 @@ public abstract class Room
         }
         return roomType;
     }
+
+    #region Directional Reference
+    //Get stored roomType without checking for locks
+    public RoomType GetRoomType(Direction direction)
+    {
+        RoomType roomType = RoomType.Null;
+        if (roomDictionary.ContainsKey(direction))
+        {
+            roomType = roomDictionary[direction].RoomType;
+        }
+        return roomType;
+    }
+
+    public void NewDoor(Direction direction, RoomType roomType, bool puzzleLocked = false)
+    {
+
+        //remove existing dictionary entry if needed
+        if (roomDictionary.ContainsKey(direction))
+        {
+            roomDictionary.Remove(direction);
+        }
+        Door door = new Door(roomType, puzzleLocked);
+        roomDictionary.Add(direction, door);
+    }
+    #endregion
+    #region Door Handling
+    private bool DoorExists(Direction direction)
+    {
+        return roomDictionary.ContainsKey(direction) && roomDictionary[direction] != null;
+    }
+
+    public void ToggleLock(Direction direction)
+    {
+        if (DoorExists(direction))
+        {
+            // Reverse current boolean (toggle lock state)
+            ToggleLock(direction, !roomDictionary[direction].PuzzleLocked);
+        }
+    }
+
+    public void ToggleLock(Direction direction, bool isLocked)
+    {
+        if (DoorExists(direction))
+        {
+            // Set the lock state to isLocked
+            roomDictionary[direction].PuzzleLocked = isLocked;
+        }
+    }
+    #endregion
+
+    //======================== 
+    //        Events
+    //======================== 
+
+    #region Event Manager
+    public void ManageMe()
+    {
+        //Subscribe to events here, make sure to also include unsubscription
+        GameController.Subscribe(EventType.UseItem, OnUseItem);
+    }
+    public void UnManageMe()
+    {
+        //UnSubscribe to events here
+        GameController.Unsubscribe(EventType.UseItem, OnUseItem);
+    }
+    #endregion
+
+    #region Events
+
+    internal virtual void OnUseItem(EventArgs args)
+    {
+        //By default Items do nothing, must override in child class.
+        //  If Room does use item unpack args to check if correct item is being used.
+        GameController.Output("This Item cannot be used here!");
+    }
+    #endregion
+
+    #region String Processing
 
     /// <summary>
     /// Override ToString to display room info
@@ -168,4 +250,5 @@ public abstract class Room
 
         return roomData;
     }
+    #endregion
 }

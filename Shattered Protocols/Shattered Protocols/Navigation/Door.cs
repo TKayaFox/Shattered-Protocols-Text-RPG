@@ -9,17 +9,15 @@ namespace Shattered_Protocols.Navigation
 {
     internal class Door
     {
-        Direction direction;
         RoomType roomType;
         bool puzzleLocked;
 
-        public Door(RoomType roomtype, Direction direction)
+        public Door(RoomType roomtype, bool puzzleLocked = false)
         {
             RoomType = roomtype;
-            Direction = direction;
+            PuzzleLocked = puzzleLocked;
         }
 
-        public Direction Direction { get => direction; set => direction = value; }
         public RoomType RoomType { get => roomType; set => roomType = value; }
         public bool PuzzleLocked { get => puzzleLocked; set => puzzleLocked = value; }
     }
