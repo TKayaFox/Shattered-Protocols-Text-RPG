@@ -6,9 +6,16 @@ using System.Text;
 namespace Shattered_Protocols.Puzzles
 {
     // Caesar Cipher Puzzle
+    // The user is given an encrypted message and must decrypt it using a Caesar cipher.
+    // The user has an unlimited number of attempts to solve the puzzle.
+    // The puzzle is solved when the user inputs the correct decryption.
+    // The encrypted message is "Khoor Zruog" which is "Hello World" shifted by 3.
+    // The user must decrypt the message by shifting it back by 3.
+    // the string is hard coded, but can be changed to any string if needed.
     public class PuzzleCaesarCipher : Puzzle
     {
         private readonly string encryptedMessage = "Khoor Zruog"; // "Hello World" shifted by 3
+        // the shit amount is also hard coded here, but we can fix it to a random number. If we do, we must also change the clue to give the correct hint.
         private readonly int shiftAmount = 3;
         private int attemptCount = 0;
 
@@ -43,6 +50,7 @@ namespace Shattered_Protocols.Puzzles
             }
         }
 
+        // cypher decryption method
         private string DecryptCaesar(string input, int shift)
         {
             StringBuilder decrypted = new StringBuilder();

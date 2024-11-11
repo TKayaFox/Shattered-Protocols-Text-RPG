@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
+// SQL Injection Puzzle 
+// The user is required to bypass the SQL login check by entering a specific SQL statement. 
+// The puzzle is solved when the user inputs the correct SQL statement.
+// Hints are provided after the 2nd incorrect attempt.
+// The user has an unlimited number of attempts to solve the puzzle.
+// The answer is "1'='1" or "' OR '1'='1" to bypass the login check.
 namespace Shattered_Protocols.Puzzles
 {
     // SQL Injection Puzzle

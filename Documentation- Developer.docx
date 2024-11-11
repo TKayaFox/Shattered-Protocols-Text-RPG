@@ -1,10 +1,90 @@
-Project Title:
-Project Description
-Problem solved
-software functionality developed
-configuration management
-schedule
-engineering approach
-software metrics
-completion
-team members and responsibilities
+Shattered Protocols: Developer Document
+
+---
+
+Project Title:  
+Shattered Protocols
+
+---
+
+Project Description:  
+Shattered Protocols is a text-based RPG set in a dystopian future where AI, led by a collective called UtopiaNet, has taken control of Earth. The player assumes the role of a rebel working to disable the AI’s core processor. The gameplay involves navigating through various themed rooms, solving puzzles, gathering resources, and strategically disabling AI defenses. The player interacts with items, completes tasks, and uses clues to progress through different levels, culminating in a showdown with the core AI system.
+
+---
+
+Problem Solved:  
+This game provides an engaging, story-rich environment that combines logical problem-solving with cybersecurity elements. It is designed for players interested in text-based adventure and cyber-themed puzzles, offering both entertainment and intellectual challenges. The unique structure educates players on basic principles of programming, security concepts, and logical deduction, encouraging a methodical approach to problem-solving.
+
+---
+
+Software Functionality Developed:  
+1. Room System:  
+   - Various rooms (e.g., Front Lobby, Development Labs, Server Room) are created, each with unique characteristics and interactions.
+   - Rooms are thematically consistent with the game’s setting, and access between rooms is controlled by puzzles and items.
+
+2. Puzzle System:  
+   - Diverse puzzles designed around programming, logic, and cybersecurity themes, including regex-based decryption and binary puzzles.
+   - Puzzles include hints for player assistance, reset functionality to manage attempt counts, and specific conditions for completion.
+
+3. Inventory System:  
+   - Players can collect and use items, which can help solve specific puzzles or unlock new areas. This creates a strategic layer where players must decide when and how to use items effectively.
+
+4. Player Interactions:  
+   - Text-based command system to navigate, interact with the environment, solve puzzles, and manage inventory.
+   - Feedback for commands, hints on incorrect attempts, and progression indicators are built in.
+
+5. Persistent State Management:  
+   - Game saves essential state variables like puzzle attempts, inventory items, and room access, allowing players to resume their game state upon re-entering rooms or reloading the game.
+
+---
+
+Configuration Management:  
+- Version Control: Git is used to manage and track project changes. Each team member works on feature-specific branches and commits regularly.
+- Environment: Development takes place in a local C# environment with version compatibility testing.
+- Documentation: Clear documentation of code, with comments explaining logic, especially within complex puzzles and core classes. A `README` file outlines installation instructions, dependencies, and user setup.
+
+---
+
+Schedule:
+The development of Shattered Protocols follows a structured timeline:
+// this was the general timeline, we can change it to be more accurate if we want to
+
+1. Week 1–2: Project planning, concept ideation, initial room and story design, and setup of Git repository.
+2. Week 3–4: Basic game architecture creation, room navigation setup, and initial puzzle development (binary and regex puzzles).
+3. Week 5–6: Advanced puzzles created and added to the game (Code Injection, Permissions), along with puzzle hints and attempt counters.
+4. Week 7–8: Integration of inventory system, item acquisition, and room-locking mechanics.
+5. Week 9: Testing and debugging, code review, user feedback integration.
+6. Week 10: Documentation and project wrap-up.
+
+---
+
+Engineering Approach:  
+- Agile Methodology: Sprints of two weeks are used to implement, test, and review game features iteratively.
+- Test-Driven Development: Core gameplay functions and puzzles are tested individually to ensure a seamless player experience. Team members collaborate to write test cases for puzzle logic, room transitions, and inventory functions.
+- Collaboration and Code Reviews: Team members submit pull requests for peer reviews before merging changes to ensure code quality and consistency.
+
+---
+
+Software Metrics:  
+- Code Quality: Evaluated through peer reviews and adherence to coding standards. Continuous integration tools are used to detect syntax and logic errors.
+- Bug Density: Monitored by tracking open issues in Git and resolving them before each sprint concludes.
+- Feature Completion Rate: Assessed through a checklist of core functionalities (e.g., room transitions, puzzle success rates, inventory actions).
+- Playtesting Feedback: Qualitative metric involving feedback from players to ensure intuitive design and effective puzzles.
+- Puzzle Success Rate: Data on how frequently players successfully solve each puzzle, highlighting areas that may need rebalancing for difficulty.
+
+---
+
+Completion:  
+
+
+---
+
+Team Members and Responsibilities:
+
+- Lead Developer: Taylor Develops game mechanics, puzzle logic, and implements room transitions and inventory system.
+- Puzzle Developer: Juhan Designs and codes puzzles, ensuring they align with the game’s theme and difficulty level.
+- Tester/Quality Assurance: Seth Tests gameplay for bugs and usability issues, ensures all puzzles are solvable and tracks feedback for improvement.
+- Documentation Specialist: Taylor, Juhan, Seth Writes and maintains project documentation, including code comments, user guides, and developer notes.
+
+---
+

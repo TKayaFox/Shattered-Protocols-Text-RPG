@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
+// PuzzleBinaryLock is a puzzle that requires the user to input the binary representation of the number 42. 
+// The puzzle is solved when the user inputs the correct binary number.
+// Hints are provided after the 2nd and 4th incorrect attempts.
+// The user has an unlimited number of attempts to solve the puzzle.
+// the answer is hard coded to 42, but can be changed to any number/ even random number if needed.
 namespace Shattered_Protocols.Puzzles
 {
     public class PuzzleBinaryLock : Puzzle
@@ -16,6 +22,8 @@ namespace Shattered_Protocols.Puzzles
             Console.WriteLine("Enter the binary representation of the number 42:");
         }
 
+        // Check the user input to see if it is correct.
+        // If the input is correct, the puzzle is solved.
         private void CheckInput(string input)
         {
             if (CheckBinaryInput(input, 42))
@@ -31,11 +39,13 @@ namespace Shattered_Protocols.Puzzles
             }
         }
 
+        // Read command method to check the user input.
         public override void ReadCommand(string command)
         {
             CheckInput(command);
         }
 
+        // Hints are provided after the 2nd and 4th incorrect attempts.
         private void ProvideHint()
         {
             if (AttemptCount == 2)
