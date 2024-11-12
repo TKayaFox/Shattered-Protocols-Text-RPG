@@ -1,8 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
+// Regex-Based Decryption (Development Labs)
+// The user is given a list of data entries and must filter the data using a Python-style regex pattern.
+// The user has an unlimited number of attempts to solve the puzzle.
+// The puzzle is solved when the user inputs a regex pattern that filters the data to reveal the answer.
+// The answer is "Admin" as a role in the data entries. 
+// The user input is case-insensitive.
 namespace Shattered_Protocols.Puzzles
 {
     // Regex-Based Decryption (Development Labs)
@@ -11,7 +18,7 @@ namespace Shattered_Protocols.Puzzles
         private List<string> dataToFilter;
         private int attemptCount = 0;
 
-        public PuzzleRegex() : base("Decrypt data using regex patterns.", "Regex pattern") 
+        public PuzzleRegex() : base("Decrypt data using Python-style regex patterns.", "Regex pattern")
         {
             // Sample data that players will filter
             dataToFilter = new List<string>
@@ -29,17 +36,22 @@ namespace Shattered_Protocols.Puzzles
             ResetattemptCount();
 
             GameController.Output(Description);
-            GameController.Output("You have the following data to filter:");
+            GameController.Output("You have the following data to filter (use Python-style regex):");
             foreach (var item in dataToFilter)
             {
                 GameController.Output(item);
             }
-            GameController.Output("Enter a regex pattern to filter the data:");
+            GameController.Output("Enter a regex pattern to filter the data to find only admin:");
         }
 
         public override void ReadCommand(string command)
         {
             attemptCount++;
+
+            // Convert command to lowercase for case-insensitive matching
+            command = command.ToLower();
+
+            // Filter data with regex pattern
             List<string> filteredResults = FilterDataWithRegex(command, dataToFilter.ToArray());
 
             if (filteredResults.Count > 0)
@@ -50,8 +62,11 @@ namespace Shattered_Protocols.Puzzles
                     GameController.Output(result);
                 }
 
-                // Check if the player guessed the correct pattern (this can be modified)
-                if (command == "Admin") // Example correct pattern
+                // Check if any filtered result contains "admin" as the answer
+                // Python regex pattern to match admin role
+                // The pattern is case-insensitive
+                string adminPattern = @"role:\s*admin";
+                if (filteredResults.Any(result => result.ToLower().Contains(adminPattern)))
                 {
                     GameController.Output("Correct! Puzzle solved.");
                     IsSolved = true;
@@ -61,7 +76,7 @@ namespace Shattered_Protocols.Puzzles
                     GameController.Output("Pattern not correct. Try again.");
                     if (attemptCount >= 3)
                     {
-                        GameController.Output("Hint: Try patterns that match specific user roles.");
+                        GameController.Output("Hint: Try patterns that match specific user roles. Remember, Python-style regex is used.");
                     }
                 }
             }
@@ -70,7 +85,7 @@ namespace Shattered_Protocols.Puzzles
                 GameController.Output("No matches found. Try a different pattern.");
                 if (attemptCount >= 4)
                 {
-                    GameController.Output("Hint: Consider how roles are structured in the data.");
+                    GameController.Output("Hint: Consider how roles are structured in the data. Python regex style is expected.");
                 }
             }
         }
@@ -80,7 +95,8 @@ namespace Shattered_Protocols.Puzzles
             List<string> matchedData = new List<string>();
             foreach (var item in data)
             {
-                if (System.Text.RegularExpressions.Regex.IsMatch(item, pattern))
+                // Apply Python-style regex pattern for filtering
+                if (System.Text.RegularExpressions.Regex.IsMatch(item, pattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                 {
                     matchedData.Add(item);
                 }
