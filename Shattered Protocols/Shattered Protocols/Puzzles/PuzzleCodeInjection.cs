@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
+// PuzzleCodeInjection is a puzzle that requires the user to input the correct terminal command to bypass a firewall.
+// The puzzle is solved when the user inputs the correct terminal command.
+// Hints are provided after the 2nd and 4th incorrect attempts.
+// The user has an unlimited number of attempts to solve the puzzle.
+// the answer is hard coded to "sudo firewall-bypass", but can be changed to any command if needed.
 namespace Shattered_Protocols.Puzzles
 {
     // Code Injection Puzzle (Server Room)
@@ -22,6 +28,7 @@ namespace Shattered_Protocols.Puzzles
         public override void ReadCommand(string command)
         {
             AttemptCount ++;
+            // correct command to bypass the firewall; can be changed to any command
             string correctCommand = "sudo firewall-bypass";
 
             if (command == correctCommand)
@@ -36,6 +43,7 @@ namespace Shattered_Protocols.Puzzles
             }
         }
 
+        // Hints are provided after the 2nd and 4th incorrect attempts.
         private void GiveHint()
         {
             if (AttemptCount == 2)
