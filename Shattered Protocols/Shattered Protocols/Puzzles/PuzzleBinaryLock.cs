@@ -17,6 +17,12 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
+            //Puzzle intro
+            GameController.Output(@"
+             The receptionists here thought that since this is the front desk, they would be cheeky and implement 
+             a Binary Code as the front locking mechanism to get into the rest of the building. A Binary Code 
+             seemed apt as people regularly enter and exit the front desks, kinda like 1's and 0's.
+             ");
             ResetattemptCount();
             GameController.Output(Description);
             GameController.Output("Enter the binary representation of the number 42:");
@@ -29,6 +35,11 @@ namespace Shattered_Protocols.Puzzles
             if (CheckBinaryInput(input, 42))
             {
                 GameController.Output("Correct! Puzzle solved.");
+                //Puzzle Outro
+                GameController.Output(@"
+             The receptionists thought it was so clever to have this as the code… 
+             Too bad it was not clever enough to keep you from getting in… Time to head inside…
+             ");
                 IsSolved = true;
             }
             else

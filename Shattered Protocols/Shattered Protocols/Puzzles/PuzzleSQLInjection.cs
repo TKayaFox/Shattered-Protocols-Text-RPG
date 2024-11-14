@@ -21,6 +21,14 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
+            //Puzzle intro (NEEDS EDIT TO ONLY DISPLAY WITH KEY IN INVENTORY OR KEY USED)
+            GameController.Output(@"
+             Finally, after all these puzzles… it's time to crack open this casing and end the tyranny 
+             of the machines. You insert the key into the slot and a window pops up on the terminal asking 
+             for the password. You really don't want to guess the password for hours, so it's time to apply 
+             some hacks with your extensive knowledge in SQL. The inputs might not have been properly sanitized, 
+             might as well as try smarter and not harder at first…
+             ");
             ResetattemptCount();
             GameController.Output(Description);
             GameController.Output("Enter SQL statement to access restricted information:");

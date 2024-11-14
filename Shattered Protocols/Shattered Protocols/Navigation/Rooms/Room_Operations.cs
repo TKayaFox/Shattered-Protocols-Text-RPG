@@ -16,11 +16,12 @@ namespace Shattered_Protocols.Navigation.Rooms
         {
             Name = "Heart of Operations";
             Description = @"
-             Welcome to the Heart of Operations. There is a big supercomputer that takes up most of this room.
-             The computer is protected by an anti-blast, anti-EMP casing. Even if you nuked this building,
-             UtopiaNet would still survive. That's why you are here. There seems to be a slot in the casing
+             Welcome to the Heart of Operations. There is a big supercomputer that takes up most 
+             of this room. The computer is protected by an anti-blast, anti-EMP casing. Even if 
+             you nuked this building, UtopiaNet would still survive. That's why you are here. 
+             There seems to be a slot in the casing. 
              ";
-            RoomPuzzle = new PuzzlePasswordCracker();
+            RoomPuzzle = new PuzzleSQLInjection();
 
             //Room Items
             Inventory = new Inventory();

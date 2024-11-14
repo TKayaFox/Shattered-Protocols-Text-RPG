@@ -22,6 +22,12 @@ namespace Shattered_Protocols.Puzzles
         public PuzzleCaesarCipher() : base("Decrypt the Caesar ciphered message.", "Decryption input") { }
         public override void Start()
         {
+            //Puzzle intro
+            GameController.Output(@"
+             While the AI were learning object detection, they were also learning about password mechanisms. 
+             The Ceaser Cypher is used on the lock on the door to the Break Room. This was a way for the AI 
+             to crack the Ceaser Cypher with minimal documentation/information.
+             ");
             ResetattemptCount();
             GameController.Output(Description);
             GameController.Output($"Encrypted Message: {encryptedMessage}");
@@ -36,6 +42,11 @@ namespace Shattered_Protocols.Puzzles
             if (command.Trim().Equals(correctDecryption, StringComparison.OrdinalIgnoreCase))
             {
                 GameController.Output("Correct! Puzzle solved.");
+                //Puzzle Outro
+                GameController.Output(@"
+             You remember the good ol' days where you had the luxury to learn to make simple programs like “Hello World” and Ceaser Cyphers without robots trying to kill you non-stop. 
+             A luxury you hope to reobtain after all this is over… Time to go to the Break Room.
+             ");
                 IsSolved = true;
             }
             else

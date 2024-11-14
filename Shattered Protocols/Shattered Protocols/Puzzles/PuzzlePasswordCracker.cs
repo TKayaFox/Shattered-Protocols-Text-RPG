@@ -20,6 +20,12 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
+            GameController.Output(@"
+             There is a door terminal keeping access to the Break Room that says, 
+             “In pursuit of deterring the constant snack breaks, we put a simple lock here.” 
+             Unfortunately, the password is a hash, so this simple password might be a bit 
+             more complicated.
+             ");
             ResetattemptCount();
             GameController.Output(Description);
             // users could copy and past the hash into google...?
@@ -34,6 +40,10 @@ namespace Shattered_Protocols.Puzzles
             if (CheckPassword(command.Trim()))
             {
                 GameController.Output("Access granted! Puzzle solved.");
+                GameController.Output(@"
+             This hash was no match for the skills of the top computer scientist in the Rebel Alliance. 
+             Time to take a break in the break room!
+             ");
                 IsSolved = true;
             }
             else

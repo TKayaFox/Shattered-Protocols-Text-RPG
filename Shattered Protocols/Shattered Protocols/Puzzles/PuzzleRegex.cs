@@ -33,6 +33,13 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
+            //Puzzle intro
+            GameController.Output(@"
+             The lock heading to the Testing Room requires a profile with Admin rights to get through. 
+             In the middle of the table, there seems to be a small computer full of names and passwords, 
+             but there are way too many to comb through. Some kind of regular expression would help sort 
+             out which profiles have admin passwords.
+             ");
             ResetattemptCount();
 
             GameController.Output(Description);
@@ -69,6 +76,11 @@ namespace Shattered_Protocols.Puzzles
                 if (filteredResults.Any(result => result.ToLower().Contains(adminPattern)))
                 {
                     GameController.Output("Correct! Puzzle solved.");
+                    //Puzzle Outro
+                    GameController.Output(@"
+             Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
+             Time to go see what they were testing…
+             ");
                     IsSolved = true;
                 }
                 else

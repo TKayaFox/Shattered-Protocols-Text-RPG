@@ -20,6 +20,12 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
+            //Puzzle intro
+            GameController.Output(@"
+             The servers have firewalls in place to repel intruders from entering the Heart of Operations. 
+             You are seen as a virus (and rightfully so). Find a way to bypass this terminal and become one 
+             step closer to your goal.
+             ");
             ResetattemptCount();
             GameController.Output(Description);
             GameController.Output("Enter the correct terminal command to bypass the firewall in Linux:"); ;
@@ -34,6 +40,10 @@ namespace Shattered_Protocols.Puzzles
             if (command == correctCommand)
             {
                 GameController.Output("Firewall bypassed! Puzzle solved.");
+                //Puzzle Outro
+                GameController.Output(@"
+             The Firewalls are now down, and you may pass… Didn't even need a fire extinguisher.
+             ");
                 IsSolved = true;
             }
             else
