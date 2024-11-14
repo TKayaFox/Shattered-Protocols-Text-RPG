@@ -23,7 +23,7 @@ namespace Shattered_Protocols.Puzzles
 
         public override void ReadCommand(string command)
         {
-            if (command.Contains("nmap --n -v -p- -A 192.126.98.10"))
+            if (command.Contains("nmap -n -v -p- -A 192.126.98.10"))
             {
                 Console.WriteLine("Access granted! Puzzle solved.");
                 IsSolved = true;
