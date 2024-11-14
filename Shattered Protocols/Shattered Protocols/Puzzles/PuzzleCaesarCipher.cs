@@ -53,7 +53,6 @@ namespace Shattered_Protocols.Puzzles
             {
                 GameController.Output("Incorrect. Try again.");
 
-                //Hint
                 if (AttemptCount >= 4)
                 {
                     GameController.Output("Hint: The original message is a common greeting that is shifted 3 times. Not gonna tell you which way...");

@@ -69,6 +69,8 @@ namespace Shattered_Protocols.Puzzles
             }
         }
 
+        // check if the user input is the correct binary representation of the number 42
+        // binary number can be changed to random number if needed.
         private static bool CheckBinaryInput(string userInput, int correctNumber)
         {
             string correctBinary = Convert.ToString(correctNumber, 2);
