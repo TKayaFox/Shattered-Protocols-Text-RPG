@@ -22,7 +22,7 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
-            //Puzzle intro (NEEDS EDIT TO ONLY DISPLAY WITH KEY IN INVENTORY OR KEY USED)
+            //Puzzle intro
             GameController.Output(@"
              Finally, after all these puzzles… it's time to crack open this casing and end the tyranny 
              of the machines. You insert the key into the slot and a window pops up on the terminal asking 
@@ -40,9 +40,6 @@ namespace Shattered_Protocols.Puzzles
             if (command.Contains("1'='1") || command.Contains("' OR '1'='1"))
             {
                 PuzzleSolved("Access Granted!");
-
-                // End Game
-                GameController.Publish(EventType.GameEnd, new EventArgs());
             }
             else
             {
@@ -53,6 +50,15 @@ namespace Shattered_Protocols.Puzzles
                     GameController.Output("Hint: SQL injections are often used to force conditions to be true.");
                 }
             }
+        }
+
+        //When problem solved, end the game
+        public override void PuzzleSolved(string message)
+        {
+            GameController.Output(message);
+
+            // End Game
+            GameController.Publish(EventType.GameEnd, new EventArgs());
         }
     }
 }

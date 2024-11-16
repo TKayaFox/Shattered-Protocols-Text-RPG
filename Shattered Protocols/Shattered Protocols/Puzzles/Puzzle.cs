@@ -62,7 +62,7 @@ namespace Shattered_Protocols.Puzzles
             int attemptCount = 0;
         }
 
-        public void PuzzleSolved(String resolutionMsg = "")
+        public virtual void PuzzleSolved(String resolutionMsg = "")
         {
             //mark solved
             IsSolved = true;

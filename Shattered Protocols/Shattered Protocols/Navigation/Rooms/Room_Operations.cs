@@ -19,7 +19,8 @@ namespace Shattered_Protocols.Navigation.Rooms
              Welcome to the Heart of Operations. There is a big supercomputer that takes up most 
              of this room. The computer is protected by an anti-blast, anti-EMP casing. Even if 
              you nuked this building, UtopiaNet would still survive. That's why you are here. 
-             There seems to be a slot in the casing. 
+             There seems to be a USB port in the casing. 
+             You just need to find the rubberducky USB drive with the virus to finish the job! 
              ";
             RoomPuzzle = new PuzzleSQLInjection();
 
@@ -57,9 +58,6 @@ namespace Shattered_Protocols.Navigation.Rooms
                 // Check if name is "flashDrive"
                 if (name.Equals("flashdrive", StringComparison.OrdinalIgnoreCase))
                 {
-                    //Display room name and description using ToString
-                    GameController.Output(ToString());
-
                     //Run ShowPuzzle Logic if applicable
                     ShowPuzzle();
                 }
