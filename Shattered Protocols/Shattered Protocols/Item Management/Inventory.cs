@@ -12,10 +12,10 @@ namespace Shattered_Protocols
         List<Item> inventory = new List<Item>();
 
         #region Getters and Setters
-        public string Name 
-        { 
-            get => name; 
-            set => name = value; 
+        public string Name
+        {
+            get => name;
+            set => name = value;
         }
         #endregion
 
@@ -69,7 +69,7 @@ namespace Shattered_Protocols
             bool success = false;
             //If item is null, then state that item was not found
             if (item != null)
-            { 
+            {
                 inventory.Add(item);
                 success = true;
             }
@@ -141,26 +141,27 @@ namespace Shattered_Protocols
         public static bool Transfer(string itemName, Inventory source, Inventory destination)
         {
             bool success = false;
-            if (source != null && destination != null)
+            if (source != null)
             {
-
+                Item[] items = { };
                 //If user did not specify a specific item, or specified ALL then transfer all items
                 if (itemName == "" || itemName == "all" || itemName == "everything")
                 {
                     //get all items from target inventory
-                    Item[] items = source.TakeAll();
-                    success = Transfer(destination, items);
+                    items = source.TakeAll();
                 }
                 else //Add singular item
                 {
                     //Attempt to get item source room (Will return null and display a message if unable)
                     Item item = source.TakeItem(itemName);
-
                     if (item != null)
                     {
-                        success = destination.Add(item);
+                        items = new[] { item };
                     }
                 }
+
+
+                success = Transfer(destination, items);
             }
 
             //notify user of result
@@ -178,22 +179,24 @@ namespace Shattered_Protocols
 
         private static bool Transfer(Inventory destination, Item[] items)
         {
-            bool success = false;
 
-            //If items array is empty, then state that item was not found
-            if (items.Length > 0)
+            bool success = false;
+            if (destination != null)
             {
-                // Transfer each item to the destination
-                foreach (Item item in items)
+                //If items array is empty, then state that item was not found
+                if (items.Length > 0)
                 {
-                    success = destination.Add(item);
+                    // Transfer each item to the destination
+                    foreach (Item item in items)
+                    {
+                        success = destination.Add(item);
+                    }
+                }
+                else
+                {
+                    GameController.Output($"There is nothing here!");
                 }
             }
-            else
-            {
-                GameController.Output($"There is nothing here!");
-            }
-
             return success;
         }
     }

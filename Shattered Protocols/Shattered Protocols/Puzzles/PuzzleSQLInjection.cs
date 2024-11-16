@@ -18,7 +18,7 @@ namespace Shattered_Protocols.Puzzles
     {
         private int attemptCount = 0;
 
-        public PuzzleSQLInjection() : base("Bypass the SQL login check.", "SQL input") { }
+        public PuzzleSQLInjection() : base("Bypass the SQL login check.") { }
 
         public override void Start()
         {

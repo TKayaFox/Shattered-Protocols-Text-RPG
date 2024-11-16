@@ -13,7 +13,7 @@ namespace Shattered_Protocols.Puzzles
 {
     public class PuzzleBinaryLock : Puzzle
     {
-        public PuzzleBinaryLock() : base("Solve the binary lock puzzle.", "Binary input") { }
+        public PuzzleBinaryLock() : base("Solve the binary lock puzzle.") { }
 
         public override void Start()
         {
@@ -41,7 +41,7 @@ namespace Shattered_Protocols.Puzzles
             }
             else
             {
-                AttemptCount ++;
+                AttemptCount++;
                 GameController.Output("Incorrect, try again.");
                 ProvideHint();
             }

@@ -31,9 +31,9 @@ namespace Shattered_Protocols.Navigation.Rooms
             NewDoor(Direction.West, RoomType.Room_Break);
 
             //Lock appropriate rooms
-            ToggleLock(Direction.South, true);
-            ToggleLock(Direction.West, true);
-            ToggleLock(Direction.East, true);
+            SetLock(Direction.South, true);
+            SetLock(Direction.West, true);
+            SetLock(Direction.East, true);
         }
     }
 }
