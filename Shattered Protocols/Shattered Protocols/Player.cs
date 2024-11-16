@@ -15,20 +15,6 @@ namespace Shattered_Protocols
         private string description;
 
         #region Getters and Setters
-
-        /// <summary>
-        /// overloaded constructor to fill in player data
-        ///     overloaded so if no input provided uses defaults
-        /// </summary>
-        public Player() : this("Player", "This is you") { }
-        public Player(string name, string description)
-        {
-            this.name = name;
-            this.description = description;
-
-            inventory = new Inventory($"{name}'s inventory");
-        }
-
         public Inventory Inventory
         {
             get => inventory;
@@ -48,6 +34,18 @@ namespace Shattered_Protocols
         }
         #endregion
 
+        /// <summary>
+        /// overloaded constructor to fill in player data
+        ///     overloaded so if no input provided uses defaults
+        /// </summary>
+        public Player() : this("Player", "This is you") { }
+        public Player(string name, string description)
+        {
+            this.name = name;
+            this.description = description;
+
+            this.inventory = new Inventory($"{name}'s inventory");
+        }
 
         //======================== 
         //        Events

@@ -64,20 +64,24 @@ namespace Shattered_Protocols
         /// Adds an item to the inventory.
         /// </summary>
         /// <param name="item">The item to add.</param>
-        public void Add(Item item)
+        public bool Add(Item item)
         {
+            bool success = false;
+            //If item is null, then state that item was not found
             if (item != null)
-            {
+            { 
                 inventory.Add(item);
+                success = true;
             }
+            return success;
         }
 
         /// <summary>
-        /// Removes (and returns) an item from the inventory.
+        /// Removes (and returns) an item from the inventory and returns it
         /// </summary>
         /// <param name="itemName">The name of the item to drop.</param>
         /// <returns>The removed item</returns>
-        public Item RemoveItem(String itemName)
+        public Item TakeItem(String itemName)
         {
             Item item = GetItem(itemName);
             if (item != null)
@@ -85,6 +89,20 @@ namespace Shattered_Protocols
                 inventory.Remove(item);
             }
             return item;
+        }
+
+
+        //Removes all items from inventories and returns as an array
+        public Item[] TakeAll()
+        {
+            // Convert inventory to an array
+            Item[] items = inventory.ToArray();
+
+            // Clear the inventory
+            inventory.Clear();
+
+            // Return the items
+            return items;
         }
 
         /// <summary>
@@ -126,22 +144,56 @@ namespace Shattered_Protocols
             if (source != null && destination != null)
             {
 
-                //Attempt to get item source room (Will return null and display a message if unable)
-                Item item = source.RemoveItem(itemName);
-
-                //If item is null, then state that item was not found
-                if (item == null)
+                //If user did not specify a specific item, or specified ALL then transfer all items
+                if (itemName == "" || itemName == "all" || itemName == "everything")
                 {
-                    GameController.Output($"{itemName} Not found!");
+                    //get all items from target inventory
+                    Item[] items = source.TakeAll();
+                    success = Transfer(destination, items);
                 }
-                //Move Item source Room to Player Inventory
-                else
+                else //Add singular item
                 {
-                    destination.Add(item);
-                    success = true;
-                    GameController.Output($"{itemName} moved to {source.Name}");
+                    //Attempt to get item source room (Will return null and display a message if unable)
+                    Item item = source.TakeItem(itemName);
+
+                    if (item != null)
+                    {
+                        success = destination.Add(item);
+                    }
                 }
             }
+
+            //notify user of result
+            if (success)
+            {
+                GameController.Output("Added to Inventory");
+            }
+            else
+            {
+                GameController.Output("I dont see that!");
+            }
+
+            return success;
+        }
+
+        private static bool Transfer(Inventory destination, Item[] items)
+        {
+            bool success = false;
+
+            //If items array is empty, then state that item was not found
+            if (items.Length > 0)
+            {
+                // Transfer each item to the destination
+                foreach (Item item in items)
+                {
+                    success = destination.Add(item);
+                }
+            }
+            else
+            {
+                GameController.Output($"There is nothing here!");
+            }
+
             return success;
         }
     }
