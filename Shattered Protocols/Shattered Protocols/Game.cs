@@ -20,7 +20,6 @@ namespace Shattered_Protocols
 
         private Player player;
         private Map map;
-        private EventManager eventManager;
         private bool getInput = false;
         private TxtLogger gameLog;
         #endregion
@@ -192,6 +191,12 @@ namespace Shattered_Protocols
                 case "exit":
                     GameController.Output("Exiting Game- Thank you for Playing!");
                     getInput = true;
+                    break;
+                case "solve":
+                    if (map.CurrentRoom.RoomPuzzle != null)
+                    {
+                        map.CurrentRoom.RoomPuzzle.PuzzleSolved();
+                    }
                     break;
 
                 // Any invalid commands or not yet programmed commands

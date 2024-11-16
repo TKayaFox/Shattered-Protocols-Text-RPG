@@ -75,12 +75,10 @@ namespace Shattered_Protocols.Puzzles
                 string adminPattern = @"role:\s*admin";
                 if (filteredResults.Any(result => result.ToLower().Contains(adminPattern)))
                 {
-                    GameController.Output("Correct! Puzzle solved.");
-                    //Puzzle Outro
-                    GameController.Output(@"
-             Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
-             Time to go see what they were testing…
-             ");
+                    PuzzleSolved(@"
+                 Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
+                 Time to go see what they were testing…
+                 ");
                     IsSolved = true;
                 }
                 else

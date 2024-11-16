@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shattered_Protocols.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,8 +39,10 @@ namespace Shattered_Protocols.Puzzles
         {
             if (command.Contains("1'='1") || command.Contains("' OR '1'='1"))
             {
-                GameController.Output("Access granted! Puzzle solved.");
-                IsSolved = true;
+                PuzzleSolved("Access Granted!");
+
+                // End Game
+                GameController.Publish(EventType.GameEnd, new EventArgs());
             }
             else
             {

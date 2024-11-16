@@ -10,7 +10,7 @@ namespace Shattered_Protocols.Navigation.Rooms
 {
     internal class Room_Testing : Room
     {
-        public Room_Testing()
+        public Room_Testing() : base(RoomType.Room_Testing)
         {
             Name = "Testing Lab";
             Description = @"

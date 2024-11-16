@@ -12,7 +12,7 @@ namespace Shattered_Protocols.Navigation.Rooms
 {
     internal class Room_Start : Room
     {
-        public Room_Start()
+        public Room_Start() : base(RoomType.Room_Start)
         {
             Name = "Front Desks";
             Description = @"

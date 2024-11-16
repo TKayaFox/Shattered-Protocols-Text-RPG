@@ -34,13 +34,10 @@ namespace Shattered_Protocols.Puzzles
         {
             if (CheckBinaryInput(input, 42))
             {
-                GameController.Output("Correct! Puzzle solved.");
-                //Puzzle Outro
-                GameController.Output(@"
+                PuzzleSolved(@"
              The receptionists thought it was so clever to have this as the code… 
              Too bad it was not clever enough to keep you from getting in… Time to head inside…
              ");
-                IsSolved = true;
             }
             else
             {

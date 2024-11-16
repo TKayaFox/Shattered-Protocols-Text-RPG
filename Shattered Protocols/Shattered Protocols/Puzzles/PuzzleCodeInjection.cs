@@ -39,12 +39,9 @@ namespace Shattered_Protocols.Puzzles
 
             if (command == correctCommand)
             {
-                GameController.Output("Firewall bypassed! Puzzle solved.");
-                //Puzzle Outro
-                GameController.Output(@"
-             The Firewalls are now down, and you may pass… Didn't even need a fire extinguisher.
-             ");
-                IsSolved = true;
+                PuzzleSolved(@"
+                 The Firewalls are now down, and you may pass… Didn't even need a fire extinguisher.
+                 ");
             }
             else
             {

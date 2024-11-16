@@ -33,7 +33,7 @@ namespace Shattered_Protocols.Navigation
             currentRoom = FindRoomReference(RoomType.Room_Start);
 
             //Enter the Starting Room
-            currentRoom.Enter();
+            currentRoom.Enter(Direction.South);
         }
 
         /// <summary>
@@ -60,14 +60,14 @@ namespace Shattered_Protocols.Navigation
 
             if (roomType == RoomType.Locked)
             {
-                GameController.Output($"This door is locked. You cannot go this way!");
+                GameController.Output($"This door is locked!");
             }
             else if (roomType == RoomType.Null)
             {
                 GameController.Output($"You cannot go this way!");
             }
             else
-                { 
+            {
 
                 //Get the reference to the correct room
                 Room room = FindRoomReference(roomType);
@@ -77,9 +77,36 @@ namespace Shattered_Protocols.Navigation
                 {
                     GameController.Output($"Entering new Room: {room.Name}");
                     currentRoom = room;
-                    room.Enter();
+
+                    //Determine the opposite of direction and then enter the room
+                    Direction sourceDirection = ReverseDirection(direction);
+
+                    //Enter room, tell room the 
+                    currentRoom.Enter(sourceDirection);
                 }
             }
+        }
+
+        private static Direction ReverseDirection(Direction direction)
+        {
+            Direction opposite;
+            switch (direction)
+            {
+                case Direction.North:
+                    opposite = Direction.South;
+                    break;
+                case Direction.West:
+                    opposite = Direction.East;
+                    break;
+                case Direction.East:
+                    opposite = Direction.West;
+                    break;
+                default:
+                    opposite = Direction.North;
+                    break;
+            }
+
+            return opposite;
         }
 
         private Room FindRoomReference(RoomType roomType)
