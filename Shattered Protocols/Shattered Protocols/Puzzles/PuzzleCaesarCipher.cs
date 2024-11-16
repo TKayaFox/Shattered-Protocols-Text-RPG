@@ -19,7 +19,7 @@ namespace Shattered_Protocols.Puzzles
         private readonly int shiftAmount = 3;
         private int attemptCount = 0;
 
-        public PuzzleCaesarCipher() : base("Decrypt the Caesar ciphered message.", "Decryption input") { }
+        public PuzzleCaesarCipher() : base("Decrypt the Caesar ciphered message.") { }
         public override void Start()
         {
             //Puzzle intro
@@ -36,7 +36,7 @@ namespace Shattered_Protocols.Puzzles
 
         public override void ReadCommand(string command)
         {
-            AttemptCount ++;
+            AttemptCount++;
             string correctDecryption = DecryptCaesar(encryptedMessage, shiftAmount);
 
             if (command.Trim().Equals(correctDecryption, StringComparison.OrdinalIgnoreCase))

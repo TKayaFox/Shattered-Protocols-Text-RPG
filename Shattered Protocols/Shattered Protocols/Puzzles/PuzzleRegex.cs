@@ -18,7 +18,7 @@ namespace Shattered_Protocols.Puzzles
         private List<string> dataToFilter;
         private int attemptCount = 0;
 
-        public PuzzleRegex() : base("Decrypt data using Python-style regex patterns.", "Regex pattern")
+        public PuzzleRegex() : base("Decrypt data using Python-style regex patterns.")
         {
             // Sample data that players will filter
             dataToFilter = new List<string>

@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Shattered_Protocols
 {
-    public class Player : IEventManagable
+    public class Player
     {
         private Inventory inventory;
         private string name;
@@ -46,23 +46,5 @@ namespace Shattered_Protocols
 
             this.inventory = new Inventory($"{name}'s inventory");
         }
-
-        //======================== 
-        //        Events
-        //======================== 
-
-        #region Event Management
-        public void ManageMe()
-        {
-            //Subscribe to events here, make sure to also include unsubscription
-        }
-        public void UnManageMe()
-        {
-            //UnSubscribe to events here
-        }
-        #endregion
-        #region Events
-
-        #endregion
     }
 }

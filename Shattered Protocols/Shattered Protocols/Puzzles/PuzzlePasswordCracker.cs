@@ -17,7 +17,7 @@ namespace Shattered_Protocols.Puzzles
         // SHA256 of "password123"
         private readonly string hashedPassword = "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f";
 
-        public PuzzlePasswordCracker() : base("Crack the system password.", "Password attempt") { }
+        public PuzzlePasswordCracker() : base("Crack the system password.") { }
 
         public override void Start()
         {
@@ -35,7 +35,7 @@ namespace Shattered_Protocols.Puzzles
         // hints are provided after the 3rd incorrect attempt.
         public override void ReadCommand(string command)
         {
-            AttemptCount ++;
+            AttemptCount++;
 
             if (CheckPassword(command.Trim()))
             {
@@ -47,7 +47,7 @@ namespace Shattered_Protocols.Puzzles
             }
             else
             {
-                AttemptCount ++;
+                AttemptCount++;
                 GameController.Output("Access denied. Try again.");
             }
 

@@ -27,7 +27,7 @@ namespace Shattered_Protocols
             Action<> to hold the delegated event method
                 object to pass eventargs or other through the event
         /*/
-        private Dictionary<EventType, Action<EventArgs>> 
+        private Dictionary<EventType, Action<EventArgs>>
             eventDictionary = new Dictionary<EventType, Action<EventArgs>>();
 
         public void Subscribe(EventType eventType, Action<EventArgs> listener)

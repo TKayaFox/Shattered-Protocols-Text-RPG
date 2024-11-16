@@ -147,16 +147,7 @@ public abstract class Room
         return roomDictionary.ContainsKey(direction) && roomDictionary[direction] != null;
     }
 
-    public void ToggleLock(Direction direction)
-    {
-        if (DoorExists(direction))
-        {
-            // Reverse current boolean (toggle lock state)
-            ToggleLock(direction, !roomDictionary[direction].Locked);
-        }
-    }
-
-    public void ToggleLock(Direction direction, bool isLocked)
+    public void SetLock(Direction direction, bool isLocked)
     {
         if (DoorExists(direction))
         {

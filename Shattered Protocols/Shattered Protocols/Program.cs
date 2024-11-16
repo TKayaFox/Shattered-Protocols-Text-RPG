@@ -9,13 +9,9 @@ namespace Shattered_Protocols
 {
     internal class Program
     {
-        ArrayList roomList = new ArrayList();
-
         ///Starts the Game Logic
-        public static void Main ()
+        public static void Main()
         {
-            //Edit: Dispaly Intro
-
             //Start the Game Logic
             Game game = new Game();
         }

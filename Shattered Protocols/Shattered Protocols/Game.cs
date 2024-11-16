@@ -59,7 +59,7 @@ namespace Shattered_Protocols
         Breach the hatch that has the supercomputer protected, plant the charges and run… for the whole facility is going down 
         once you hit the switch. 
              ");
-             GameController.Output("==============");
+            GameController.Output("==============");
             //Load map
             map = new Map();
 
