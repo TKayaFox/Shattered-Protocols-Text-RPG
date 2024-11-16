@@ -13,7 +13,7 @@ namespace Shattered_Protocols.Puzzles
 {
     public class PuzzleBinaryLock : Puzzle
     {
-        public PuzzleBinaryLock() : base("Solve the binary lock puzzle.", "Binary input") { }
+        public PuzzleBinaryLock() : base("Solve the binary lock puzzle.") { }
 
         public override void Start()
         {
@@ -34,17 +34,14 @@ namespace Shattered_Protocols.Puzzles
         {
             if (CheckBinaryInput(input, 42))
             {
-                GameController.Output("Correct! Puzzle solved.");
-                //Puzzle Outro
-                GameController.Output(@"
+                PuzzleSolved(@"
              The receptionists thought it was so clever to have this as the code… 
              Too bad it was not clever enough to keep you from getting in… Time to head inside…
              ");
-                IsSolved = true;
             }
             else
             {
-                AttemptCount ++;
+                AttemptCount++;
                 GameController.Output("Incorrect, try again.");
                 ProvideHint();
             }

@@ -8,27 +8,13 @@ using System.Xml.Linq;
 
 namespace Shattered_Protocols
 {
-    public class Player : IEventManagable
+    public class Player
     {
         private Inventory inventory;
         private string name;
         private string description;
 
         #region Getters and Setters
-
-        /// <summary>
-        /// overloaded constructor to fill in player data
-        ///     overloaded so if no input provided uses defaults
-        /// </summary>
-        public Player() : this("Player", "This is you") { }
-        public Player(string name, string description)
-        {
-            this.name = name;
-            this.description = description;
-
-            inventory = new Inventory($"{name}'s inventory");
-        }
-
         public Inventory Inventory
         {
             get => inventory;
@@ -48,23 +34,17 @@ namespace Shattered_Protocols
         }
         #endregion
 
-
-        //======================== 
-        //        Events
-        //======================== 
-
-        #region Event Management
-        public void ManageMe()
+        /// <summary>
+        /// overloaded constructor to fill in player data
+        ///     overloaded so if no input provided uses defaults
+        /// </summary>
+        public Player() : this("Player", "This is you") { }
+        public Player(string name, string description)
         {
-            //Subscribe to events here, make sure to also include unsubscription
-        }
-        public void UnManageMe()
-        {
-            //UnSubscribe to events here
-        }
-        #endregion
-        #region Events
+            this.name = name;
+            this.description = description;
 
-        #endregion
+            this.inventory = new Inventory($"{name}'s inventory");
+        }
     }
 }

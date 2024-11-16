@@ -12,14 +12,15 @@ namespace Shattered_Protocols.Navigation.Rooms
 {
     internal class Room_Operations : Room
     {
-        public Room_Operations()
+        public Room_Operations() : base(RoomType.Room_Operations)
         {
             Name = "Heart of Operations";
             Description = @"
              Welcome to the Heart of Operations. There is a big supercomputer that takes up most 
              of this room. The computer is protected by an anti-blast, anti-EMP casing. Even if 
              you nuked this building, UtopiaNet would still survive. That's why you are here. 
-             There seems to be a slot in the casing. 
+             There seems to be a USB port in the casing. 
+             You just need to find the rubberducky USB drive with the virus to finish the job! 
              ";
             RoomPuzzle = new PuzzleSQLInjection();
 
@@ -31,6 +32,19 @@ namespace Shattered_Protocols.Navigation.Rooms
             //  Direction relative to current roon, type of room
             NewDoor(Direction.North, RoomType.Room_Server);
         }
+
+        /// <summary>
+        /// Override Enter so that Puzzle no longer displays automatically
+        /// </summary>
+        /// <param name="originDirection"></param>
+        public override void Enter(Direction originDirection)
+        {
+            RoomPuzzle.Room = RoomType.Room_Operations;
+
+            //Display room name and description using ToString
+            GameController.Output(ToString());
+        }
+
 
         //Override OnUseItem to allow FlashDrive usage
         internal override void OnUseItem(EventArgs args)
@@ -44,8 +58,8 @@ namespace Shattered_Protocols.Navigation.Rooms
                 // Check if name is "flashDrive"
                 if (name.Equals("flashdrive", StringComparison.OrdinalIgnoreCase))
                 {
-                    // End Game
-                    GameController.Publish(EventType.GameEnd, new EventArgs());
+                    //Run ShowPuzzle Logic if applicable
+                    ShowPuzzle();
                 }
             }
             else

@@ -10,7 +10,7 @@ namespace Shattered_Protocols.Navigation.Rooms
 {
     internal class Room_Testing : Room
     {
-        public Room_Testing()
+        public Room_Testing() : base(RoomType.Room_Testing)
         {
             Name = "Testing Lab";
             Description = @"
@@ -31,9 +31,9 @@ namespace Shattered_Protocols.Navigation.Rooms
             NewDoor(Direction.West, RoomType.Room_Break);
 
             //Lock appropriate rooms
-            ToggleLock(Direction.South, true);
-            ToggleLock(Direction.West, true);
-            ToggleLock(Direction.East, true);
+            SetLock(Direction.South, true);
+            SetLock(Direction.West, true);
+            SetLock(Direction.East, true);
         }
     }
 }

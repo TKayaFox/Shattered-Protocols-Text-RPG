@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shattered_Protocols.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,11 @@ namespace Shattered_Protocols.Puzzles
     {
         private int attemptCount = 0;
 
-        public PuzzleSQLInjection() : base("Bypass the SQL login check.", "SQL input") { }
+        public PuzzleSQLInjection() : base("Bypass the SQL login check.") { }
 
         public override void Start()
         {
-            //Puzzle intro (NEEDS EDIT TO ONLY DISPLAY WITH KEY IN INVENTORY OR KEY USED)
+            //Puzzle intro
             GameController.Output(@"
              Finally, after all these puzzles… it's time to crack open this casing and end the tyranny 
              of the machines. You insert the key into the slot and a window pops up on the terminal asking 
@@ -38,8 +39,7 @@ namespace Shattered_Protocols.Puzzles
         {
             if (command.Contains("1'='1") || command.Contains("' OR '1'='1"))
             {
-                GameController.Output("Access granted! Puzzle solved.");
-                IsSolved = true;
+                PuzzleSolved("Access Granted!");
             }
             else
             {
@@ -50,6 +50,15 @@ namespace Shattered_Protocols.Puzzles
                     GameController.Output("Hint: SQL injections are often used to force conditions to be true.");
                 }
             }
+        }
+
+        //When problem solved, end the game
+        public override void PuzzleSolved(string message)
+        {
+            GameController.Output(message);
+
+            // End Game
+            GameController.Publish(EventType.GameEnd, new EventArgs());
         }
     }
 }

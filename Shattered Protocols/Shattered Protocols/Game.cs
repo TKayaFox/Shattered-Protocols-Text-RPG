@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -20,7 +20,6 @@ namespace Shattered_Protocols
 
         private Player player;
         private Map map;
-        private EventManager eventManager;
         private bool getInput = false;
         private TxtLogger gameLog;
         #endregion
@@ -60,7 +59,7 @@ namespace Shattered_Protocols
         Breach the hatch that has the supercomputer protected, plant the charges and run… for the whole facility is going down 
         once you hit the switch. 
              ");
-             GameController.Output("==============");
+            GameController.Output("==============");
             //Load map
             map = new Map();
 
@@ -192,6 +191,12 @@ namespace Shattered_Protocols
                 case "exit":
                     GameController.Output("Exiting Game- Thank you for Playing!");
                     getInput = true;
+                    break;
+                case "solve":
+                    if (map.CurrentRoom.RoomPuzzle != null)
+                    {
+                        map.CurrentRoom.RoomPuzzle.PuzzleSolved();
+                    }
                     break;
 
                 // Any invalid commands or not yet programmed commands

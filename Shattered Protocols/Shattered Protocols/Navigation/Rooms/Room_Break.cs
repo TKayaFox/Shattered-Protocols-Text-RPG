@@ -13,7 +13,7 @@ namespace Shattered_Protocols.Navigation.Rooms
 {
     internal class Room_Break : Room
     {
-        public Room_Break()
+        public Room_Break() : base(RoomType.Room_Break)
         {
             Name = "Breakroom";
             Description = @"
@@ -35,8 +35,8 @@ namespace Shattered_Protocols.Navigation.Rooms
             NewDoor(Direction.East, RoomType.Room_Testing);
 
             //Lock appropriate rooms
-            ToggleLock(Direction.North, true);
-            ToggleLock(Direction.East, true);
+            SetLock(Direction.South, true);
+            SetLock(Direction.East, true);
         }
     }
 }

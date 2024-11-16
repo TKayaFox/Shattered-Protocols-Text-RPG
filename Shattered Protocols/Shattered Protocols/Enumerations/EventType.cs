@@ -11,6 +11,7 @@ namespace Shattered_Protocols.Enumerations
         UseItem,
         GameEnd,
         Input,
+        UnlockRoom,
         Output
     }
 }

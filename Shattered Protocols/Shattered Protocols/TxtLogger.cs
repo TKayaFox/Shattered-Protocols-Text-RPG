@@ -42,7 +42,7 @@ namespace Shattered_Protocols
         {
 
             // Create a new file (will only append if file already exists)
-            using (StreamWriter writer = new StreamWriter(filePath,true))
+            using (StreamWriter writer = new StreamWriter(filePath, true))
             {
                 writer.WriteLine("===================================================");
                 writer.WriteLine("Log Started: " + DateTime.Now); // Optional initial line

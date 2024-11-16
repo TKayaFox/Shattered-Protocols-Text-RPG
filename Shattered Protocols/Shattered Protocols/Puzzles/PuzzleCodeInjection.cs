@@ -16,7 +16,7 @@ namespace Shattered_Protocols.Puzzles
     {
         private int attempts = 0;
 
-        public PuzzleCodeInjection() : base("Bypass the firewall using a terminal command.", "Terminal command") { }
+        public PuzzleCodeInjection() : base("Bypass the firewall using a terminal command.") { }
 
         public override void Start()
         {
@@ -33,18 +33,15 @@ namespace Shattered_Protocols.Puzzles
 
         public override void ReadCommand(string command)
         {
-            AttemptCount ++;
+            AttemptCount++;
             // correct command to bypass the firewall; can be changed to any command
             string correctCommand = "sudo firewall-bypass";
 
             if (command == correctCommand)
             {
-                GameController.Output("Firewall bypassed! Puzzle solved.");
-                //Puzzle Outro
-                GameController.Output(@"
-             The Firewalls are now down, and you may pass… Didn't even need a fire extinguisher.
-             ");
-                IsSolved = true;
+                PuzzleSolved(@"
+                 The Firewalls are now down, and you may pass… Didn't even need a fire extinguisher.
+                 ");
             }
             else
             {

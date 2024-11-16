@@ -11,7 +11,7 @@ namespace Shattered_Protocols.Navigation.Rooms
 {
     internal class Room_Server : Room
     {
-        public Room_Server()
+        public Room_Server() : base(RoomType.Room_Server)
         {
             Name = "Server Room";
             Description = @"
@@ -31,7 +31,7 @@ namespace Shattered_Protocols.Navigation.Rooms
             NewDoor(Direction.West, RoomType.Room_Testing);
 
             //Lock appropriate rooms
-            ToggleLock(Direction.South, true);
+            SetLock(Direction.South, true);
         }
     }
 }

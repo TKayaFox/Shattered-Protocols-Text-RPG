@@ -19,7 +19,7 @@ namespace Shattered_Protocols.Puzzles
         private readonly int shiftAmount = 3;
         private int attemptCount = 0;
 
-        public PuzzleCaesarCipher() : base("Decrypt the Caesar ciphered message.", "Decryption input") { }
+        public PuzzleCaesarCipher() : base("Decrypt the Caesar ciphered message.") { }
         public override void Start()
         {
             //Puzzle intro
@@ -36,18 +36,15 @@ namespace Shattered_Protocols.Puzzles
 
         public override void ReadCommand(string command)
         {
-            AttemptCount ++;
+            AttemptCount++;
             string correctDecryption = DecryptCaesar(encryptedMessage, shiftAmount);
 
             if (command.Trim().Equals(correctDecryption, StringComparison.OrdinalIgnoreCase))
             {
-                GameController.Output("Correct! Puzzle solved.");
-                //Puzzle Outro
-                GameController.Output(@"
-             You remember the good ol' days where you had the luxury to learn to make simple programs like “Hello World” and Ceaser Cyphers without robots trying to kill you non-stop. 
-             A luxury you hope to reobtain after all this is over… Time to go to the Break Room.
-             ");
-                IsSolved = true;
+                PuzzleSolved(@"
+                 You remember the good ol' days where you had the luxury to learn to make simple programs like “Hello World” and Ceaser Cyphers without robots trying to kill you non-stop. 
+                 A luxury you hope to reobtain after all this is over… Time to go to the Break Room.
+                 ");
             }
             else
             {

@@ -18,7 +18,7 @@ namespace Shattered_Protocols.Puzzles
         private List<string> dataToFilter;
         private int attemptCount = 0;
 
-        public PuzzleRegex() : base("Decrypt data using Python-style regex patterns.", "Regex pattern")
+        public PuzzleRegex() : base("Decrypt data using Python-style regex patterns.")
         {
             // Sample data that players will filter
             dataToFilter = new List<string>
@@ -75,12 +75,10 @@ namespace Shattered_Protocols.Puzzles
                 string adminPattern = @"role:\s*admin";
                 if (filteredResults.Any(result => result.ToLower().Contains(adminPattern)))
                 {
-                    GameController.Output("Correct! Puzzle solved.");
-                    //Puzzle Outro
-                    GameController.Output(@"
-             Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
-             Time to go see what they were testing…
-             ");
+                    PuzzleSolved(@"
+                 Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
+                 Time to go see what they were testing…
+                 ");
                     IsSolved = true;
                 }
                 else

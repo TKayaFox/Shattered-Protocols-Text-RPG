@@ -10,7 +10,7 @@ namespace Shattered_Protocols.Navigation.Rooms
 {
     internal class Room_Development : Room
     {
-        public Room_Development()
+        public Room_Development() : base(RoomType.Room_Development)
         {
             Name = "Development Labs";
             Description = @"
@@ -30,8 +30,8 @@ namespace Shattered_Protocols.Navigation.Rooms
             NewDoor(Direction.East, RoomType.Room_Meeting);
 
             //Lock appropriate rooms
-            ToggleLock(Direction.North, true);
-            ToggleLock(Direction.East, true);
+            SetLock(Direction.North, true);
+            SetLock(Direction.East, true);
         }
     }
 }
