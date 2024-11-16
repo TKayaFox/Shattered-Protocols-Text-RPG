@@ -85,7 +85,9 @@ public abstract class Room
         {
             //Variables stored for readability
             Door door = roomDictionary[direction];
-            bool doorLocked = roomPuzzle.IsSolved && door.PuzzleLocked;
+            
+            bool doorLocked = roomPuzzle == null 
+                || (roomPuzzle.IsSolved && door.PuzzleLocked);
 
             //Check if door exists
             if (door != null)
