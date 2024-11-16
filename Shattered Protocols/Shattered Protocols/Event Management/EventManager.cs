@@ -44,7 +44,7 @@ namespace Shattered_Protocols
 
         public void Unsubscribe(EventType eventType, Action<EventArgs> listener)
         {
-            if (eventDictionary.ContainsKey(eventType))
+            if (eventDictionary != null && eventDictionary.ContainsKey(eventType))
             {
                 // Remove listener from the event
                 eventDictionary[eventType] -= listener;
@@ -58,7 +58,7 @@ namespace Shattered_Protocols
         }
 
         // Method for publishing an event to notify all listeners
-        public void Publish(EventType eventType, EventArgs args = null)
+        public void Publish(EventType eventType, EventArgs args)
         {
             if (eventDictionary.ContainsKey(eventType))
             {

@@ -39,12 +39,11 @@ namespace Shattered_Protocols.Puzzles
 
             if (CheckPassword(command.Trim()))
             {
-                GameController.Output("Access granted! Puzzle solved.");
-                GameController.Output(@"
+                PuzzleSolved(@"
+             Access Granted!
              This hash was no match for the skills of the top computer scientist in the Rebel Alliance. 
              Time to take a break in the break room!
              ");
-                IsSolved = true;
             }
             else
             {

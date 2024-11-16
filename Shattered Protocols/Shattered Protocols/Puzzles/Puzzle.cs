@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Shattered_Protocols.Event_Management;
+using Shattered_Protocols.Event_Management.Args;
 using System.Linq;
 using System.Text;
+using Shattered_Protocols.Enumerations;
 
 namespace Shattered_Protocols.Puzzles
 {
@@ -11,6 +14,7 @@ namespace Shattered_Protocols.Puzzles
         public string ItemRequired { get; set; } // Consider renaming `ItemRequired` for clarity if needed.
         public bool IsSolved { get; protected set; } = false;
         public int AttemptCount { get; set; } = 0;
+        public RoomType Room { get; set; }
 
         // Constructor to initialize description and required item
         protected Puzzle(string description, string itemRequired)
@@ -56,6 +60,20 @@ namespace Shattered_Protocols.Puzzles
         public void ResetattemptCount()
         {
             int attemptCount = 0;
+        }
+
+        public void PuzzleSolved(String resolutionMsg = "")
+        {
+            //mark solved
+            IsSolved = true;
+
+            //raise event that puzzle has been solved
+            RoomArgs args = new RoomArgs();
+            args.RoomType = Room;
+            GameController.Publish(EventType.UnlockRoom,args);
+
+            //Display resolution message
+            GameController.Output("Correct! Puzzle solved. " + resolutionMsg);
         }
     }
 }
