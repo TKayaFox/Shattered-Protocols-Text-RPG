@@ -20,6 +20,12 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
+            // Check if the puzzle is already solved
+            if (IsSolved)
+            {
+                GameController.Output("This puzzle has already been solved. You can proceed further.");
+                return;
+            }
             //Puzzle intro
             GameController.Output(@"
              The servers have firewalls in place to repel intruders from entering the Heart of Operations. 

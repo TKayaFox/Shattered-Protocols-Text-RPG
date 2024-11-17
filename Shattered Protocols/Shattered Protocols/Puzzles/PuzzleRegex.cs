@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +33,12 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
+            // Check if the puzzle is already solved
+            if (IsSolved)
+            {
+                GameController.Output("This puzzle has already been solved. You can proceed further.");
+                return;
+            }
             //Puzzle intro
             GameController.Output(@"
              The lock heading to the Testing Room requires a profile with Admin rights to get through. 
