@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +21,12 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
+            // Check if the puzzle is already solved
+            if (IsSolved)
+            {
+                GameController.Output("This puzzle has already been solved. You can proceed further.");
+                return;
+            }
             GameController.Output(@"
              There is a door terminal keeping access to the Break Room that says, 
              “In pursuit of deterring the constant snack breaks, we put a simple lock here.” 

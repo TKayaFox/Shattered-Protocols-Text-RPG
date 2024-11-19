@@ -22,6 +22,12 @@ namespace Shattered_Protocols.Puzzles
         public PuzzleCaesarCipher() : base("Decrypt the Caesar ciphered message.") { }
         public override void Start()
         {
+            // Check if the puzzle is already solved
+            if (IsSolved)
+            {
+                GameController.Output("This puzzle has already been solved. You can proceed further.");
+                return;
+            }
             //Puzzle intro
             GameController.Output(@"
              While the AI were learning object detection, they were also learning about password mechanisms. 

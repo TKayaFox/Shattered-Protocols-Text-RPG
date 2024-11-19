@@ -22,6 +22,12 @@ namespace Shattered_Protocols.Puzzles
 
         public override void Start()
         {
+            // Check if the puzzle is already solved
+            if (IsSolved)
+            {
+                GameController.Output("This puzzle has already been solved. You can proceed further.");
+                return;
+            }
             //Puzzle intro
             GameController.Output(@"
              Finally, after all these puzzles… it's time to crack open this casing and end the tyranny 
