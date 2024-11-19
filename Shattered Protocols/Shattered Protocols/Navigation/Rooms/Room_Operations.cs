@@ -29,15 +29,15 @@ namespace Shattered_Protocols.Navigation.Rooms
 
 
             //Define Neighboring Rooms
-            //  Direction relative to current roon, type of room
-            NewDoor(Direction.North, RoomType.Room_Server);
+            //  DirectionEnum relative to current roon, type of room
+            NewDoor(DirectionEnum.North, RoomType.Room_Server);
         }
 
         /// <summary>
         /// Override Enter so that Puzzle no longer displays automatically
         /// </summary>
         /// <param name="originDirection"></param>
-        public override void Enter(Direction originDirection)
+        public override void Enter(DirectionEnum originDirection)
         {
             RoomPuzzle.Room = RoomType.Room_Operations;
 

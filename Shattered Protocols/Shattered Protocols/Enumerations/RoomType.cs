@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shattered_Protocols.Enumerations
 {
+    /// <summary>
+    /// Used to easily reference rooms by type
+    /// </summary>
     public enum RoomType
     {
         Null,

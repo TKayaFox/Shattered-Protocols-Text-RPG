@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Shattered_Protocols.Enumerations
 {
-    public enum Direction
+    /// <summary>
+    /// Used as an easy reference for the 4 compass directions
+    /// </summary>
+    public enum DirectionEnum
     {
         North,
         South,

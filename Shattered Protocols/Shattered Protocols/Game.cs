@@ -174,19 +174,19 @@ namespace Shattered_Protocols
                 //Directional inputs
                 case "north":
                 case "up":
-                    ChangeRoom(Direction.North);
+                    ChangeRoom(DirectionEnum.North);
                     break;
                 case "south":
                 case "down":
-                    ChangeRoom(Direction.South);
+                    ChangeRoom(DirectionEnum.South);
                     break;
                 case "west":
                 case "left":
-                    ChangeRoom(Direction.West);
+                    ChangeRoom(DirectionEnum.West);
                     break;
                 case "east":
                 case "right":
-                    ChangeRoom(Direction.East);
+                    ChangeRoom(DirectionEnum.East);
                     break;
                 case "exit":
                     GameController.Output("Exiting Game- Thank you for Playing!");
@@ -224,7 +224,7 @@ namespace Shattered_Protocols
         /// Handles Movement between rooms
         /// </summary>
         /// <param name="direction"></param>
-        public void ChangeRoom(Direction direction)
+        public void ChangeRoom(DirectionEnum direction)
         {
             map.Move(direction);
         }

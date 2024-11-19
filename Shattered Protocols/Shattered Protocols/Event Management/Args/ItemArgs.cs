@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shattered_Protocols.Event_Management.Args
 {
+    /// <summary>
+    /// Stores information needed for Item events
+    /// </summary>
     public class ItemArgs : EventArgs
     {
         String name;

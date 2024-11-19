@@ -14,7 +14,7 @@ public abstract class Room
     private RoomType roomType;
 
     //Neighboring Rooms
-    private Dictionary<Direction, Door> roomDictionary = new Dictionary<Direction, Door>();
+    private Dictionary<DirectionEnum, Door> roomDictionary = new Dictionary<DirectionEnum, Door>();
 
     #region Getters and Setters
     public string Name
@@ -58,7 +58,7 @@ public abstract class Room
 
 
     ///Called when first entering a room
-    public virtual void Enter(Direction originDirection)
+    public virtual void Enter(DirectionEnum originDirection)
     {
         //Unlock the door that was used to enter (If it was used it should be unlocked)
         if (roomDictionary.ContainsKey(originDirection))
@@ -89,7 +89,7 @@ public abstract class Room
     }
 
 
-    public RoomType UseDoor(Direction direction)
+    public RoomType UseDoor(DirectionEnum direction)
     {
         RoomType doorType = RoomType.Null;
 
@@ -119,7 +119,7 @@ public abstract class Room
 
     #region Directional Reference
     //Get stored roomType without checking for locks
-    public RoomType GetRoomType(Direction direction)
+    public RoomType GetRoomType(DirectionEnum direction)
     {
         RoomType roomType = RoomType.Null;
         if (roomDictionary.ContainsKey(direction))
@@ -129,7 +129,7 @@ public abstract class Room
         return roomType;
     }
 
-    public void NewDoor(Direction direction, RoomType destinationRm, bool puzzleLocked = false)
+    public void NewDoor(DirectionEnum direction, RoomType destinationRm, bool puzzleLocked = false)
     {
 
         //remove existing dictionary entry if needed
@@ -142,12 +142,12 @@ public abstract class Room
     }
     #endregion
     #region Door Handling
-    private bool DoorExists(Direction direction)
+    private bool DoorExists(DirectionEnum direction)
     {
         return roomDictionary.ContainsKey(direction) && roomDictionary[direction] != null;
     }
 
-    public void SetLock(Direction direction, bool isLocked)
+    public void SetLock(DirectionEnum direction, bool isLocked)
     {
         if (DoorExists(direction))
         {
@@ -178,19 +178,19 @@ public abstract class Room
     {
         //Determine all possible Exits
         List<string> exits = new List<string>();
-        if (roomDictionary.ContainsKey(Direction.North))
+        if (roomDictionary.ContainsKey(DirectionEnum.North))
         {
             exits.Add("north");
         }
-        if (roomDictionary.ContainsKey(Direction.South))
+        if (roomDictionary.ContainsKey(DirectionEnum.South))
         {
             exits.Add("south");
         }
-        if (roomDictionary.ContainsKey(Direction.East))
+        if (roomDictionary.ContainsKey(DirectionEnum.East))
         {
             exits.Add("east");
         }
-        if (roomDictionary.ContainsKey(Direction.West))
+        if (roomDictionary.ContainsKey(DirectionEnum.West))
         {
             exits.Add("west");
         }

@@ -17,8 +17,8 @@ namespace Shattered_Protocols
             This is similar, but let's us keep the eventManager light, and keep everything decoupled.
     /*/
     /// <summary>
-    /// 
-    /// This EventManager is both more and less complex than those I've made in the past
+    /// Rather than using the standard Event system this Event Manager is Delegate based.
+    ///     This allows us to simply use a delegate dictionary, rather than having to update eventManager with every new Event Type as it is created.
     /// </summary>
     public class EventManager
     {
@@ -30,6 +30,11 @@ namespace Shattered_Protocols
         private Dictionary<EventType, Action<EventArgs>>
             eventDictionary = new Dictionary<EventType, Action<EventArgs>>();
 
+        /// <summary>
+        /// Subscribe method allows an object to add a method to be called any time a specific event type is raised
+        /// </summary>
+        /// <param name="eventType">Type of event to subscribe to</param>
+        /// <param name="listener">Delegate Method to call when the event is raised</param>
         public void Subscribe(EventType eventType, Action<EventArgs> listener)
         {
             //Check if such an event exists in the dictionary yet
@@ -42,6 +47,11 @@ namespace Shattered_Protocols
             eventDictionary[eventType] += listener;
         }
 
+        /// <summary>
+        /// Subscribe method allows an object to add a method to be called any time a specific event type is raised
+        /// </summary>
+        /// <param name="eventType">Type of event to unsubscribe from</param>
+        /// <param name="listener">Delegate Method call to remove from dictionary</param>
         public void Unsubscribe(EventType eventType, Action<EventArgs> listener)
         {
             if (eventDictionary != null && eventDictionary.ContainsKey(eventType))
@@ -57,7 +67,11 @@ namespace Shattered_Protocols
             }
         }
 
-        // Method for publishing an event to notify all listeners
+        /// <summary>
+        /// Method for publishing an event to notify all listeners
+        /// </summary>
+        /// <param name="eventType">Type of event to raise</param>
+        /// <param name="args">An EventArgs object that contains any needed information</param>
         public void Publish(EventType eventType, EventArgs args)
         {
             if (eventDictionary.ContainsKey(eventType))
