@@ -18,42 +18,43 @@ namespace Shattered_Protocols.Puzzles
     {
         private int attemptCount = 0;
 
-        public PuzzleSQLInjection() : base("Bypass the SQL login check.") { }
+        public PuzzleSQLInjection() : base("\tBypass the SQL login check.") { }
 
         public override void Start()
         {
             // Check if the puzzle is already solved
             if (IsSolved)
             {
-                GameController.Output("This puzzle has already been solved. You can proceed further.");
+                GameController.Output("\tThis puzzle has already been solved. You can proceed further.");
                 return;
             }
             //Puzzle intro
             GameController.Output(@"
-             Finally, after all these puzzles… it's time to crack open this casing and end the tyranny 
-             of the machines. You insert the key into the slot and a window pops up on the terminal asking 
-             for the password. You really don't want to guess the password for hours, so it's time to apply 
-             some hacks with your extensive knowledge in SQL. The inputs might not have been properly sanitized, 
-             might as well as try smarter and not harder at first…
+    Finally, after all these puzzles… it's time to crack open this casing and end the tyranny 
+    of the machines. You insert the flash drive into the port... you hear a faint *quack*
+    and a window pops up on the terminal asking for the password. You really don't want to 
+    guess the password for hours, so it's time to apply some hacks with your extensive knowledge 
+    in SQL. The inputs might not have been properly sanitized, might as well as try smarter 
+    and not harder at first…
              ");
             ResetattemptCount();
             GameController.Output(Description);
-            GameController.Output("Enter SQL statement to access restricted information:");
+            GameController.Output("\tEnter SQL statement to access restricted information:");
         }
 
         public override void ReadCommand(string command)
         {
             if (command.Contains("1'='1") || command.Contains("' OR '1'='1"))
             {
-                PuzzleSolved("Access Granted!");
+                PuzzleSolved("\tAccess Granted!");
             }
             else
             {
                 attemptCount++;
-                GameController.Output("Access denied. Try again.");
+                GameController.Output("\tAccess denied. Try again.");
                 if (attemptCount >= 2)
                 {
-                    GameController.Output("Hint: SQL injections are often used to force conditions to be true.");
+                    GameController.Output("\tHint: SQL injections are often used to force conditions to be true.");
                 }
             }
         }

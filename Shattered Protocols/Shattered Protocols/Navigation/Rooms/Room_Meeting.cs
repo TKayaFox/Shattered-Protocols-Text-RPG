@@ -14,9 +14,9 @@ namespace Shattered_Protocols.Navigation.Rooms
         {
             Name = "Meeting Room";
             Description = @"
-             Welcome to the Meeting Room. Here, ideas were challenged, brains were stormed, 
-             and presentations were slept through. There is one big table in the middle with 
-             many chairs surrounding it. 
+    Welcome to the Meeting Room. Here, ideas were challenged, brains were stormed, 
+    and presentations were slept through. There is one big table in the middle with 
+    many chairs surrounding it. 
              ";
             RoomPuzzle = new PuzzleRegex();
 

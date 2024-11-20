@@ -16,9 +16,9 @@ namespace Shattered_Protocols.Navigation.Rooms
         {
             Name = "Front Desks";
             Description = @"
-             Welcome to the Front Desks. There are empty chairs where receptionists would welcome guests. 
-             There are computers with an accompanying phone on each one. Calling for help would be pointless here; 
-             you are on your own… also, the phones probably don't work anymore.
+    Welcome to the Front Desks. There are empty chairs where receptionists would welcome guests. 
+    There are computers with an accompanying phone on each one. Calling for help would be pointless here; 
+    you are on your own… also, the phones probably don't work anymore.
              ";
             RoomPuzzle = new PuzzleBinaryLock();
 

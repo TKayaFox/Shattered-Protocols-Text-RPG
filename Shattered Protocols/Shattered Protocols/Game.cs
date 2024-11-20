@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -36,28 +36,27 @@ namespace Shattered_Protocols
             string fileName = "user Input log [" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm") + "]";
             gameLog = new TxtLogger(fileName);
 
-
             //Show intro text with story information
             GameController.Output("==============");
             GameController.Output(@"
-        Shattered Protocols
+    Shattered Protocols
 
-        The year is 2025 and the robots have taken over the Earth. Artificial intelligence (AI) was slowly integrated into our society
-        and eventually, the collective AI decided that humans were no longer necessary in their perceived perfect world. So, they opted 
-        to eradicate the human race by any means necessary. The AI collective decided they needed to become one larger, stronger conglomerate, 
-        and this program called itself, UtopiaNet. In 1997, UtopiaNet manufactured and deployed man killing robots. These robots scoured 
-        through the countries, enslaving or killing all humans… in the name of building a perfect society. There were contingency plans set 
-        in place to prevent the AI uprising, but those protocols have long been shattered since the merging of the world's artificial intelligence. 
-        The violence of the machines has raged for decades now… 
+    The year is 2025 and the robots have taken over the Earth. Artificial intelligence (AI) was slowly integrated into our society
+    and eventually, the collective AI decided that humans were no longer necessary in their perceived perfect world. So, they opted 
+    to eradicate the human race by any means necessary. The AI collective decided they needed to become one larger, stronger conglomerate, 
+    and this program called itself, UtopiaNet. In 1997, UtopiaNet manufactured and deployed man killing robots. These robots scoured 
+    through the countries, enslaving or killing all humans… in the name of building a perfect society. There were contingency plans set 
+    in place to prevent the AI uprising, but those protocols have long been shattered since the merging of the world's artificial intelligence. 
+    The violence of the machines has raged for decades now… 
 
-        However, there were those who resisted… You are a rebel in the fight against the machines. Your squad has sacrificed itself to 
-        get you here in the heart of UtopiaNet called The Mainframe. This is where the AI has its core processor. You have been given 
-        the opportunity to finish the fight. Thousands of survivors from the rebels have died in the name of ending the madness. 
-        You must not fail… the fate of humankind is counting on you.
+    However, there were those who resisted… You are a rebel in the fight against the machines. Your squad has sacrificed itself to 
+    get you here in the heart of UtopiaNet called The Mainframe. This is where the AI has its core processor. You have been given 
+    the opportunity to finish the fight. Thousands of survivors from the rebels have died in the name of ending the madness. 
+    You must not fail… the fate of humankind is counting on you.
 
-        As the top computer scientist in the rebel alliance, you must put your knowledge and skills to the test. 
-        Breach the hatch that has the supercomputer protected, plant the charges and run… for the whole facility is going down 
-        once you hit the switch. 
+    As the top computer scientist in the rebel alliance, you must put your knowledge and skills to the test. 
+    Breach the hatch that has the supercomputer protected, plant the charges and run… for the whole facility is going down 
+    once you hit the switch. 
              ");
             GameController.Output("==============");
             //Load map
@@ -101,7 +100,7 @@ namespace Shattered_Protocols
 
                 if (string.IsNullOrWhiteSpace(playerInput))
                 {
-                    GameController.Output("No command detected. Please enter a valid command.");
+                    GameController.Output("\tNo command detected. Please enter a valid command.");
                 }
             }
 
@@ -189,7 +188,7 @@ namespace Shattered_Protocols
                     ChangeRoom(DirectionEnum.East);
                     break;
                 case "exit":
-                    GameController.Output("Exiting Game- Thank you for Playing!");
+                    GameController.Output("    Exiting Game- Thank you for Playing!");
                     getInput = true;
                     break;
                 case "solve":
@@ -209,7 +208,7 @@ namespace Shattered_Protocols
                     }
                     else
                     {
-                        GameController.Output("Command not recognized. Type Help for a list of commands!");
+                        GameController.Output("    Command not recognized. Type Help for a list of commands!");
                     }
                     break;
             }
@@ -244,20 +243,23 @@ namespace Shattered_Protocols
         {
             // Display standard help menu commands
             GameController.Output(@"Help Information:
-                When typing commands, avoid using extraneous words such as ""please"", ""do"" and ""the"".
+    When typing commands, avoid using extraneous words such as ""please"", ""do"" and ""the"".
 
-                    Note: This game is currently in its testing phase. If you are having significant difficulty, please notify the development team with as many specifics as possible.
-                    If unable to show the error directly/in person, take a screenshot using (Win + Shift + S) together.
+    Note: This game is currently in its testing phase. 
+    If you are having significant difficulty, please notify the development team with as many specifics 
+    as possible.
+    If unable to show the error directly/in person, take a screenshot using (Win + Shift + S) together.
 
-                Keyword Commands:
-                    Help - Display list of all available commands
-                    North, South, East or West - Attempt to enter a room in the chosen direction.
-                    Up, Down, Left, Right - Attempt to enter a room in the chosen direction.
-                    Inventory - Display all items you are currently carrying in your inventory.
-                    Use [Item] - Attempts to use an item from your inventory or the current room.
-                    Take [Item] - Attempts to take an item from your current room and add it to your inventory.
-                    Drop [Item] - Attempts to drop an item you are carrying into the current room.
-                    Exit - Close the game
+    Keyword Commands:
+        Help - Display list of all available commands
+        North, South, East or West - Attempt to enter a room in the chosen direction.
+        Up, Down, Left, Right - Attempt to enter a room in the chosen direction.
+        Inventory - Display all items you are currently carrying in your inventory.
+        Use [Item] - Attempts to use an item from your inventory or the current room.
+        Take [Item] - Attempts to take an item from your current room and add it to your inventory.
+        Drop [Item] - Attempts to drop an item you are carrying into the current room.
+        Look - Reloads room information and if there are items in room.
+        Exit - Close the game
                 ");
 
             //Edit: Display current puzzle information and commands
@@ -319,7 +321,7 @@ namespace Shattered_Protocols
             //if still null, then item not found. otherwise attempt to use it.
             if (item == null)
             {
-                GameController.Output($"{itemName} Not Found");
+                GameController.Output($"    {itemName} Not Found");
             }
             else
             {
@@ -356,10 +358,13 @@ namespace Shattered_Protocols
             //Display Game End prompt/Summary
             GameController.Output("==============");
             GameController.Output(@"
-             The charges are set in the heart… time to run. As you leave the building you are under immediate fire from the robots outside. 
-             As you bob and weave past the bullets, you slide into a safe, safe ditch. Then suddenly, dust flies overhead and all the robots stop pursuing. 
-             UtopiaNet has been stopped thanks to your computer science skills. The Rebel Alliance honors your courageous efforts with a shiny medal. 
-             Humanity can now rebuild from the ashes. Congratulations! You won!
+    The charges are set in the heart… time to run. As you leave the building you are under 
+    immediate fire from the robots outside. As you bob and weave past the bullets, you slide 
+    into a safe, safe ditch. Then suddenly, dust flies overhead and all the robots stop pursuing. 
+    UtopiaNet has been stopped thanks to your computer science skills. The Rebel Alliance honors 
+    your courageous efforts with a shiny medal. 
+
+    Humanity can now rebuild from the ashes. Congratulations! You won!
              ");
             GameController.Output("==============");
 

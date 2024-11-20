@@ -54,12 +54,12 @@ namespace Shattered_Protocols
             {
                 foreach (var item in inventory)
                 {
-                    result += $"- {item.Name}\n";
+                    result += $"    *{item.Name}*\n";
                 }
             }
             else
             {
-                result = "No Items";
+                result = "  No Items";
             }
             return result;
         }
@@ -174,11 +174,11 @@ namespace Shattered_Protocols
             //notify user of result
             if (success)
             {
-                GameController.Output("Added to Inventory");
+                GameController.Output("    Added to Inventory");
             }
             else
             {
-                GameController.Output("I dont see that!");
+                GameController.Output("    I dont see that!");
             }
 
             return success;
@@ -207,7 +207,7 @@ namespace Shattered_Protocols
                 }
                 else
                 {
-                    GameController.Output($"There is nothing here!");
+                    GameController.Output($"    There is nothing here!");
                 }
             }
             return success;

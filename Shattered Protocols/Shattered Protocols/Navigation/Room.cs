@@ -167,7 +167,7 @@ public abstract class Room
     public override string ToString()
     {
         //Display room name and description
-        String roomData = $"{name}- {description}\n";
+        String roomData = $"\n-------------->\n{name}: {description}\n";
         roomData = GetRoomItemString(roomData);
         roomData = GetRoomExitString(roomData);
 
@@ -198,15 +198,15 @@ public abstract class Room
         //Add to string all possible exits
         if (exits.Count > 1)
         {
-            roomData += $"\tThere are Doorways to the {string.Join(", ", exits)}.";
+            roomData += $"    --There are Doorways to the {string.Join(", ", exits)}.--";
         }
         else if (exits.Count > 0)
         {
-            roomData += $"\tThere is a doorway to the {string.Join(", ", exits)}.";
+            roomData += $"    --There is a doorway to the {string.Join(", ", exits)}.--";
         }
         else
         {
-            roomData += "\tThere are no exits.";
+            roomData += "    --There are no exits.--";
         }
 
         return roomData;
@@ -222,7 +222,7 @@ public abstract class Room
         }
         else
         {
-            roomData += "\tThe Room has no items you can interact with\n";
+            roomData += "    --The Room has no items you can interact with--\n";
         }
 
         return roomData;
