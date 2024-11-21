@@ -15,10 +15,10 @@ namespace Shattered_Protocols.Navigation.Rooms
         {
             Name = "Server Room";
             Description = @"
-             Welcome to the Server Room. Many server towers shadow over you as the lighting 
-             in this room was not well thought out. This is the lifeblood of how the AI would 
-             connect to other areas of the world. Even if you just blew this up, the AI would 
-             find a way to set back up with its already far-reaching influence. 
+    Welcome to the Server Room. Many server towers shadow over you as the lighting 
+    in this room was not well thought out. This is the lifeblood of how the AI would 
+    connect to other areas of the world. Even if you just blew this up, the AI would 
+    find a way to set back up with its already far-reaching influence. 
              ";
             RoomPuzzle = new PuzzleCodeInjection();
 
@@ -26,12 +26,12 @@ namespace Shattered_Protocols.Navigation.Rooms
             Inventory = new Inventory();
 
             //Define Neighboring Rooms
-            //  Direction relative to current roon, type of 
-            NewDoor(Direction.South, RoomType.Room_Operations);
-            NewDoor(Direction.West, RoomType.Room_Testing);
+            //  DirectionEnum relative to current roon, type of 
+            NewDoor(DirectionEnum.South, RoomType.Room_Operations);
+            NewDoor(DirectionEnum.West, RoomType.Room_Testing);
 
             //Lock appropriate rooms
-            SetLock(Direction.South, true);
+            SetLock(DirectionEnum.South, true);
         }
     }
 }

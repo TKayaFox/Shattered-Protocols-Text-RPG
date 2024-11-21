@@ -14,10 +14,10 @@ namespace Shattered_Protocols.Navigation.Rooms
         {
             Name = "Development Labs";
             Description = @"
-             Welcome to the Development Labs. Here, there are computers scattered across desks. 
-             The layers of dust are only matched by the layers of Cheeto powder across the keyboards. 
-             This room was used to make many general-purpose AI for the task of gathering information, 
-             and generating advice based on the data.
+    Welcome to the Development Labs. Here, there are computers scattered across desks. 
+    The layers of dust are only matched by the layers of Cheeto powder across the keyboards. 
+    This room was used to make many general-purpose AI for the task of gathering information, 
+    and generating advice based on the data.
              ";
             RoomPuzzle = new PuzzlePasswordCracker();
 
@@ -25,13 +25,13 @@ namespace Shattered_Protocols.Navigation.Rooms
             Inventory = new Inventory();
 
             //Define Neighboring Rooms
-            //  Direction relative to current roon, type of room
-            NewDoor(Direction.North, RoomType.Room_Break);
-            NewDoor(Direction.East, RoomType.Room_Meeting);
+            //  DirectionEnum relative to current roon, type of room
+            NewDoor(DirectionEnum.North, RoomType.Room_Break);
+            NewDoor(DirectionEnum.East, RoomType.Room_Meeting);
 
             //Lock appropriate rooms
-            SetLock(Direction.North, true);
-            SetLock(Direction.East, true);
+            SetLock(DirectionEnum.North, true);
+            SetLock(DirectionEnum.East, true);
         }
     }
 }

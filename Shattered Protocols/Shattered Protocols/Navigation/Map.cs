@@ -10,7 +10,7 @@ using Shattered_Protocols.Navigation.Rooms;
 namespace Shattered_Protocols.Navigation
 {
     /// <summary>
-    /// Linked List style Map management for Text RPG
+    /// Linked List style Map management for Text RPG, storing the current location as the CurrentRoom
     /// </summary>
     internal class Map
     {
@@ -33,7 +33,7 @@ namespace Shattered_Protocols.Navigation
             currentRoom = FindRoomReference(RoomType.Room_Start);
 
             //Enter the Starting Room
-            currentRoom.Enter(Direction.South);
+            currentRoom.Enter(DirectionEnum.South);
         }
 
         /// <summary>
@@ -52,8 +52,11 @@ namespace Shattered_Protocols.Navigation
         }
 
         #region Map Navigation
-        //Moves the current Room to another direction if able
-        public void Move(Direction direction)
+        /// <summary>
+        /// Moves the current Room to another direction if able
+        /// </summary>
+        /// <param name="direction">DirectionEmum that stores what direction to move in</param>
+        public void Move(DirectionEnum direction)
         {
             //Determine what roomtype to load
             RoomType roomType = currentRoom.UseDoor(direction);
@@ -79,7 +82,7 @@ namespace Shattered_Protocols.Navigation
                     currentRoom = room;
 
                     //Determine the opposite of direction and then enter the room
-                    Direction sourceDirection = ReverseDirection(direction);
+                    DirectionEnum sourceDirection = ReverseDirection(direction);
 
                     //Enter room, tell room the 
                     currentRoom.Enter(sourceDirection);
@@ -87,28 +90,40 @@ namespace Shattered_Protocols.Navigation
             }
         }
 
-        private static Direction ReverseDirection(Direction direction)
+        /// <summary>
+        /// Helper to get the opposite of the inputted DirectionEnum
+        /// </summary>
+        /// <param name="direction">direction to be reversed</param>
+        /// <returns>opposite of input direction</returns>
+        private static DirectionEnum ReverseDirection(DirectionEnum direction)
         {
-            Direction opposite;
+            DirectionEnum opposite;
             switch (direction)
             {
-                case Direction.North:
-                    opposite = Direction.South;
+                case DirectionEnum.North:
+                    opposite = DirectionEnum.South;
                     break;
-                case Direction.West:
-                    opposite = Direction.East;
+                case DirectionEnum.West:
+                    opposite = DirectionEnum.East;
                     break;
-                case Direction.East:
-                    opposite = Direction.West;
+                case DirectionEnum.East:
+                    opposite = DirectionEnum.West;
                     break;
                 default:
-                    opposite = Direction.North;
+                    opposite = DirectionEnum.North;
                     break;
             }
 
             return opposite;
         }
 
+        /// <summary>
+        /// returns a Room object from the roomDictionary if it exists
+        /// creates a new Room object if needed
+        /// used to ensure only one of each room type exists
+        /// </summary>
+        /// <param name="roomType">type of room to return</param>
+        /// <returns>Room object</returns>
         private Room FindRoomReference(RoomType roomType)
         {
 

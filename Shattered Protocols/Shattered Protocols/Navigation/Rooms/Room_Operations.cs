@@ -16,11 +16,11 @@ namespace Shattered_Protocols.Navigation.Rooms
         {
             Name = "Heart of Operations";
             Description = @"
-             Welcome to the Heart of Operations. There is a big supercomputer that takes up most 
-             of this room. The computer is protected by an anti-blast, anti-EMP casing. Even if 
-             you nuked this building, UtopiaNet would still survive. That's why you are here. 
-             There seems to be a USB port in the casing. 
-             You just need to find the rubberducky USB drive with the virus to finish the job! 
+    Welcome to the Heart of Operations. There is a big supercomputer that takes up most 
+    of this room. The computer is protected by an anti-blast, anti-EMP casing. Even if 
+    you nuked this building, UtopiaNet would still survive. That's why you are here. 
+    There seems to be a USB port in the casing. Huh... there is also a suspicious looking 
+    avian symbol above the port...
              ";
             RoomPuzzle = new PuzzleSQLInjection();
 
@@ -29,15 +29,15 @@ namespace Shattered_Protocols.Navigation.Rooms
 
 
             //Define Neighboring Rooms
-            //  Direction relative to current roon, type of room
-            NewDoor(Direction.North, RoomType.Room_Server);
+            //  DirectionEnum relative to current roon, type of room
+            NewDoor(DirectionEnum.North, RoomType.Room_Server);
         }
 
         /// <summary>
         /// Override Enter so that Puzzle no longer displays automatically
         /// </summary>
         /// <param name="originDirection"></param>
-        public override void Enter(Direction originDirection)
+        public override void Enter(DirectionEnum originDirection)
         {
             RoomPuzzle.Room = RoomType.Room_Operations;
 
@@ -56,7 +56,7 @@ namespace Shattered_Protocols.Navigation.Rooms
                 string name = itemArgs.Name;
 
                 // Check if name is "flashDrive"
-                if (name.Equals("flashdrive", StringComparison.OrdinalIgnoreCase))
+                if (name.Equals("ducky_flash_drive", StringComparison.OrdinalIgnoreCase))
                 {
                     //Run ShowPuzzle Logic if applicable
                     ShowPuzzle();
@@ -64,7 +64,7 @@ namespace Shattered_Protocols.Navigation.Rooms
             }
             else
             {
-                GameController.Output("This Item cannot be used here!");
+                GameController.Output("    This Item cannot be used here!");
             }
         }
     }

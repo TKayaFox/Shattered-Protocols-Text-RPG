@@ -17,25 +17,25 @@ namespace Shattered_Protocols.Puzzles
         // SHA256 of "password123"
         private readonly string hashedPassword = "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f";
 
-        public PuzzlePasswordCracker() : base("Crack the system password.") { }
+        public PuzzlePasswordCracker() : base("\tCrack the system password.") { }
 
         public override void Start()
         {
             // Check if the puzzle is already solved
             if (IsSolved)
             {
-                GameController.Output("This puzzle has already been solved. You can proceed further.");
+                GameController.Output("\tThis puzzle has already been solved. You can proceed further.");
                 return;
             }
             GameController.Output(@"
-             There is a door terminal keeping access to the Break Room that says, 
-             “In pursuit of deterring the constant snack breaks, we put a simple lock here.” 
-             Unfortunately, the password is a hash, so this simple password might be a bit 
-             more complicated.
+    There is a door terminal keeping access to the Break Room that says, 
+    “In pursuit of deterring the constant snack breaks, we put a simple lock here.” 
+    Unfortunately, the password is a hash, so this simple password might be a bit 
+    more complicated.
              ");
             ResetattemptCount();
             GameController.Output(Description);
-            GameController.Output("Enter the password that matches the given SHA256 hash.");
+            GameController.Output("\tEnter the password that matches the given SHA256 hash.");
         }
 
         // hints are provided after the 3rd incorrect attempt.
@@ -46,21 +46,21 @@ namespace Shattered_Protocols.Puzzles
             if (CheckPassword(command.Trim()))
             {
                 PuzzleSolved(@"
-             Access Granted!
-             This hash was no match for the skills of the top computer scientist in the Rebel Alliance. 
-             Time to take a break in the break room!
+    Access Granted!
+    This hash was no match for the skills of the top computer scientist in the Rebel Alliance. 
+    Time to take a break in the break room!
              ");
             }
             else
             {
                 AttemptCount++;
-                GameController.Output("Access denied. Try again.");
+                GameController.Output("\tAccess denied. Try again.");
             }
 
             // Display a hint after 3 failed attemptCount
             if (AttemptCount >= 3)
             {
-                GameController.Output("Hint: The answer is a password is a commonly used weak password.");
+                GameController.Output("\tHint: The answer is a password is a commonly used weak password.");
             }
         }
 

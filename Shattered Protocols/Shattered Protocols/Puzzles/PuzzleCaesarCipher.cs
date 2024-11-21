@@ -19,25 +19,25 @@ namespace Shattered_Protocols.Puzzles
         private readonly int shiftAmount = 3;
         private int attemptCount = 0;
 
-        public PuzzleCaesarCipher() : base("Decrypt the Caesar ciphered message.") { }
+        public PuzzleCaesarCipher() : base("\tDecrypt the Caesar ciphered message.") { }
         public override void Start()
         {
             // Check if the puzzle is already solved
             if (IsSolved)
             {
-                GameController.Output("This puzzle has already been solved. You can proceed further.");
+                GameController.Output("\tThis puzzle has already been solved. You can proceed further.");
                 return;
             }
             //Puzzle intro
             GameController.Output(@"
-             While the AI were learning object detection, they were also learning about password mechanisms. 
-             The Ceaser Cypher is used on the lock on the door to the Break Room. This was a way for the AI 
-             to crack the Ceaser Cypher with minimal documentation/information.
+    While the AI were learning object detection, they were also learning about password mechanisms. 
+    The Ceaser Cypher is used on the lock on the door to the Break Room. This was a way for the AI 
+    to crack the Ceaser Cypher with minimal documentation/information.
              ");
             ResetattemptCount();
             GameController.Output(Description);
-            GameController.Output($"Encrypted Message: {encryptedMessage}");
-            GameController.Output("Enter the correct decryption:");
+            GameController.Output($"\tEncrypted Message: {encryptedMessage}");
+            GameController.Output("\tEnter the correct decryption:");
         }
 
         public override void ReadCommand(string command)
@@ -48,17 +48,18 @@ namespace Shattered_Protocols.Puzzles
             if (command.Trim().Equals(correctDecryption, StringComparison.OrdinalIgnoreCase))
             {
                 PuzzleSolved(@"
-                 You remember the good ol' days where you had the luxury to learn to make simple programs like “Hello World” and Ceaser Cyphers without robots trying to kill you non-stop. 
-                 A luxury you hope to reobtain after all this is over… Time to go to the Break Room.
+    You remember the good ol' days where you had the luxury to learn to make simple 
+    programs like “Hello World” and Ceaser Cyphers without robots trying to kill you non-stop. 
+    A luxury you hope to reobtain after all this is over… Time to go to the Break Room.
                  ");
             }
             else
             {
-                GameController.Output("Incorrect. Try again.");
+                GameController.Output("\tIncorrect. Try again.");
 
                 if (AttemptCount >= 4)
                 {
-                    GameController.Output("Hint: The original message is a common greeting that is shifted 3 times. Not gonna tell you which way...");
+                    GameController.Output("\tHint: The original message is a common greeting that is shifted 3 times. Not gonna tell you which way...");
                 }
             }
         }

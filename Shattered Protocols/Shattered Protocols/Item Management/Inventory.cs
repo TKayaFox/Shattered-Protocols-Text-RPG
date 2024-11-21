@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shattered_Protocols
 {
+    /// <summary>
+    /// Inventory handles Item object management, allowing easy adding/removing/checking of Items in a list, as well as transferring between Inventories.
+    /// </summary>
     public class Inventory
     {
         string name;
@@ -21,18 +24,19 @@ namespace Shattered_Protocols
 
         /// <summary>
         /// Constructor overloaded to allow custom inventory naming
+        /// By default the Inventory is named "Room" but this can be overwritten with a string input
         /// </summary>
-        public Inventory() : this("Room") { }
-        public Inventory(string name)
+        /// <param name="name">String storing the name of the inventory, Room by default</param>
+        public Inventory(string name = "Room")
         {
             this.name = name;
         }
 
 
         /// <summary>
-        /// returns true if inventory list is empty
+        /// Checks if the inventory is empty of items
         /// </summary>
-        /// <returns></returns>
+        /// <returns>returns true if inventory list is empty</returns>
         public bool IsEmpty()
         {
             return inventory.Count == 0;
@@ -50,12 +54,12 @@ namespace Shattered_Protocols
             {
                 foreach (var item in inventory)
                 {
-                    result += $"- {item.Name}\n";
+                    result += $"    *{item.Name}*\n";
                 }
             }
             else
             {
-                result = "No Items";
+                result = "  No Items";
             }
             return result;
         }
@@ -66,8 +70,7 @@ namespace Shattered_Protocols
         /// <param name="item">The item to add.</param>
         public bool Add(Item item)
         {
-            bool success = false;
-            //If item is null, then state that item was not found
+            bool success = false;   
             if (item != null)
             {
                 inventory.Add(item);
@@ -77,10 +80,10 @@ namespace Shattered_Protocols
         }
 
         /// <summary>
-        /// Removes (and returns) an item from the inventory and returns it
+        /// Removes (and returns) an item from the inventory (identified by input string) and returns it
         /// </summary>
         /// <param name="itemName">The name of the item to drop.</param>
-        /// <returns>The removed item</returns>
+        /// <returns>named item</returns>
         public Item TakeItem(String itemName)
         {
             Item item = GetItem(itemName);
@@ -92,7 +95,10 @@ namespace Shattered_Protocols
         }
 
 
-        //Removes all items from inventories and returns as an array
+        /// <summary>
+        /// Removes all items from inventories and returns as an array
+        /// </summary>
+        /// <returns>Array of Items</returns>
         public Item[] TakeAll()
         {
             // Convert inventory to an array
@@ -133,11 +139,12 @@ namespace Shattered_Protocols
         }
 
         /// <summary>
-        /// Static method that will transfer an item from one Inventory object to another
+        /// Static method that will transfer a named item from one Inventory object to another
+        ///     If itemName is not provided transfers all items from source to destiantion inventory
         /// </summary>
-        /// <param name="itemName"></param>
-        /// <param name="source"></param>
-        /// <param name="destination"></param>
+        /// <param name="itemName">name of item to be transferred, defaults to "all"</param>
+        /// <param name="source">Source Inventory to transfer from</param>
+        /// <param name="destination">Inventory to transfer to</param>
         public static bool Transfer(string itemName, Inventory source, Inventory destination)
         {
             bool success = false;
@@ -167,16 +174,22 @@ namespace Shattered_Protocols
             //notify user of result
             if (success)
             {
-                GameController.Output("Added to Inventory");
+                GameController.Output("    Added to Inventory");
             }
             else
             {
-                GameController.Output("I dont see that!");
+                GameController.Output("    I dont see that!");
             }
 
             return success;
         }
 
+        /// <summary>
+        /// Overloaded Static method that will transfer an array of items from one Inventory object to another
+        /// </summary>
+        /// <param name="destination">destination inventory</param>
+        /// <param name="items">an array of items to be transferred</param>
+        /// <returns></returns>
         private static bool Transfer(Inventory destination, Item[] items)
         {
 
@@ -194,7 +207,7 @@ namespace Shattered_Protocols
                 }
                 else
                 {
-                    GameController.Output($"There is nothing here!");
+                    GameController.Output($"    There is nothing here!");
                 }
             }
             return success;

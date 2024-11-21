@@ -71,7 +71,7 @@ namespace Shattered_Protocols.Puzzles
             GameController.Publish(EventType.UnlockRoom, args);
 
             //Display resolution message
-            GameController.Output("Correct! Puzzle solved. " + resolutionMsg);
+            GameController.Output("\tCorrect! Puzzle solved. \n" + resolutionMsg);
         }
     }
 }

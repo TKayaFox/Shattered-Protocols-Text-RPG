@@ -16,9 +16,9 @@ namespace Shattered_Protocols.Navigation.Rooms
         {
             Name = "Front Desks";
             Description = @"
-             Welcome to the Front Desks. There are empty chairs where receptionists would welcome guests. 
-             There are computers with an accompanying phone on each one. Calling for help would be pointless here; 
-             you are on your own… also, the phones probably don't work anymore.
+    Welcome to the Front Desks. There are empty chairs where receptionists would welcome guests. 
+    There are computers with an accompanying phone on each one. Calling for help would be pointless here; 
+    you are on your own… also, the phones probably don't work anymore.
              ";
             RoomPuzzle = new PuzzleBinaryLock();
 
@@ -26,14 +26,14 @@ namespace Shattered_Protocols.Navigation.Rooms
             Inventory = new Inventory();
 
             //Define Neighboring Rooms
-            //  Direction relative to current roon, type of room
-            NewDoor(Direction.North, RoomType.Room_Meeting);
+            //  DirectionEnum relative to current roon, type of room
+            NewDoor(DirectionEnum.North, RoomType.Room_Meeting);
 
             //Lock appropriate rooms
-            SetLock(Direction.North, true);
-            SetLock(Direction.South, true);
-            SetLock(Direction.West, true);
-            SetLock(Direction.East, true);
+            SetLock(DirectionEnum.North, true);
+            SetLock(DirectionEnum.South, true);
+            SetLock(DirectionEnum.West, true);
+            SetLock(DirectionEnum.East, true);
         }
     }
 }

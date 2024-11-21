@@ -16,25 +16,25 @@ namespace Shattered_Protocols.Puzzles
     {
         private int attempts = 0;
 
-        public PuzzleCodeInjection() : base("Bypass the firewall using a terminal command.") { }
+        public PuzzleCodeInjection() : base("\tBypass the firewall using a terminal command.") { }
 
         public override void Start()
         {
             // Check if the puzzle is already solved
             if (IsSolved)
             {
-                GameController.Output("This puzzle has already been solved. You can proceed further.");
+                GameController.Output("\tThis puzzle has already been solved. You can proceed further.");
                 return;
             }
             //Puzzle intro
             GameController.Output(@"
-             The servers have firewalls in place to repel intruders from entering the Heart of Operations. 
-             You are seen as a virus (and rightfully so). Find a way to bypass this terminal and become one 
-             step closer to your goal.
+    The servers have firewalls in place to repel intruders from entering the Heart of Operations. 
+    You are seen as a virus (and rightfully so). Find a way to bypass this terminal and become one 
+    step closer to your goal.
              ");
             ResetattemptCount();
             GameController.Output(Description);
-            GameController.Output("Enter the correct terminal command to bypass the firewall in Linux:"); ;
+            GameController.Output("\tEnter the correct terminal command to bypass the firewall in Linux:"); ;
         }
 
         public override void ReadCommand(string command)
@@ -46,12 +46,12 @@ namespace Shattered_Protocols.Puzzles
             if (command == correctCommand)
             {
                 PuzzleSolved(@"
-                 The Firewalls are now down, and you may pass… Didn't even need a fire extinguisher.
+    The Firewalls are now down, and you may pass… Didn't even need a fire extinguisher.
                  ");
             }
             else
             {
-                GameController.Output("Incorrect command.");
+                GameController.Output("\tIncorrect command.");
                 GiveHint();
             }
         }
@@ -61,15 +61,15 @@ namespace Shattered_Protocols.Puzzles
         {
             if (AttemptCount == 2)
             {
-                GameController.Output("Hint: The command requires elevated privileges.");
+                GameController.Output("\tHint: The command requires elevated privileges.");
             }
             else if (AttemptCount == 4)
             {
-                GameController.Output("Hint: Try using the 'sudo' command.");
+                GameController.Output("\tHint: Try using the 'sudo' command.");
             }
             else if (AttemptCount >= 6)
             {
-                GameController.Output("You’ve tried multiple times. Think about how you would gain root access.");
+                GameController.Output("\tYou've tried multiple times. Think about how you would gain root access.");
             }
         }
     }
