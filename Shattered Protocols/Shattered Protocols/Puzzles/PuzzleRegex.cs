@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Text.RegularExpressions;
 
 // Regex-Based Decryption (Development Labs)
-// The user is given a list of data entries and must filter the data using a Python-style regex pattern.
+// The user is required to decrypt data using Python-style regex patterns.
+// The puzzle is solved when the user correctly filters the data to find the admin profile.
+// Hints are provided after the 3rd and 4th incorrect attempts.
 // The user has an unlimited number of attempts to solve the puzzle.
-// The puzzle is solved when the user inputs a regex pattern that filters the data to reveal the answer.
-// The answer is "Admin" as a role in the data entries. 
-// The user input is case-insensitive.
+
 namespace Shattered_Protocols.Puzzles
 {
     // Regex-Based Decryption (Development Labs)
@@ -23,11 +23,11 @@ namespace Shattered_Protocols.Puzzles
             // Sample data that players will filter
             dataToFilter = new List<string>
             {
-            "\tUser1: Alice - Role: Admin",
-            "\tUser2: Bob - Role: User",
-            "\tUser3: Carol - Role: Admin",
-            "\tUser4: Dave - Role: User",
-            "\tUser5: Eve - Role: Superuser"
+                "\tUser1: Alice - Role: Admin",
+                "\tUser2: Bob - Role: User",
+                "\tUser3: Carol - Role: Admin",
+                "\tUser4: Dave - Role: User",
+                "\tUser5: Eve - Role: Superuser"
             };
         }
 
@@ -39,14 +39,15 @@ namespace Shattered_Protocols.Puzzles
                 GameController.Output("\tThis puzzle has already been solved. You can proceed further.");
                 return;
             }
-            //Puzzle intro
+
+            // Puzzle introduction
             GameController.Output(@"
     The lock heading to the Testing Room requires a profile with Admin rights to get through. 
     In the middle of the table, there seems to be a small computer full of names and passwords, 
     but there are way too many to comb through. Some kind of regular expression would help sort 
     out which profiles have admin passwords.
              ");
-            ResetattemptCount();
+            ResetAttemptCount(); // Reset attempt count when revisiting the puzzle
 
             GameController.Output(Description);
             GameController.Output("\tYou have the following data to filter (use Python-style regex):\n");
@@ -75,21 +76,19 @@ namespace Shattered_Protocols.Puzzles
                     GameController.Output(result);
                 }
 
-                // Check if any filtered result contains "admin" as the answer
-                // Python regex pattern to match admin role
-                // The pattern is case-insensitive
+                // Refined regex pattern to match "role: admin" with any amount of space before or after
                 string adminPattern = @"role:\s*admin";
-                if (filteredResults.Any(result => result.ToLower().Contains(adminPattern)))
+                if (filteredResults.Any(result => Regex.IsMatch(result, adminPattern, RegexOptions.IgnoreCase)))
                 {
-                    PuzzleSolved(@"
-    Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
-    Time to go see what they were testing…
-                 ");
-                    IsSolved = true;
+                    PuzzleSolved(@" 
+                        Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
+                        Time to go see what they were testing…");
+                    IsSolved = true; // Mark the puzzle as solved
                 }
                 else
                 {
                     GameController.Output("\tPattern not correct. Try again.");
+                    // Provide hints after multiple incorrect attempts
                     if (attemptCount >= 3)
                     {
                         GameController.Output("\tHint: Try patterns that match specific user roles. Remember, Python-style regex is used.");
@@ -99,6 +98,7 @@ namespace Shattered_Protocols.Puzzles
             else
             {
                 GameController.Output("\tNo matches found. Try a different pattern.");
+                // Provide hints after no matches
                 if (attemptCount >= 4)
                 {
                     GameController.Output("\tHint: Consider how roles are structured in the data. Python regex style is expected.");
@@ -112,12 +112,20 @@ namespace Shattered_Protocols.Puzzles
             foreach (var item in data)
             {
                 // Apply Python-style regex pattern for filtering
-                if (System.Text.RegularExpressions.Regex.IsMatch(item, pattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(item, pattern, RegexOptions.IgnoreCase))
                 {
                     matchedData.Add(item);
                 }
             }
             return matchedData;
+        }
+
+        private void ResetAttemptCount()
+        {
+            if (!IsSolved) // Only reset attempt count if the puzzle is not solved yet
+            {
+                attemptCount = 0; // Reset attempt count when starting or re-attempting the puzzle
+            }
         }
     }
 }

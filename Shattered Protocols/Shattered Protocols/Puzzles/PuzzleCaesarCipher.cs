@@ -1,25 +1,31 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+
+// Caesar Cipher Puzzle
+// The user must decrypt an encrypted message using a Caesar cipher.
+// The shift amount is randomized, and the user has unlimited attempts.
 
 namespace Shattered_Protocols.Puzzles
 {
-    // Caesar Cipher Puzzle
-    // The user is given an encrypted message and must decrypt it using a Caesar cipher.
-    // The user has an unlimited number of attempts to solve the puzzle.
-    // The puzzle is solved when the user inputs the correct decryption.
-    // The encrypted message is "Khoor Zruog" which is "Hello World" shifted by 3.
-    // The user must decrypt the message by shifting it back by 3.
-    // the string is hard coded, but can be changed to any string if needed.
     public class PuzzleCaesarCipher : Puzzle
     {
-        private readonly string encryptedMessage = "Khoor Zruog"; // "Hello World" shifted by 3
-        // the shit amount is also hard coded here, but we can fix it to a random number. If we do, we must also change the clue to give the correct hint.
-        private readonly int shiftAmount = 3;
+        private readonly string encryptedMessage; // Encrypted message
+        private readonly int shiftAmount; // Randomized shift amount
         private int attemptCount = 0;
 
-        public PuzzleCaesarCipher() : base("\tDecrypt the Caesar ciphered message.") { }
+        public PuzzleCaesarCipher() : base("\tDecrypt the Caesar ciphered message.")
+        {
+            // Randomize shift amount between 1 and 25 (inclusive)
+            var random = new Random();
+            // ready for random shift amount
+            // kept the shift amount to 1 for testing
+            shiftAmount = random.Next(1, 2);
+
+            // Encrypt the message dynamically
+            string plainMessage = "Hello World";
+            encryptedMessage = EncryptCaesar(plainMessage, shiftAmount);
+        }
+
         public override void Start()
         {
             // Check if the puzzle is already solved
@@ -28,13 +34,15 @@ namespace Shattered_Protocols.Puzzles
                 GameController.Output("\tThis puzzle has already been solved. You can proceed further.");
                 return;
             }
-            //Puzzle intro
+
+            ResetAttemptCount();
+
+            // Puzzle intro
             GameController.Output(@"
     While the AI were learning object detection, they were also learning about password mechanisms. 
-    The Ceaser Cypher is used on the lock on the door to the Break Room. This was a way for the AI 
-    to crack the Ceaser Cypher with minimal documentation/information.
-             ");
-            ResetattemptCount();
+    The Caesar Cipher is used on the lock on the door to the Break Room. This was a way for the AI 
+    to crack the Caesar Cipher with minimal documentation/information.
+            ");
             GameController.Output(Description);
             GameController.Output($"\tEncrypted Message: {encryptedMessage}");
             GameController.Output("\tEnter the correct decryption:");
@@ -42,29 +50,63 @@ namespace Shattered_Protocols.Puzzles
 
         public override void ReadCommand(string command)
         {
-            AttemptCount++;
+            // If the puzzle has already been solved, do not allow further input
+            // This is to prevent the user from solving the puzzle multiple times
+            if (IsSolved)
+            {
+                GameController.Output("\tThis puzzle has already been solved.");
+                return;
+            }
+
+            attemptCount++;
             string correctDecryption = DecryptCaesar(encryptedMessage, shiftAmount);
 
             if (command.Trim().Equals(correctDecryption, StringComparison.OrdinalIgnoreCase))
             {
                 PuzzleSolved(@"
     You remember the good ol' days where you had the luxury to learn to make simple 
-    programs like “Hello World” and Ceaser Cyphers without robots trying to kill you non-stop. 
+    programs like “Hello World” and Caesar Ciphers without robots trying to kill you non-stop. 
     A luxury you hope to reobtain after all this is over… Time to go to the Break Room.
-                 ");
+                ");
             }
             else
             {
                 GameController.Output("\tIncorrect. Try again.");
 
-                if (AttemptCount >= 4)
+                if (attemptCount >= 4)
                 {
-                    GameController.Output("\tHint: The original message is a common greeting that is shifted 3 times. Not gonna tell you which way...");
+                    GameController.Output($"\tHint: The original message is a common greeting. It is shifted {shiftAmount} times.");
                 }
             }
         }
 
-        // cypher decryption method
+        private void ResetAttemptCount()
+        {
+            attemptCount = 0;
+        }
+
+        private string EncryptCaesar(string input, int shift)
+        {
+            StringBuilder encrypted = new StringBuilder();
+            foreach (char c in input)
+            {
+                if (char.IsLetter(c))
+                {
+                    char d = char.IsUpper(c) ? 'A' : 'a';
+                    encrypted.Append((char)((c - d + shift) % 26 + d));
+                }
+                else
+                {
+                    encrypted.Append(c);
+                }
+            }
+            return encrypted.ToString();
+        }
+
+        // Decrypts a Caesar ciphered message
+        // input: The encrypted message
+        // shift: The shift amount used for encryption
+        // Returns the decrypted message
         private string DecryptCaesar(string input, int shift)
         {
             StringBuilder decrypted = new StringBuilder();

@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
 // PuzzleBinaryLock is a puzzle that requires the user to input the binary representation of the number 42. 
 // The puzzle is solved when the user inputs the correct binary number.
 // Hints are provided after the 2nd and 4th incorrect attempts.
 // The user has an unlimited number of attempts to solve the puzzle.
-// the answer is hard coded to 42, but can be changed to any number/ even random number if needed.
+// The answer is hard-coded to 42 but can be changed to any number or even a random number if needed.
+
 namespace Shattered_Protocols.Puzzles
 {
     public class PuzzleBinaryLock : Puzzle
     {
+        // Constructor for PuzzleBinaryLock
         public PuzzleBinaryLock() : base("\tSolve the binary lock puzzle.") { }
 
+        // Start method is invoked when the puzzle is triggered
         public override void Start()
         {
             // Check if the puzzle is already solved
@@ -23,28 +25,48 @@ namespace Shattered_Protocols.Puzzles
                 GameController.Output("\tThis puzzle has already been solved. You can proceed further.");
                 return;
             }
-            
-            //Puzzle intro
+
+            // Debugging: Output the current state of IsSolved for testing purposes
+            GameController.Output($"\t[DEBUG] Puzzle solved state: {IsSolved}");
+
+            // Puzzle intro message
             GameController.Output(@"
     The receptionists here thought that since this is the front desk, they would be cheeky and implement 
     a Binary Code as the front locking mechanism to get into the rest of the building. A Binary Code 
     seemed apt as people regularly enter and exit the front desks, kinda like 1's and 0's.
-             ");
-            ResetattemptCount();
+    ");
+
+            // Reset the attempt count when the puzzle starts
+            ResetAttemptCount();
+
+            // Prompt the user to start solving the puzzle
             GameController.Output(Description);
             GameController.Output("\tEnter the binary representation of the number 42:");
+        }
+
+        // Method to mark the puzzle as solved
+        private void PuzzleSolved(string successMessage)
+        {
+            GameController.Output(successMessage);
+            IsSolved = true; // Mark the puzzle as solved
+            AttemptCount = 0; // Reset attempt count when solved
+            GameController.Output("\t[DEBUG] Puzzle solved state updated to true.");
         }
 
         // Check the user input to see if it is correct.
         // If the input is correct, the puzzle is solved.
         private void CheckInput(string input)
         {
-            if (CheckBinaryInput(input, 42))
+            // Normalize the input to handle potential edge cases (e.g., extra spaces)
+            string trimmedInput = input.Trim();
+
+            // Check if the input matches the correct binary representation of the target number
+            if (CheckBinaryInput(trimmedInput, 42))
             {
                 PuzzleSolved(@"
     The receptionists thought it was so clever to have this as the code… 
-    Too bad it was not clever enough to keep you from getting in… Time to head inside…
-             ");
+    Too bad it was not clever enough to keep you from getting in… Time to head inside… 
+                ");
             }
             else
             {
@@ -54,9 +76,17 @@ namespace Shattered_Protocols.Puzzles
             }
         }
 
-        // Read command method to check the user input.
+        // ReadCommand method is invoked when the user inputs a command
         public override void ReadCommand(string command)
         {
+            // If the puzzle is already solved, do not process further input
+            if (IsSolved)
+            {
+                GameController.Output("\tThis puzzle has already been solved. No need to input anything further.");
+                return;
+            }
+
+            // Otherwise, check the user's input
             CheckInput(command);
         }
 
@@ -73,12 +103,18 @@ namespace Shattered_Protocols.Puzzles
             }
         }
 
-        // check if the user input is the correct binary representation of the number 42
-        // binary number can be changed to random number if needed.
+        // Method to check if the user input matches the correct binary representation of the target number
         private static bool CheckBinaryInput(string userInput, int correctNumber)
         {
             string correctBinary = Convert.ToString(correctNumber, 2);
             return userInput == correctBinary;
+        }
+
+        // ResetAttemptCount ensures the attempt counter is set to 0
+        private void ResetAttemptCount()
+        {
+            AttemptCount = 0;
+            GameController.Output("\t[DEBUG] Attempt count reset to 0.");
         }
     }
 }
