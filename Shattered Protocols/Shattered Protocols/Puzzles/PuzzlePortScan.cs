@@ -16,26 +16,30 @@ namespace Shattered_Protocols.Puzzles
             // Check if the puzzle is already solved
             if (IsSolved)
             {
-                Console.WriteLine("This puzzle has already been solved. You don't need to solve it again.");
+                Console.WriteLine("\tThis puzzle has already been solved. You don't need to solve it again.");
                 return;
             }
 
-            // Reset attempt count if the puzzle is being attempted again
+            // Reset attempt count when starting the puzzle for the first time
             ResetAttemptCount();
+
             Console.WriteLine(Description);
-            Console.WriteLine("Enter the command to conduct a thorough port scan at IP address 192.126.98.10:");
+            Console.WriteLine("\tEnter the command to conduct a thorough port scan at IP address 192.126.98.10:");
         }
 
         public override void ReadCommand(string command)
         {
-            // Check if the puzzle is already solved
+            // If the puzzle has been solved, exit early
             if (IsSolved)
             {
-                Console.WriteLine("This puzzle has already been solved.");
+                Console.WriteLine("\tThis puzzle has already been solved.");
                 return;
             }
 
-            if (command.Contains("nmap -n -v -p- -A 192.126.98.10"))
+            Console.WriteLine($"User input: '{command}'"); // Debugging
+
+            // Correct command to solve the puzzle
+            if (string.Equals(command.Trim(), "nmap -n -v -p- -A 192.126.98.10", StringComparison.OrdinalIgnoreCase))
             {
                 Console.WriteLine("Access granted! Puzzle solved.");
                 IsSolved = true; // Mark the puzzle as solved
@@ -45,36 +49,41 @@ namespace Shattered_Protocols.Puzzles
                 attemptCount++;
                 Console.WriteLine("Access denied. Try again.");
 
+                // Provide progressively detailed hints after specific incorrect attempts
                 if (attemptCount >= 1)
                 {
-                    Console.WriteLine("The command needs to have these specifications:");
-                    Console.WriteLine("- No domain resolution");
-                    Console.WriteLine("- Verbose mode");
-                    Console.WriteLine("- Scan ports 1-65535");
-                    Console.WriteLine("- Conduct service enumeration, OS detection, and traceroute");
+                    Console.WriteLine("\tThe command needs to have these specifications:");
+                    Console.WriteLine("\t- No domain resolution");
+                    Console.WriteLine("\t- Verbose mode");
+                    Console.WriteLine("\t- Scan ports 1-65535");
+                    Console.WriteLine("\t- Conduct service enumeration, OS detection, and traceroute");
                 }
+
                 if (attemptCount >= 3)
                 {
-                    Console.WriteLine("Hint: -n");
+                    Console.WriteLine("\tHint: -n");
                 }
+
                 if (attemptCount >= 4)
                 {
-                    Console.WriteLine("Hint: -v");
+                    Console.WriteLine("\tHint: -v");
                 }
+
                 if (attemptCount >= 5)
                 {
-                    Console.WriteLine("Hint: -p-");
+                    Console.WriteLine("\tHint: -p-");
                 }
+
                 if (attemptCount >= 6)
                 {
-                    Console.WriteLine("Hint: -A");
+                    Console.WriteLine("\tHint: -A");
                 }
             }
         }
 
         private void ResetAttemptCount()
         {
-            attemptCount = 0;
+            attemptCount = 0; // Reset the attempt count when starting or re-attempting the puzzle
         }
     }
 }
