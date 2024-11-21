@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
+// Binary search puzzle to locate a vulnerable server
+// The puzzle is solved when the user identifies the correct IP address of the server
+// Hints are provided after the 4th incorrect attempt
+// The user has an unlimited number of attempts to solve the puzzle
 namespace Shattered_Protocols.Puzzles
 {
     public class PuzzleBinarySearch : Puzzle
