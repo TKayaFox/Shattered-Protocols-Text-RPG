@@ -36,8 +36,9 @@ namespace Shattered_Protocols.Navigation.Rooms
             NewDoor(DirectionEnum.East, RoomType.Room_Testing);
 
             //Lock appropriate rooms
-            SetLock(DirectionEnum.South, true);
-            SetLock(DirectionEnum.East, true);
+            //If fix Puzzle for this room uncomment
+            //SetLock(DirectionEnum.South, true);
+            //SetLock(DirectionEnum.East, true);
         }
     }
 }
