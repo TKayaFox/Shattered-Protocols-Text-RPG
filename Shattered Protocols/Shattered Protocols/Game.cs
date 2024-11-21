@@ -191,7 +191,7 @@ namespace Shattered_Protocols
                     GameController.Output("    Exiting Game- Thank you for Playing!");
                     getInput = true;
                     break;
-                case "solve":
+                case "smartypants": //Super secret password to autosolve a puzzle
                     if (map.CurrentRoom.RoomPuzzle != null)
                     {
                         map.CurrentRoom.RoomPuzzle.PuzzleSolved();
