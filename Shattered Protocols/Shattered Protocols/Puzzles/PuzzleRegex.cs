@@ -79,12 +79,11 @@ namespace Shattered_Protocols.Puzzles
                 // Python regex pattern to match admin role
                 // The pattern is case-insensitive
                 string adminPattern = @"role:\s*admin";
-                if (filteredResults.Any(result => result.ToLower().Contains(adminPattern)))
+                if (filteredResults.Any(result => System.Text.RegularExpressions.Regex.IsMatch(result, adminPattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase)))
                 {
-                    PuzzleSolved(@"
-                 Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
-                 Time to go see what they were testing…
-                 ");
+                    PuzzleSolved(@" 
+                        Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
+                        Time to go see what they were testing…");
                     IsSolved = true;
                 }
                 else
