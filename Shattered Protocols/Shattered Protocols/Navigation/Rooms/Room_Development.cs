@@ -12,6 +12,7 @@ namespace Shattered_Protocols.Navigation.Rooms
     {
         public Room_Development() : base(RoomType.Room_Development)
         {
+            //TEST
             Name = "Development Labs";
             Description = @"
     Welcome to the Development Labs. Here, there are computers scattered across desks. 
