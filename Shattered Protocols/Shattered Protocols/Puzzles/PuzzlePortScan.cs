@@ -17,8 +17,9 @@ namespace Shattered_Protocols.Puzzles
     {
         private int attemptCount = 0;
         private List<string> userInputs = new List<string>(); // Track user's inputs for each part of the command
-        private readonly string[] correctParts = { "-n", "-v", "-p-", "-a" }; // Correct parts of the command
-        private readonly string fullCommand = "nmap -n -v -p- -a 192.126.98.10"; // Full correct command
+        private readonly string[] correctParts = { "-n", "-v", "-p-", "-A" }; // Correct parts of the command
+        private readonly string fullCommand = "nmap -n -v -p- -A 192.126.98.10"; // Full correct command
+        private bool awaitingFullCommand = false; // Tracks if the puzzle is waiting for the full command
 
         public PuzzlePortScan() : base("Conduct a port scan") { }
 
@@ -31,9 +32,10 @@ namespace Shattered_Protocols.Puzzles
                 return;
             }
 
-            // Reset attempt count and user inputs when starting the puzzle for the first time
+            // Reset state when starting the puzzle for the first time
             ResetAttemptCount();
             userInputs.Clear();
+            awaitingFullCommand = false;
 
             Console.WriteLine(Description);
             Console.WriteLine("\tEnter the first part of the command to conduct a thorough port scan at IP address 192.126.98.10:");
@@ -50,36 +52,28 @@ namespace Shattered_Protocols.Puzzles
 
             Console.WriteLine($"User input: '{command}'"); // Debugging
 
-            // Trim and store the user input
-            string userInput = command.Trim().ToLower();
+            string userInput = command.Trim();
 
-            // Check if the user input matches the next part of the command
-            if (userInput == correctParts[userInputs.Count])
+            if (awaitingFullCommand)
             {
-                // Correct input, add to the list
+                ValidateFullCommand(userInput);
+                return;
+            }
+
+            // Check if the user input matches the next part of the command (case-insensitive)
+            if (string.Equals(userInput, correctParts[userInputs.Count], StringComparison.OrdinalIgnoreCase))
+            {
                 userInputs.Add(userInput);
                 Console.WriteLine("Correct part entered!");
 
-                // If all parts have been entered, check the full command
                 if (userInputs.Count == correctParts.Length)
                 {
-                    // Check if the full command is correct
-                    if (string.Equals(string.Join(" ", userInputs) + " 192.126.98.10", fullCommand, StringComparison.OrdinalIgnoreCase))
-                    {
-                        Console.WriteLine("Access granted! Puzzle solved.");
-                        IsSolved = true; // Mark the puzzle as solved
-                    }
-                    else
-                    {
-                        Console.WriteLine("Something is wrong with the command. Try again.");
-                        ResetAttemptCount();
-                        userInputs.Clear(); // Reset the inputs for the next attempt
-                    }
+                    awaitingFullCommand = true;
+                    Console.WriteLine("Now, enter the full command in one line:");
                 }
                 else
                 {
-                    // Continue prompting for the next part of the command
-                    Console.WriteLine($"Enter the next part of the command:");
+                    Console.WriteLine("Enter the next part of the command:");
                 }
             }
             else
@@ -105,8 +99,24 @@ namespace Shattered_Protocols.Puzzles
 
                 if (attemptCount >= 4)
                 {
-                    Console.WriteLine("\tHint: The last part is for (for OS and service detection).");
+                    Console.WriteLine("\tHint: The last part is for (OS and service detection).");
                 }
+            }
+        }
+
+        private void ValidateFullCommand(string command)
+        {
+            string trimmedCommand = command.Trim();
+
+            if (string.Equals(trimmedCommand, fullCommand, StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("Access granted! Puzzle solved.");
+                IsSolved = true; // Mark the puzzle as solved
+            }
+            else
+            {
+                Console.WriteLine("The full command is incorrect. Try again.");
+                Console.WriteLine("Hint: The full command starts with 'nmap' and ends with the target IP address.");
             }
         }
 
