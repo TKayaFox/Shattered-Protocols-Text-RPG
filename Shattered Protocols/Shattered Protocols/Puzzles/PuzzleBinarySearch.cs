@@ -14,7 +14,7 @@ namespace Shattered_Protocols.Puzzles
     public class PuzzleBinarySearch : Puzzle
     {
         private int lowerBound = 0;
-        private int upperBound = 255; 
+        private int upperBound = 255;
         private int targetAddress;
         private int attemptCount;
 
@@ -53,8 +53,16 @@ namespace Shattered_Protocols.Puzzles
             {
                 try
                 {
-                    // Parse the range from the command
                     var parts = command.Replace("scan", "").Trim().Split('-');
+
+                    // Check if the input contains both start and end of range
+                    if (parts.Length != 2)
+                    {
+                        GameController.Output("\tInvalid command format. Use 'scan 192.168.1.[start]-192.168.1.[end]'.");
+                        return;
+                    }
+
+                    // Parse start and end ranges
                     int startRange = int.Parse(parts[0].Split('.')[3]);
                     int endRange = int.Parse(parts[1].Split('.')[3]);
 
@@ -98,11 +106,8 @@ namespace Shattered_Protocols.Puzzles
                     GameController.Output("\tInvalid command format. Use 'scan 192.168.1.[start]-192.168.1.[end]'.");
                 }
             }
-            else
-            {
-                GameController.Output("\tUnknown command. Use 'scan' to narrow the range.");
-            }
         }
+
 
         private void ProvideHint()
         {
