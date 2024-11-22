@@ -19,7 +19,7 @@ namespace Shattered_Protocols.Navigation.Rooms
     This room was used to make many general-purpose AI for the task of gathering information, 
     and generating advice based on the data.
              ";
-            RoomPuzzle = new PuzzlePasswordCracker();
+            RoomPuzzle = new PuzzlePortScan();
 
             //Room Items
             Inventory = new Inventory();

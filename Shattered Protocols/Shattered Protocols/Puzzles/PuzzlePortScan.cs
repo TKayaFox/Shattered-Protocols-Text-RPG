@@ -13,14 +13,14 @@ using System.Text;
 
 namespace Shattered_Protocols.Puzzles
 {
-    public class PortScanPuzzle : Puzzle
+    public class PuzzlePortScan : Puzzle
     {
         private int attemptCount = 0;
         private List<string> userInputs = new List<string>(); // Track user's inputs for each part of the command
-        private readonly string[] correctParts = { "-n", "-v", "-p-", "-A" }; // Correct parts of the command
-        private readonly string fullCommand = "nmap -n -v -p- -A 192.126.98.10"; // Full correct command
+        private readonly string[] correctParts = { "-n", "-v", "-p-", "-a" }; // Correct parts of the command
+        private readonly string fullCommand = "nmap -n -v -p- -a 192.126.98.10"; // Full correct command
 
-        public PortScanPuzzle() : base("Conduct a port scan") { }
+        public PuzzlePortScan() : base("Conduct a port scan") { }
 
         public override void Start()
         {
@@ -90,22 +90,22 @@ namespace Shattered_Protocols.Puzzles
                 // Provide hints after specific incorrect attempts
                 if (attemptCount >= 1)
                 {
-                    Console.WriteLine("\tHint: The first part of the command is '-n' (no domain resolution).");
+                    Console.WriteLine("\tHint: The first part of the command is for (no domain resolution).");
                 }
 
                 if (attemptCount >= 2)
                 {
-                    Console.WriteLine("\tHint: The second part is '-v' (verbose mode).");
+                    Console.WriteLine("\tHint: The second part is for (verbose mode).");
                 }
 
                 if (attemptCount >= 3)
                 {
-                    Console.WriteLine("\tHint: The third part is '-p-' (scan all ports).");
+                    Console.WriteLine("\tHint: The third part is for (scan all ports).");
                 }
 
                 if (attemptCount >= 4)
                 {
-                    Console.WriteLine("\tHint: The last part is '-A' (for OS and service detection).");
+                    Console.WriteLine("\tHint: The last part is for (for OS and service detection).");
                 }
             }
         }
