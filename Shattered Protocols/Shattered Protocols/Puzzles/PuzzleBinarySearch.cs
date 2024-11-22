@@ -8,7 +8,6 @@ using System;
 // The user has an unlimited number of attempts to solve the puzzle.
 // The target address is randomly generated within the range
 // The answer is the exact IP address of the vulnerable server.
-// The user must use the 'scan' command to narrow down the range.
 
 namespace Shattered_Protocols.Puzzles
 {
@@ -54,11 +53,19 @@ namespace Shattered_Protocols.Puzzles
             {
                 try
                 {
-                    // parse the range from the command
+                    // Parse the range from the command
                     var parts = command.Replace("scan", "").Trim().Split('-');
                     int startRange = int.Parse(parts[0].Split('.')[3]);
                     int endRange = int.Parse(parts[1].Split('.')[3]);
 
+                    // Validate that the range is within bounds
+                    if (startRange < lowerBound || endRange > upperBound || startRange > endRange)
+                    {
+                        GameController.Output("\tInvalid range. Ensure the range is between 192.168.1.0 and 192.168.1.255, and that the start is less than or equal to the end.");
+                        return;
+                    }
+
+                    // Check if the target address is within the specified range
                     if (startRange <= targetAddress && endRange >= targetAddress)
                     {
                         if (startRange == endRange)
