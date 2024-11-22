@@ -1,47 +1,31 @@
 using Shattered_Protocols.Enumerations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-// Binary search puzzle to locate a vulnerable server.
-// The puzzle is solved when the user identifies the correct IP address of the server.
-// Hints are provided after the 4th incorrect attempt.
-// The user has an unlimited number of attempts to solve the puzzle.
 
 namespace Shattered_Protocols.Puzzles
 {
     public class PuzzleBinarySearch : Puzzle
     {
-        // The range of IP addresses to search.
         private int lowerBound = 0;
-        private int upperBound = 1; // The range is 0-1 for testing.
-        // private int upperBound = 255; // Uncomment this line post-testing.
-
-        // The "vulnerable server" to find.
+        private int upperBound = 255; // Full range for the puzzle.
         private int targetAddress;
         private int attemptCount;
 
         public PuzzleBinarySearch() : base("\tLocate the vulnerable server using binary search.")
         {
             var random = new Random();
-            // Randomly select target IP address within the specified range.
-            targetAddress = random.Next(lowerBound, upperBound + 1);
+            targetAddress = random.Next(lowerBound, upperBound + 1); // Random target between 0-255.
         }
 
         public override void Start()
         {
-            // Check if the puzzle is already solved.
             if (IsSolved)
             {
                 GameController.Output("\tThis puzzle has already been solved. You can proceed further.");
                 return;
             }
 
-            // Reset the attempt count when the puzzle starts.
             ResetAttemptCount();
 
-            // Puzzle intro message.
             GameController.Output(Description);
             GameController.Output($"The target server is somewhere between 192.168.1.{lowerBound} and 192.168.1.{upperBound}.");
             GameController.Output("Use binary search commands to find it (e.g., 'scan 192.168.1.[start]-192.168.1.[end]').");
@@ -49,38 +33,50 @@ namespace Shattered_Protocols.Puzzles
 
         public override void ReadCommand(string command)
         {
-            // If the puzzle is already solved, do not process further input.
             if (IsSolved)
             {
-                GameController.Output("\tThis puzzle has already been solved. No need to input anything further.");
+                GameController.Output("\tThis puzzle has already been solved.");
                 return;
             }
 
             attemptCount++;
 
-            // Parse the input range from the command.
-            if (command.StartsWith("scan"))
+            if (command.StartsWith("scan", StringComparison.OrdinalIgnoreCase))
             {
                 try
                 {
-                    var parts = command.Replace("scan", "").Trim().Split('-');
-                    // Extract start of range.
-                    int startRange = int.Parse(parts[0].Split('.')[3]);
-                    // Extract end of range.
-                    int endRange = int.Parse(parts[1].Split('.')[3]);
+                    var range = command.Replace("scan", "").Trim();
+                    var parts = range.Split('-');
 
-                    // Check if the target address is within the specified range.
+                    if (parts.Length != 2)
+                        throw new ArgumentException("Invalid range format.");
+
+                    // Parse the start and end of the range
+                    int startRange = ParseIPAddress(parts[0]);
+                    int endRange = ParseIPAddress(parts[1]);
+
+                    // Ensure the range is within bounds
+                    if (startRange < lowerBound || endRange > upperBound || startRange > endRange)
+                    {
+                        GameController.Output("\tInvalid range. Ensure it is within the current bounds and correctly formatted.");
+                        return;
+                    }
+
+                    // Check if the target is within the range
                     if (startRange <= targetAddress && endRange >= targetAddress)
                     {
                         if (startRange == endRange)
                         {
-                            // Puzzle is solved when the exact address is identified.
+                            // Puzzle solved
                             PuzzleSolved($"Target found! The vulnerable server is at 192.168.1.{startRange}.");
                         }
                         else
                         {
-                            // Perform binary search and adjust the range.
+                            // Provide hints based on the proximity to the target
                             int midPoint = (startRange + endRange) / 2;
+                            GiveHint(midPoint);
+
+                            // Perform binary search
                             if (targetAddress <= midPoint)
                             {
                                 GameController.Output("\tTarget is in the lower range.");
@@ -100,9 +96,9 @@ namespace Shattered_Protocols.Puzzles
                         GameController.Output("\tInvalid range. The target server is not within this range.");
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    GameController.Output("\tInvalid command format. Use 'scan 192.168.1.[start]-192.168.1.[end]' to narrow the range.");
+                    GameController.Output($"\tError: {ex.Message}. Use 'scan 192.168.1.[start]-192.168.1.[end]' to narrow the range.");
                 }
             }
             else
@@ -110,23 +106,49 @@ namespace Shattered_Protocols.Puzzles
                 GameController.Output("\tUnknown command. Use 'scan' to narrow the range.");
             }
 
-            // Provide hints after the 4th incorrect attempt.
+            // Provide hints after multiple attempts
             if (attemptCount >= 4 && !IsSolved)
             {
-                GameController.Output("\tHint: Use a binary search strategy to minimize the range each time.");
+                GameController.Output("\tHint: Use binary search strategy. Divide the range into two halves each time.");
             }
+        }
+
+        private int ParseIPAddress(string ipAddress)
+        {
+            var parts = ipAddress.Trim().Split('.');
+            if (parts.Length != 4 || !int.TryParse(parts[3], out int lastOctet))
+                throw new FormatException("Invalid IP address format. Use '192.168.1.[number]'.");
+            return lastOctet;
         }
 
         private void PuzzleSolved(string successMessage)
         {
             GameController.Output(successMessage);
-            IsSolved = true; // Mark the puzzle as solved.
-            ResetAttemptCount(); // Reset attempt count when solved.
+            IsSolved = true;
+            ResetAttemptCount();
         }
 
         private void ResetAttemptCount()
         {
             attemptCount = 0;
+        }
+
+        private void GiveHint(int midPoint)
+        {
+            int distance = Math.Abs(midPoint - targetAddress);
+
+            if (distance < 5)
+            {
+                GameController.Output("\tHint: You’re getting hotter!");
+            }
+            else if (distance <= 20)
+            {
+                GameController.Output("\tHint: You’re getting warmer.");
+            }
+            else
+            {
+                GameController.Output("\tHint: You’re getting colder.");
+            }
         }
     }
 }
