@@ -49,6 +49,9 @@ namespace Shattered_Protocols.Puzzles
 
             attemptCount++;
 
+            // Check if the command is a scan command
+            // The command format should be 'scan 192.168.1.[start]-192.168.1.[end]'
+            // The target address is within the specified range
             if (command.StartsWith("scan"))
             {
                 try
