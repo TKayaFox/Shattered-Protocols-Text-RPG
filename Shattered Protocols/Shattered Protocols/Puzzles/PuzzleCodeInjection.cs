@@ -54,6 +54,8 @@ namespace Shattered_Protocols.Puzzles
                 PuzzleSolved(@"
     The Firewalls are now down, and you may pass… Didn't even need a fire extinguisher.
                 ");
+                IsSolved = true;
+                ResetAttemptCount();
             }
             else
             {
