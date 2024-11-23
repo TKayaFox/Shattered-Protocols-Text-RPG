@@ -27,6 +27,7 @@ namespace Shattered_Protocols.Navigation.Rooms
             //  DirectionEnum relative to current roon, type of room
             NewDoor(DirectionEnum.North, RoomType.Room_Testing);
             NewDoor(DirectionEnum.West, RoomType.Room_Development);
+            NewDoor(DirectionEnum.South, RoomType.Room_Start);
 
             //Lock appropriate rooms
             SetLock(DirectionEnum.North, true);
