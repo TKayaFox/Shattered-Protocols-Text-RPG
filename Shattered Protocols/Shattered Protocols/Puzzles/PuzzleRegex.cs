@@ -19,7 +19,7 @@ namespace Shattered_Protocols.Puzzles
         private int attemptCount = 0;
 
         // Correct regex pattern required to solve the puzzle
-        private readonly string correctRegexPattern = ".*Role: admin.*";
+        private readonly string correctRegexPattern = ".*admin.*";
 
         public PuzzleRegex() : base("\tDecrypt data using Python-style regex patterns.")
         {
