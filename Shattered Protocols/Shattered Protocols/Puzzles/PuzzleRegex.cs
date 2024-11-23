@@ -19,7 +19,7 @@ namespace Shattered_Protocols.Puzzles
         private int attemptCount = 0;
 
         // Correct regex pattern required to solve the puzzle
-        private readonly string correctRegexPattern = @"Role:\s*admin";
+        private readonly string correctRegexPattern = ".*Role: admin.*";
 
         public PuzzleRegex() : base("\tDecrypt data using Python-style regex patterns.")
         {
@@ -108,9 +108,18 @@ namespace Shattered_Protocols.Puzzles
             }
             else if (attemptCount >= 5)
             {
-                GameController.Output("\tHint 3: Almost there! Try something like 'Role:\\s*admin'.");
+                GameController.Output("\tHint 3: Remember what * means in regex. It can match any character."); 
+            }
+            else if (attemptCount >= 6)
+            {
+                GameController.Output("\tHint 4: Remember what . means in regex. It can match any character except a newline.");
+            }
+            else if (attemptCount >= 7)
+            {
+                GameController.Output("\tHint 5: Think carefully about where to put . and * in the pattern.");      
             }
         }
+            
 
         public static List<string> FilterDataWithRegex(string pattern, string[] data)
         {
