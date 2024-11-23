@@ -18,16 +18,19 @@ namespace Shattered_Protocols.Puzzles
         private List<string> dataToFilter;
         private int attemptCount = 0;
 
+        // Correct regex pattern required to solve the puzzle
+        private readonly string correctRegexPattern = ".*admin.*";
+
         public PuzzleRegex() : base("\tDecrypt data using Python-style regex patterns.")
         {
             // Sample data that players will filter
             dataToFilter = new List<string>
             {
-                "\tUser1: Alice - Role: Admin",
-                "\tUser2: Bob - Role: User",
-                "\tUser3: Carol - Role: Admin",
-                "\tUser4: Dave - Role: User",
-                "\tUser5: Eve - Role: Superuser"
+                "\tUser1: Alice - Role: admin",
+                "\tUser2: Bob - Role: user",
+                "\tUser3: Carol - Role: admin",
+                "\tUser4: Dave - Role: user",
+                "\tUser5: Eve - Role: superuser"
             };
         }
 
@@ -62,47 +65,46 @@ namespace Shattered_Protocols.Puzzles
         {
             attemptCount++;
 
-            // Convert command to lowercase for case-insensitive matching
-            command = command.ToLower();
-
-            // Filter data with regex pattern
-            List<string> filteredResults = FilterDataWithRegex(command, dataToFilter.ToArray());
-
-            if (filteredResults.Count > 0)
+            // Check if the entered regex matches the required pattern
+            if (command.Trim().Equals(correctRegexPattern, StringComparison.OrdinalIgnoreCase))
             {
+                // Use the pattern to filter the data
+                List<string> filteredResults = FilterDataWithRegex(command, dataToFilter.ToArray());
+
+                // Display the filtered results
                 GameController.Output("\tFiltered results:");
                 foreach (var result in filteredResults)
                 {
                     GameController.Output(result);
                 }
 
-                // Refined regex pattern to match "role: admin" with any amount of space before or after
-                string adminPattern = @"role:\s*admin";
-                if (filteredResults.Any(result => Regex.IsMatch(result, adminPattern, RegexOptions.IgnoreCase)))
+                // Ensure the filtered results contain only admin roles
+                if (filteredResults.All(result => Regex.IsMatch(result, correctRegexPattern, RegexOptions.IgnoreCase)))
                 {
-                    PuzzleSolved(@" 
+                    PuzzleSolved(@"
     Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
-    Time to go see what they were testing…");
+    Time to go see what they were testing…
+                    ");
                     IsSolved = true; // Mark the puzzle as solved
-                }
-                else
-                {
-                    GameController.Output("\tPattern not correct. Try again.");
-                    // Provide hints after multiple incorrect attempts
-                    if (attemptCount >= 3)
-                    {
-                        GameController.Output("\tHint: Try patterns that match specific user roles. Remember, Python-style regex is used.");
-                    }
+                    return;
                 }
             }
-            else
+
+            // If the pattern is incorrect or filtered results don't match
+            GameController.Output("\tPattern not correct or did not filter correctly. Try again.");
+            ProvideHint();
+        }
+
+        private void ProvideHint()
+        {
+            // Provide hints after multiple incorrect attempts
+            if (attemptCount == 3)
             {
-                GameController.Output("\tNo matches found. Try a different pattern.");
-                // Provide hints after no matches
-                if (attemptCount >= 4)
-                {
-                    GameController.Output("\tHint: Consider how roles are structured in the data. Python regex style is expected.");
-                }
+                GameController.Output("\tHint: Focus on matching the 'Role' field in the data.");
+            }
+            else if (attemptCount >= 4)
+            {
+                GameController.Output("\tHint: Use the regex pattern to find lines where 'Role' is 'admin'.");
             }
         }
 
@@ -111,7 +113,7 @@ namespace Shattered_Protocols.Puzzles
             List<string> matchedData = new List<string>();
             foreach (var item in data)
             {
-                // Apply Python-style regex pattern for filtering
+                // Apply the regex pattern for filtering
                 if (Regex.IsMatch(item, pattern, RegexOptions.IgnoreCase))
                 {
                     matchedData.Add(item);

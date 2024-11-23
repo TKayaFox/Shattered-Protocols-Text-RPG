@@ -27,7 +27,7 @@ namespace Shattered_Protocols.Puzzles
             }
 
             // Debugging: Output the current state of IsSolved for testing purposes
-            GameController.Output($"\t[DEBUG] Puzzle solved state: {IsSolved}");
+            GameController.Output($"\tPuzzle solved state: {IsSolved}");
 
             // Puzzle intro message
             GameController.Output(@"
@@ -107,7 +107,7 @@ namespace Shattered_Protocols.Puzzles
         private void ResetAttemptCount()
         {
             AttemptCount = 0;
-            GameController.Output("\t[DEBUG] Attempt count reset to 0.");
+            GameController.Output("\t Attempt count reset to 0.");
         }
     }
 }
