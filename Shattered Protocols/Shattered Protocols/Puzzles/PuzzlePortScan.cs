@@ -21,7 +21,7 @@ namespace Shattered_Protocols.Puzzles
         private readonly string fullCommand = "nmap -n -v -p- -A 192.126.98.10"; // Full correct command
         private bool awaitingFullCommand = false; // Tracks if the puzzle is waiting for the full command
 
-        public PuzzlePortScan() : base("Conduct a port scan") { }
+        public PuzzlePortScan() : base("\tConduct a port scan") { }
 
         public override void Start()
         {
@@ -31,6 +31,15 @@ namespace Shattered_Protocols.Puzzles
                 Console.WriteLine("\tThis puzzle has already been solved. You don't need to solve it again.");
                 return;
             }
+
+            // Puzzle intro
+            GameController.Output(@"
+    There is a door terminal keeping access to the Break Room that says, 
+    “In pursuit of deterring the constant snack breaks, we put a simple lock here.” 
+    Unfortunately, the “password” is actually a port scan, so this simple password 
+    might be a bit more complicated. Seems you have to “identify” if the port to 
+    the breakroom is “open”… what a bunch of nerds…
+            ");
 
             // Reset state when starting the puzzle for the first time
             ResetAttemptCount();
@@ -50,7 +59,7 @@ namespace Shattered_Protocols.Puzzles
                 return;
             }
 
-            Console.WriteLine($"User input: '{command}'"); // Debugging
+            Console.WriteLine($"\tUser input: '{command}'"); // Debugging
 
             string userInput = command.Trim();
 
@@ -64,22 +73,22 @@ namespace Shattered_Protocols.Puzzles
             if (string.Equals(userInput, correctParts[userInputs.Count], StringComparison.OrdinalIgnoreCase))
             {
                 userInputs.Add(userInput);
-                Console.WriteLine("Correct part entered!");
+                Console.WriteLine("\tCorrect part entered!");
 
                 if (userInputs.Count == correctParts.Length)
                 {
                     awaitingFullCommand = true;
-                    Console.WriteLine("Now, enter the full command in one line:");
+                    Console.WriteLine("\tNow, enter the full command in one line:");
                 }
                 else
                 {
-                    Console.WriteLine("Enter the next part of the command:");
+                    Console.WriteLine("\tEnter the next part of the command:");
                 }
             }
             else
             {
                 attemptCount++;
-                Console.WriteLine("Incorrect part of the command. Try again.");
+                Console.WriteLine("\tIncorrect part of the command. Try again.");
 
                 // Provide hints after specific incorrect attempts
                 if (attemptCount >= 1)
@@ -110,13 +119,21 @@ namespace Shattered_Protocols.Puzzles
 
             if (string.Equals(trimmedCommand, fullCommand, StringComparison.OrdinalIgnoreCase))
             {
-                Console.WriteLine("Access granted! Puzzle solved.");
+                // Puzzle outro
+                PuzzleSolved(@"
+    PORT     STATE    SERVICE
+    21/tcp   open     FTP (File Transfer Protocol is ready for user to be uploaded into Break Room)
+
+    Wow… too much thought was put into this lock. Anyway, this port scan was no match for the skills 
+    of the top computer scientist in the Rebel Alliance. Time to take a break in the break room!
+                ");
                 IsSolved = true; // Mark the puzzle as solved
+                ResetAttemptCount();
             }
             else
             {
-                Console.WriteLine("The full command is incorrect. Try again.");
-                Console.WriteLine("Hint: The full command starts with 'nmap' and ends with the target IP address.");
+                Console.WriteLine("\tThe full command is incorrect. Try again.");
+                Console.WriteLine("\tHint: The full command starts with 'nmap' and ends with the target IP address.");
             }
         }
 

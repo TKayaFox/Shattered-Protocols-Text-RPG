@@ -23,7 +23,7 @@ namespace Shattered_Protocols.Navigation.Rooms
     the room. In one of the lockers is a flash drive in the shape of a rubber
     ducky! This must be important…
              ";
-            RoomPuzzle = null;
+            RoomPuzzle = new PuzzleBinarySearch();
 
             //Room Items
             Inventory = new Inventory();
@@ -37,8 +37,8 @@ namespace Shattered_Protocols.Navigation.Rooms
 
             //Lock appropriate rooms
             //If fix Puzzle for this room uncomment
-            //SetLock(DirectionEnum.South, true);
-            //SetLock(DirectionEnum.East, true);
+            SetLock(DirectionEnum.South, true);
+            SetLock(DirectionEnum.East, true);
         }
     }
 }
