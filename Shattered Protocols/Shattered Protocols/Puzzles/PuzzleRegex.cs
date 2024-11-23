@@ -19,7 +19,7 @@ namespace Shattered_Protocols.Puzzles
         private int attemptCount = 0;
 
         // Correct regex pattern required to solve the puzzle
-        private readonly string correctRegexPattern = ".*admin.*";
+        private readonly string correctRegexPattern = @"Role:\s*admin";
 
         public PuzzleRegex() : base("\tDecrypt data using Python-style regex patterns.")
         {
@@ -97,14 +97,18 @@ namespace Shattered_Protocols.Puzzles
 
         private void ProvideHint()
         {
-            // Provide hints after multiple incorrect attempts
+            // Progressive hint system based on the attempt count
             if (attemptCount == 3)
             {
-                GameController.Output("\tHint: Focus on matching the 'Role' field in the data.");
+                GameController.Output("\tHint 1: Focus on the 'Role' field. It's in the format 'Role: [value]'.");
             }
-            else if (attemptCount >= 4)
+            else if (attemptCount == 4)
             {
-                GameController.Output("\tHint: Use the regex pattern to find lines where 'Role' is 'admin'.");
+                GameController.Output("\tHint 2: Look for lines where the 'Role' is specifically 'admin'. Consider spacing.");
+            }
+            else if (attemptCount >= 5)
+            {
+                GameController.Output("\tHint 3: Almost there! Try something like 'Role:\\s*admin'.");
             }
         }
 
