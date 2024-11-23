@@ -60,11 +60,13 @@ public abstract class Room
     ///Called when first entering a room
     public virtual void Enter(DirectionEnum originDirection)
     {
+        
         //Unlock the door that was used to enter (If it was used it should be unlocked)
         if (roomDictionary.ContainsKey(originDirection))
         {
             roomDictionary[originDirection].Locked = false;
         }
+        
 
         //Make sure puzzle knows what room it belongs to
         if (roomPuzzle != null)

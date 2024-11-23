@@ -2,8 +2,12 @@ using System;
 using System.Text;
 
 // Caesar Cipher Puzzle
-// The user must decrypt an encrypted message using a Caesar cipher.
-// The shift amount is randomized, and the user has unlimited attempts.
+    // The user is given an encrypted message and must decrypt it using a Caesar cipher.
+    // The user has an unlimited number of attempts to solve the puzzle.
+    // The puzzle is solved when the user inputs the correct decryption.
+    // The encrypted message is "Khoor Zruog" which is "Hello World" shifted by 3.
+    // The user must decrypt the message by shifting it back by 3.
+    // the string is hard coded, but can be changed to any string if needed.
 
 namespace Shattered_Protocols.Puzzles
 {
@@ -15,11 +19,7 @@ namespace Shattered_Protocols.Puzzles
 
         public PuzzleCaesarCipher() : base("\tDecrypt the Caesar ciphered message.")
         {
-            // Randomize shift amount between 1 and 25 (inclusive)
-            var random = new Random();
-            // ready for random shift amount
-            // kept the shift amount to 1 for testing
-            shiftAmount = random.Next(1, 2);
+            shiftAmount = 3;
 
             // Encrypt the message dynamically
             string plainMessage = "Hello World";
@@ -68,6 +68,8 @@ namespace Shattered_Protocols.Puzzles
     programs like “Hello World” and Caesar Ciphers without robots trying to kill you non-stop. 
     A luxury you hope to reobtain after all this is over… Time to go to the Break Room.
                 ");
+                IsSolved = true;
+                ResetAttemptCount();
             }
             else
             {
