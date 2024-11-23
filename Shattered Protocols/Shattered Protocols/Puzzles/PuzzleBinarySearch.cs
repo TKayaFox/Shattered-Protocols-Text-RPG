@@ -18,7 +18,7 @@ namespace Shattered_Protocols.Puzzles
         private int targetAddress;
         private int attemptCount;
 
-        public PuzzleBinarySearch() : base("Locate the vulnerable server using binary search.")
+        public PuzzleBinarySearch() : base("\tLocate the vulnerable server using binary search.")
         {
             // Randomly generate the target address within the range
             var random = new Random();
@@ -33,10 +33,18 @@ namespace Shattered_Protocols.Puzzles
                 return;
             }
 
+            // Puzzle intro
+            GameController.Output(@"
+    The door across seems to be locked. You thought it odd that exiting the breakroom would also have a lock. 
+    This place is just a puzzle bonanza! Above the terminal it says, “Warm Back Up for Work!” Anyway, the lock 
+    seems to want you to pinpoint a specific randomized IP address within a range. Since you have extensive 
+    knowledge of binary search application, this will be a cinch for you.
+            ");
+
             ResetAttemptCount();
             GameController.Output(Description);
-            GameController.Output($"The target server is somewhere between 192.168.1.{lowerBound} and 192.168.1.{upperBound}.");
-            GameController.Output("Use binary search commands to find it (e.g., 'scan 192.168.1.[start]-192.168.1.[end]').");
+            GameController.Output($"\tThe target server is somewhere between 192.168.1.{lowerBound} and 192.168.1.{upperBound}.");
+            GameController.Output("\tUse binary search commands to find it (e.g., 'scan 192.168.1.[start]-192.168.1.[end]').");
         }
 
         public override void ReadCommand(string command)
@@ -81,7 +89,16 @@ namespace Shattered_Protocols.Puzzles
                     {
                         if (startRange == endRange)
                         {
-                            PuzzleSolved($"Target found! The vulnerable server is at 192.168.1.{startRange}.");
+                            PuzzleSolved($"\tTarget found! The vulnerable server is at 192.168.1.{startRange}.");
+                            // Puzzle outro
+                            GameController.Output(@"
+    You pinpointed the IP address and punched it into the terminal. You hear a *click* 
+    and you can now freely leave the Break Room. You thought that getting locked into 
+    the break room was more of a fire hazard than a fun way to warm back up to go to work. 
+    But oh well, on to the next puzzle!
+                            ");
+                            IsSolved = true;
+                            ResetAttemptCount();
                         }
                         else
                         {
@@ -136,13 +153,6 @@ namespace Shattered_Protocols.Puzzles
                     }
                     break;
             }
-        }
-
-        private void PuzzleSolved(string successMessage)
-        {
-            GameController.Output(successMessage);
-            IsSolved = true;
-            ResetAttemptCount();
         }
 
         private void ResetAttemptCount()

@@ -68,6 +68,8 @@ namespace Shattered_Protocols.Puzzles
     programs like “Hello World” and Caesar Ciphers without robots trying to kill you non-stop. 
     A luxury you hope to reobtain after all this is over… Time to go to the Break Room.
                 ");
+                IsSolved = true;
+                ResetAttemptCount();
             }
             else
             {

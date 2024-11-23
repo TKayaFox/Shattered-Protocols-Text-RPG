@@ -58,6 +58,8 @@ namespace Shattered_Protocols.Navigation
 
         #region Events
 
+        
+
         /// <summary>
         /// when unlock room event is raised, check door connects (on either side) to the roomtype stored in args. if so unlock the door
         ///     Does nothing if RoomType is not found or doesnt match

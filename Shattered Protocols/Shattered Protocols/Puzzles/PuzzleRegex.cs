@@ -81,8 +81,8 @@ namespace Shattered_Protocols.Puzzles
                 if (filteredResults.Any(result => Regex.IsMatch(result, adminPattern, RegexOptions.IgnoreCase)))
                 {
                     PuzzleSolved(@" 
-                        Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
-                        Time to go see what they were testing…");
+    Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
+    Time to go see what they were testing…");
                     IsSolved = true; // Mark the puzzle as solved
                 }
                 else
