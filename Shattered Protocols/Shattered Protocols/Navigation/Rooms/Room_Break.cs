@@ -26,7 +26,7 @@ namespace Shattered_Protocols.Navigation.Rooms
             RoomPuzzle = new PuzzleBinarySearch();
 
             //Add RoomPuzzle to Puzzle Rewards
-            Item key = new Item("flashdrive", "    This drive holds the access codes needed to shut down the full system if I can just find the right place to use it!");
+            Item key = new Item("ducky_flash_drive", "    This drive holds the access codes needed to shut down the full system if I can just find the right place to use it!");
             RoomPuzzle.Rewards.Add(key);
 
             //Define Neighboring Rooms
