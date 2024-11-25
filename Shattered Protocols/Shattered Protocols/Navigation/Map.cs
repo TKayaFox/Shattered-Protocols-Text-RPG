@@ -78,7 +78,7 @@ namespace Shattered_Protocols.Navigation
                 //Make sure room is valid
                 if (room != null)
                 {
-                    GameController.Output($"Entering new Room: {room.Name}");
+                    GameController.Output($"Entering Room: {room.Name}");
                     currentRoom = room;
 
                     //Determine the opposite of direction and then enter the room

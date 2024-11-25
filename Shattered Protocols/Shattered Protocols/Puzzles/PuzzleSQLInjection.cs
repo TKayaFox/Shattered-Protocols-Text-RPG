@@ -32,8 +32,8 @@ namespace Shattered_Protocols.Puzzles
 
             // Puzzle intro
             GameController.Output(@"
-    Finally, after all these puzzles… it's time to crack open this casing and end the tyranny 
-    of the machines. You insert the flash drive into the port... you hear a faint *quack*
+    Finally, after all these puzzles… it's time to quack open this casing and end the tyranny 
+    of the machines. You insert the flash drive into the port... you hear a faint duck noise,
     and a window pops up on the terminal asking for the password. You really don't want to 
     guess the password for hours, so it's time to apply some hacks with your extensive knowledge 
     in SQL. The inputs might not have been properly sanitized, might as well as try smarter 
