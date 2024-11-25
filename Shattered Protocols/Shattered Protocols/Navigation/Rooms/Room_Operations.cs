@@ -24,9 +24,8 @@ namespace Shattered_Protocols.Navigation.Rooms
              ";
             RoomPuzzle = new PuzzleSQLInjection();
 
-            //Room Items
-            Inventory = new Inventory();
-
+            //Tell Puzzle to unlock all doors to THIS room
+            RoomPuzzle.RoomUnlock = RoomType.Room_Operations;
 
             //Define Neighboring Rooms
             //  DirectionEnum relative to current roon, type of room
@@ -39,7 +38,7 @@ namespace Shattered_Protocols.Navigation.Rooms
         /// <param name="originDirection"></param>
         public override void Enter(DirectionEnum originDirection)
         {
-            RoomPuzzle.Room = RoomType.Room_Operations;
+            RoomPuzzle.RoomUnlock = RoomType.Room_Operations;
 
             //Display room name and description using ToString
             GameController.Output(ToString());

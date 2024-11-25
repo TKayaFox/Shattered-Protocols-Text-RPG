@@ -5,7 +5,8 @@ using static System.Collections.Specialized.BitVector32;
 using Shattered_Protocols.Enumerations;
 using Shattered_Protocols.Event_Management.Args;
 using System.Net.Sockets;
-public abstract class Room
+using Shattered_Protocols.Event_Management;
+public abstract class Room : IEventManagable
 {
     private string name;
     private Inventory inventory;
@@ -44,12 +45,12 @@ public abstract class Room
     /// </summary>
     public Room(RoomType roomType)
     {
-        name = "Unfinished Room";
-        description = "This room not yet implemented";
+        name = "[Template Room]";
+        description = "Error! This room not yet implemented";
         roomPuzzle = null;
         this.roomType = roomType;
 
-        //Room Items
+        //RoomUnlock Items
         inventory = new Inventory();
 
         //Subscribe to eventmanager
@@ -66,11 +67,6 @@ public abstract class Room
         {
             roomDictionary[originDirection].Locked = false;
         }
-        
-
-        //Make sure puzzle knows what room it belongs to
-        if (roomPuzzle != null)
-            roomPuzzle.Room = roomType;
 
         //Display room name and description using ToString
         GameController.Output(ToString());
@@ -178,7 +174,7 @@ public abstract class Room
 
     private string GetRoomExitString(string roomData)
     {
-        //Determine all possible Exits
+        //List all exit doors in room
         List<string> exits = new List<string>();
         if (roomDictionary.ContainsKey(DirectionEnum.North))
         {
@@ -254,7 +250,7 @@ public abstract class Room
     internal virtual void OnUseItem(EventArgs args)
     {
         //By default Items do nothing, must override in child class.
-        //  If Room does use item unpack args to check if correct item is being used.
+        //  If RoomUnlock does use item unpack args to check if correct item is being used.
     }
     #endregion
 }

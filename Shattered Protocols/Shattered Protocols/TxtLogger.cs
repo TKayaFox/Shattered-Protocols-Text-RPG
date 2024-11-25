@@ -109,6 +109,9 @@ namespace Shattered_Protocols
             //Log output into the gamelog document
             AddLine(line, logPath);
             AddLine(line, inputLogPath);
+
+            //print an empty line to console
+            Console.WriteLine();
         }
 
         private static string LineEventString(EventArgs args)

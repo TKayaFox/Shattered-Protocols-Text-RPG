@@ -22,8 +22,8 @@ namespace Shattered_Protocols.Navigation.Rooms
              ";
             RoomPuzzle = new PuzzleCodeInjection();
 
-            //Room Items
-            Inventory = new Inventory();
+            //Tell Puzzle to unlock all doors to THIS room
+            RoomPuzzle.RoomUnlock = RoomType.Room_Server;
 
             //Define Neighboring Rooms
             //  DirectionEnum relative to current roon, type of 

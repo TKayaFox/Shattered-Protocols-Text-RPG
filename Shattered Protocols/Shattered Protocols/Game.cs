@@ -294,7 +294,7 @@ namespace Shattered_Protocols
         /// <param name="itemName"></param>
         private void Drop(string itemName)
         {
-            //Attempt to transfer item from Player inventory to Room
+            //Attempt to transfer item from Player inventory to RoomUnlock
             Inventory.Transfer(itemName, player.Inventory, map.CurrentRoom.Inventory);
         }
 
@@ -309,7 +309,6 @@ namespace Shattered_Protocols
             Inventory playerInventory = player.Inventory;
             Inventory roomInventory = map.CurrentRoom.Inventory;
 
-            bool used = false;
             Item item = playerInventory.GetItem(itemName);
 
             //if item is null then check the room player is in

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Shattered_Protocols.Puzzles
 {
-    // Code Injection Puzzle (Server Room)
+    // Code Injection Puzzle (Server RoomUnlock)
     public class PuzzleCodeInjection : Puzzle
     {
         private int attempts = 0;
