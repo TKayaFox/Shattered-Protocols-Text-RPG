@@ -22,7 +22,10 @@ namespace Shattered_Protocols.Navigation.Rooms
              ";
             RoomPuzzle = new PuzzlePortScan();
 
-            //Room Items
+            //Tell Puzzle to unlock all doors to THIS room
+            RoomPuzzle.RoomUnlock = RoomType.Room_Development;
+
+            //RoomUnlock Items
             Inventory = new Inventory();
 
             //Define Neighboring Rooms

@@ -9,7 +9,7 @@ using Shattered_Protocols.Event_Management.Args;
 namespace Shattered_Protocols.Navigation
 {
     /// <summary>
-    /// Door holds information necessary for movement between Room objects and is required for the Map object.
+    /// Door holds information necessary for movement between RoomUnlock objects and is required for the Map object.
     /// When locked the door cannot be used.
     /// </summary>
     internal class Door

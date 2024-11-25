@@ -25,10 +25,9 @@ namespace Shattered_Protocols.Navigation.Rooms
              ";
             RoomPuzzle = new PuzzleBinarySearch();
 
-            //Room Items
-            Inventory = new Inventory();
-            Item key = new Item("ducky_flash_drive",  "    This drive holds the access codes needed to shut down the full system if I can just find the right place to use it!");
-            Inventory.Add(key);
+            //Add RoomPuzzle to Puzzle Rewards
+            Item key = new Item("ducky_flash_drive", "    This drive holds the access codes needed to shut down the full system if I can just find the right place to use it!");
+            RoomPuzzle.Rewards.Add(key);
 
             //Define Neighboring Rooms
             //  DirectionEnum relative to current roon, type of room
