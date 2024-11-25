@@ -261,8 +261,6 @@ namespace Shattered_Protocols
         Look - Reloads room information and if there are items in room.
         Exit - Close the game
                 ");
-
-            //Edit: Display current puzzle information and commands
         }
 
         /// <summary>
