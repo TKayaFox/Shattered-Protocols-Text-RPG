@@ -87,7 +87,7 @@ namespace Shattered_Protocols
         private void OnNewOutput(EventArgs args)
         {
             //Set default line as an error message that displays if there is issue with input
-            String line = "[ERROR: Line Not Found!]";
+            string line = "[ERROR: Line Not Found!]";
 
             //Get string from event args
             line = LineEventString(args);
@@ -102,7 +102,7 @@ namespace Shattered_Protocols
         private void OnNewInput(EventArgs args)
         {
             //Get string from event args
-            String line = LineEventString(args);
+            string line = LineEventString(args);
 
             //Log output into the gamelog document
             AddLine(line, logPath);
@@ -114,7 +114,7 @@ namespace Shattered_Protocols
 
         private static string LineEventString(EventArgs args)
         {
-            String line = "";
+            string line = "";
 
             //Make sure correct eventtype
             if (args is NewLineArgs lineArgs)
