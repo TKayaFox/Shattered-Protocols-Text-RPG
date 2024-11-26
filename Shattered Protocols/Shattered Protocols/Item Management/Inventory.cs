@@ -148,7 +148,6 @@ namespace Shattered_Protocols
         public static bool Transfer(string itemName, Inventory source, Inventory destination)
         {
             bool success = false;
-            Item item = null;
 
             //Make sure source and destination are valid
             if (source != null && destination != null)
@@ -161,12 +160,13 @@ namespace Shattered_Protocols
                 else //Add singular item
                 {
                     //Attempt to get item source room (Will return null and display a message if unable)
-                    item = source.TakeItem(itemName);
+                    Item item = source.TakeItem(itemName);
 
                     //notify user of result
                     if (item != null)
                     {
-                        GameController.Output($"    Added to {destination.Name}");
+                        success = destination.Add(item);
+                        GameController.Output($"    {item.Name} added to {destination.Name}");
                     }
                     else
                     {
