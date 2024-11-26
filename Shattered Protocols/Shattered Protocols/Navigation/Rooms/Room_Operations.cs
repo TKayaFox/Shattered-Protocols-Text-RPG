@@ -22,10 +22,6 @@ namespace Shattered_Protocols.Navigation.Rooms
     There seems to be a USB port in the casing. Huh... there is also a suspicious looking 
     avian symbol above the port...
              ";
-            RoomPuzzle = new PuzzleSQLInjection();
-
-            //Tell Puzzle to unlock all doors to THIS room
-            RoomPuzzle.RoomUnlock = RoomType.Room_Operations;
 
             //Define Neighboring Rooms
             //  DirectionEnum relative to current roon, type of room
@@ -58,6 +54,7 @@ namespace Shattered_Protocols.Navigation.Rooms
                 if (name.Equals("ducky_flash_drive", StringComparison.OrdinalIgnoreCase))
                 {
                     //Run ShowPuzzle Logic if applicable
+                    RoomPuzzle = new PuzzleSQLInjection();
                     ShowPuzzle();
                 }
             }
