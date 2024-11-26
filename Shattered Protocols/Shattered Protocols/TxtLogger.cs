@@ -109,7 +109,7 @@ namespace Shattered_Protocols
             AddLine(line, inputLogPath);
 
             //print an empty line to console
-            Console.WriteLine(line);
+            Console.WriteLine();
         }
 
         private static string LineEventString(EventArgs args)

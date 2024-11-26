@@ -34,8 +34,6 @@ namespace Shattered_Protocols.Navigation.Rooms
         /// <param name="originDirection"></param>
         public override void Enter(DirectionEnum originDirection)
         {
-            RoomPuzzle.RoomUnlock = RoomType.Room_Operations;
-
             //Display room name and description using ToString
             GameController.Output(ToString());
         }
