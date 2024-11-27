@@ -64,6 +64,8 @@ namespace Shattered_Protocols.Puzzles
             // The target address is within the specified range
             if (command.StartsWith("scan"))
             {
+                // The puzzle throws an exception if the command is not in the correct format
+                // Issue fixed with try/catch block
                 try
                 {
                     var parts = command.Replace("scan", "").Trim().Split('-');
@@ -103,6 +105,7 @@ namespace Shattered_Protocols.Puzzles
                             IsSolved = true;
                             ResetAttemptCount();
                         }
+                        // Provide hints to guide the user
                         else
                         {
                             int midPoint = (startRange + endRange) / 2;

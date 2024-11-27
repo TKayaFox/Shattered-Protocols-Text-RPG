@@ -89,7 +89,11 @@ namespace Shattered_Protocols.Puzzles
         {
             attemptCount = 0;
         }
-
+        // Encrypting the message
+        // input: the message
+        // Shift: shift amount used
+        // returns the encrypted message with randomized shift
+        // Referenced: https://stackoverflow.com/questions/8501444/caesar-cipher-in-c-sharp
         private string EncryptCaesar(string input, int shift)
         {
             StringBuilder encrypted = new StringBuilder();
@@ -112,6 +116,7 @@ namespace Shattered_Protocols.Puzzles
         // input: The encrypted message
         // shift: The shift amount used for encryption
         // Returns the decrypted message
+        // https://stackoverflow.com/questions/35006707/decrypt-encrypted-text-in-java
         private string DecryptCaesar(string input, int shift)
         {
             StringBuilder decrypted = new StringBuilder();

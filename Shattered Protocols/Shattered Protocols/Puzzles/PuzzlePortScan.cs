@@ -59,7 +59,7 @@ namespace Shattered_Protocols.Puzzles
                 return;
             }
 
-            Console.WriteLine($"\tUser input: '{command}'"); // Debugging
+            Console.WriteLine($"\tUser input: '{command}'"); 
 
             string userInput = command.Trim();
 
@@ -70,6 +70,8 @@ namespace Shattered_Protocols.Puzzles
             }
 
             // Check if the user input matches the next part of the command (case-insensitive)
+            // If correct, add the input to the list and prompt for the next part
+            // If incorrect, provide hints after specific incorrect attempts
             if (string.Equals(userInput, correctParts[userInputs.Count], StringComparison.OrdinalIgnoreCase))
             {
                 userInputs.Add(userInput);
@@ -113,6 +115,8 @@ namespace Shattered_Protocols.Puzzles
             }
         }
 
+        // Validate the full command entered by the user
+        // User must enter the full command in one line
         private void ValidateFullCommand(string command)
         {
             string trimmedCommand = command.Trim();
