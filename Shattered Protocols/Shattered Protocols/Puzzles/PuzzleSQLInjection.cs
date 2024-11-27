@@ -53,7 +53,8 @@ namespace Shattered_Protocols.Puzzles
                 GameController.Output("\tThis puzzle has already been solved. No need to input anything further.");
                 return;
             }
-
+            
+            // Check if the user input contains the correct SQL statement
             if (command.Contains("1'='1") || command.Contains("' OR '1'='1"))
             {
                 PuzzleSolved("\tAccess Granted!");
@@ -62,6 +63,7 @@ namespace Shattered_Protocols.Puzzles
             {
                 attemptCount++;
                 GameController.Output("\tAccess denied. Try again.");
+                // Provide hint after the 2nd incorrect attempt
                 if (attemptCount >= 2)
                 {
                     GameController.Output("\tHint: SQL injections are often used to force conditions to be true.");

@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+// Code Injection Puzzle (Server RoomUnlock)
+// The user is required to disable the firewall using a terminal command.
+// The puzzle is solved when the user inputs the correct terminal command.
+// Hints are provided after the 2nd, 4th, and 6th incorrect attempts.
+// The user has an unlimited number of attempts to solve the puzzle.
+// The correct command is "sudo ufw disable" to bypass the firewall.
+
 namespace Shattered_Protocols.Puzzles
 {
-    // Code Injection Puzzle (Server RoomUnlock)
     public class PuzzleCodeInjection : Puzzle
     {
         private int attempts = 0;
-        private readonly string correctCommand; // Correct command to bypass the firewall
+        private readonly string correctCommand; 
 
         public PuzzleCodeInjection() : base("\tDisable the firewall using a terminal command.")
         {
@@ -47,7 +53,8 @@ namespace Shattered_Protocols.Puzzles
             }
 
             attempts++;
-
+            // Check if the user input matches the correct command
+            // Case-insensitive comparison is used to allow flexibility
             if (command.Trim().Equals(correctCommand, StringComparison.OrdinalIgnoreCase))
             {
                 PuzzleSolved(@"

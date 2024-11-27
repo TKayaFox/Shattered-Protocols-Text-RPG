@@ -29,8 +29,8 @@ namespace Shattered_Protocols.Puzzles
                 3 => "123456",
                 _ => "password123",
             };
-
-            hashedPassword = GetSHA256Hash(password); // Get the SHA256 hash of the selected password
+            // Getting the SHA256 hash of the password using the GetSHA256Hash method
+            hashedPassword = GetSHA256Hash(password);
         }
 
         public override void Start()
@@ -86,6 +86,7 @@ namespace Shattered_Protocols.Puzzles
 
         // Method to hash the input password
         // Returns the SHA256 hash of the input string
+        // Reference: https://stackoverflow.com/questions/16999361/obtain-sha-256-string-of-a-string
         private string GetSHA256Hash(string input)
         {
             using (SHA256 sha256 = SHA256.Create())

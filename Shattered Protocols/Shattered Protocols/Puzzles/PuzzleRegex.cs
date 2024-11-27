@@ -121,6 +121,9 @@ namespace Shattered_Protocols.Puzzles
         }
             
 
+        // Filter data using the provided regex pattern
+        // Using the built in Regex class in C#
+        // Returns a list of matched data
         public static List<string> FilterDataWithRegex(string pattern, string[] data)
         {
             List<string> matchedData = new List<string>();
