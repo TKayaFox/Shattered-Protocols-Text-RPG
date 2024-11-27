@@ -14,6 +14,10 @@ namespace Shattered_Protocols
         {
             //Start the Game Logic
             Game game = new Game();
+
+            // Wait for user input before closing
+            Console.WriteLine("Press enter to close game");
+            Console.Read();
         }
     }
 }
