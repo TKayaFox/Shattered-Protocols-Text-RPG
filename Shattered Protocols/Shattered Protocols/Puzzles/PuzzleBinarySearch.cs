@@ -35,10 +35,12 @@ namespace Shattered_Protocols.Puzzles
 
             // Puzzle intro
             GameController.Output(@"
-    The door across seems to be locked. You thought it odd that exiting the breakroom would also have a lock. 
-    This place is just a puzzle bonanza! Above the terminal it says, “Warm Back Up for Work!” Anyway, the lock 
-    seems to want you to pinpoint a specific randomized IP address within a range. Since you have extensive 
-    knowledge of binary search application, this will be a cinch for you.
+    The door across seems to be locked and can't be unlocked from this side. You thought 
+    it odd that exiting the breakroom would also have a lock. The safe has a terminal 
+    attached to it that says, “Warm Back Up for Work!” The lock seems to want you to 
+    pinpoint a specific randomized IP address within a range. Since you have extensive 
+    knowledge of binary search application, this will be a cinch for you. 
+    This place is just a puzzle bonanza!
             ");
 
             ResetAttemptCount();
@@ -67,7 +69,7 @@ namespace Shattered_Protocols.Puzzles
                     var parts = command.Replace("scan", "").Trim().Split('-');
 
                     // Check if the input contains both start and end of range
-                    if (parts.Length != 2)
+                    if (parts.Length != 2 || string.IsNullOrEmpty(parts[1]))
                     {
                         GameController.Output("\tInvalid command format. Use 'scan 192.168.1.[start]-192.168.1.[end]'.");
                         return;
@@ -92,10 +94,11 @@ namespace Shattered_Protocols.Puzzles
                             PuzzleSolved($"\tTarget found! The vulnerable server is at 192.168.1.{startRange}.");
                             // Puzzle outro
                             GameController.Output(@"
-    You pinpointed the IP address and punched it into the terminal. You hear a *click* 
-    and you can now freely leave the Break Room. You thought that getting locked into 
-    the break room was more of a fire hazard than a fun way to warm back up to go to work. 
-    But oh well, on to the next puzzle!
+    You pinpointed the IP address and punched it into the terminal. You hear a *click*.  
+    As you open the safe you find a flash drive in the shape of a rubber ducky! This 
+    must be important… You thought it was perplexing that a safe like this would 
+    have such an accessible way of getting in. You certainly feel warmed back up 
+    from that puzzle.
                             ");
                             IsSolved = true;
                             ResetAttemptCount();
@@ -121,10 +124,21 @@ namespace Shattered_Protocols.Puzzles
                         GameController.Output("\tInvalid range. The target server is not within this range.");
                     }
                 }
+                catch (FormatException)
+                {
+                    GameController.Output("\tInvalid command format. Use 'scan 192.168.1.[start]-192.168.1.[end]'.");
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    GameController.Output("\tInvalid command format. Use 'scan 192.168.1.[start]-192.168.1.[end]'.");
+                }
                 catch (Exception)
                 {
                     GameController.Output("\tInvalid command format. Use 'scan 192.168.1.[start]-192.168.1.[end]'.");
                 }
+            }
+            else{
+                GameController.Output("\tInvalid command format. Use 'scan 192.168.1.[start]-192.168.1.[end]'.");
             }
         }
 
@@ -135,21 +149,21 @@ namespace Shattered_Protocols.Puzzles
             switch (attemptCount)
             {
                 case 2:
-                    GameController.Output("\tHint: Use binary search logic. Divide the range into two halves.");
+                    GameController.Output("\tHint 1: Use binary search logic. Divide the range into two halves.");
                     break;
                 case 4:
-                    GameController.Output("\tHint: Narrow your search by scanning only one half of the range.");
+                    GameController.Output("\tHint 2: Narrow your search by scanning only one half of the range.");
                     break;
                 case 6:
-                    GameController.Output("\tHint: Continue halving the range until you reach the exact address.");
+                    GameController.Output("\tHint 3: Continue halving the range until you reach the exact address.");
                     break;
                 case 8:
-                    GameController.Output("\tHint: The command format is 'scan 192.168.1.[start]-192.168.1.[end]'. Double-check your inputs.");
+                    GameController.Output("\tHint 4: The command format is 'scan 192.168.1.[start]-192.168.1.[end]'. Double-check your inputs.");
                     break;
                 default:
                     if (attemptCount > 8)
                     {
-                        GameController.Output("\tHint: Focus on finding the midpoint of the range.");
+                        GameController.Output("\tHint 5: Focus on finding the midpoint of the range.");
                     }
                     break;
             }

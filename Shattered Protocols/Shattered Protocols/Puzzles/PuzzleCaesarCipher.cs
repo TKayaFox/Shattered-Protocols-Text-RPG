@@ -39,8 +39,8 @@ namespace Shattered_Protocols.Puzzles
 
             // Puzzle intro
             GameController.Output(@"
-    While the AI were learning object detection, they were also learning about password mechanisms. 
-    The Caesar Cipher is used on the lock on the door to the Break Room. This was a way for the AI 
+    While the AIs were learning object detection, they were also learning about password mechanisms. 
+    The Caesar Cipher is used on the lock on the door to the Break Room (west). This was a way for the AIs 
     to crack the Caesar Cipher with minimal documentation/information.
             ");
             GameController.Output(Description);
@@ -75,9 +75,12 @@ namespace Shattered_Protocols.Puzzles
             {
                 GameController.Output("\tIncorrect. Try again.");
 
+                if (attemptCount == 2){
+                    GameController.Output($"\tHint 1: The original message is a common greeting");
+                }
                 if (attemptCount >= 4)
                 {
-                    GameController.Output($"\tHint: The original message is a common greeting. It is shifted {shiftAmount} times.");
+                    GameController.Output($"\tHint 2: The shift is {shiftAmount}.");
                 }
             }
         }

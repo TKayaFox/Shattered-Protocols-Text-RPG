@@ -1,4 +1,4 @@
-using Shattered_Protocols.Enumerations;
+﻿using Shattered_Protocols.Enumerations;
 using Shattered_Protocols.Puzzles;
 using System;
 using System.Collections;
@@ -20,8 +20,9 @@ namespace Shattered_Protocols.Navigation.Rooms
     Welcome to the Break Room. A freezer full of frozen burritos and a microwave 
     stained with various food remains were previously used for refueling energy 
     deprived programmers. A couple of lockers are broken open in the corner of 
-    the room. In one of the lockers is a flash drive in the shape of a rubber
-    ducky! This must be important…
+    the room. In one of the lockers is an unopened safe bolted into the wall. 
+    This safe seems to be untouched, contrary to the surrounding disarray of 
+    locker debris.
              ";
             RoomPuzzle = new PuzzleBinarySearch();
 

@@ -15,9 +15,9 @@ namespace Shattered_Protocols.Navigation.Rooms
             Name = "Testing Lab";
             Description = @"
     Welcome to the Testing Lab. Here, simulations of the behavior of the different 
-    AI were tested. It is mostly empty with a bunch of cameras on the ceiling. 
+    AIs were tested. It is mostly empty with a bunch of cameras on the ceiling. 
     There are a couple of props in the corner. They were probably used so that the 
-    AI could learn to recognize objects. 
+    AIs could learn to recognize objects. 
              ";
             RoomPuzzle = new PuzzleCaesarCipher();
 

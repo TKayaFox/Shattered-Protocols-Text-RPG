@@ -34,7 +34,7 @@ namespace Shattered_Protocols.Puzzles
 
             // Puzzle intro
             GameController.Output(@"
-    There is a door terminal keeping access to the Break Room that says, 
+    There is a door terminal keeping access to the Break Room (north) that says, 
     “In pursuit of deterring the constant snack breaks, we put a simple lock here.” 
     Unfortunately, the “password” is actually a port scan, so this simple password 
     might be a bit more complicated. Seems you have to “identify” if the port to 

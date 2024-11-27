@@ -75,7 +75,6 @@ namespace Shattered_Protocols.Puzzles
             GameController.Output(message);
             IsSolved = true; // Mark the puzzle as solved
             attemptCount = 0; // Reset the attempt count when the puzzle is solved
-            GameController.Output("\t[DEBUG] Puzzle solved state updated to true.");
 
             // End Game
             GameController.Publish(EventType.GameEnd, new EventArgs());
@@ -85,7 +84,6 @@ namespace Shattered_Protocols.Puzzles
         private void ResetAttemptCount()
         {
             attemptCount = 0;
-            GameController.Output("\t[DEBUG] Attempt count reset to 0.");
         }
     }
 }

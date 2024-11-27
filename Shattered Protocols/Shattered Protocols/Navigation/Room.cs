@@ -196,15 +196,15 @@ public abstract class Room : IEventManagable
         //Add to string all possible exits
         if (exits.Count > 1)
         {
-            roomData += $"    --There are Doorways to the {string.Join(", ", exits)}.--";
+            roomData += $"    --There are doorways to the {string.Join(", ", exits)}--";
         }
         else if (exits.Count > 0)
         {
-            roomData += $"    --There is a doorway to the {string.Join(", ", exits)}.--";
+            roomData += $"    --There is a doorway to the {string.Join(", ", exits)}--";
         }
         else
         {
-            roomData += "    --There are no exits.--";
+            roomData += "    --There are no exits--";
         }
 
         return roomData;
@@ -220,7 +220,7 @@ public abstract class Room : IEventManagable
         }
         else
         {
-            roomData += "    --The Room has no items you can interact with--\n";
+            roomData += "    --The room has no items you can interact with--\n";
         }
 
         return roomData;

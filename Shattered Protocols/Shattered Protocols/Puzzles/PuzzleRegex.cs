@@ -45,7 +45,7 @@ namespace Shattered_Protocols.Puzzles
 
             // Puzzle introduction
             GameController.Output(@"
-    The lock heading to the Testing Room requires a profile with Admin rights to get through. 
+    The lock heading to the Testing Lab (north) requires a profile with Admin rights to get through. 
     In the middle of the table, there seems to be a small computer full of names and passwords, 
     but there are way too many to comb through. Some kind of regular expression would help sort 
     out which profiles have admin passwords.
@@ -100,17 +100,17 @@ namespace Shattered_Protocols.Puzzles
             // Progressive hint system based on the attempt count
             if (attemptCount == 3)
             {
-                GameController.Output("\tHint 1: Focus on the 'Role' field. It's in the format 'Role: [value]'.");
+                GameController.Output("\tHint 1: Focus on removing characters");
             }
             else if (attemptCount == 4)
             {
-                GameController.Output("\tHint 2: Look for lines where the 'Role' is specifically 'admin'. Consider spacing.");
+                GameController.Output("\tHint 2: Try removing characters except for what you are searching for. Consider spaces.");
             }
-            else if (attemptCount >= 5)
+            else if (attemptCount == 5)
             {
-                GameController.Output("\tHint 3: Remember what * means in regex. It can match any character."); 
+                GameController.Output("\tHint 3: Remember what * means in regex. It means any number of the previous character."); 
             }
-            else if (attemptCount >= 6)
+            else if (attemptCount == 6)
             {
                 GameController.Output("\tHint 4: Remember what . means in regex. It can match any character except a newline.");
             }

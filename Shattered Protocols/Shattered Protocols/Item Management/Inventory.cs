@@ -166,7 +166,7 @@ namespace Shattered_Protocols
                     if (item != null)
                     {
                         success = destination.Add(item);
-                        GameController.Output($"    {item.Name} added to {destination.Name}");
+                        GameController.Output($"\n    {item.Name} added to {destination.Name}");
                     }
                     else
                     {
@@ -198,7 +198,7 @@ namespace Shattered_Protocols
                     foreach (Item item in items)
                     {
                         success = destination.Add(item);
-                        GameController.Output($"    {item.Name} added to {destination.Name}");
+                        GameController.Output($"\n    {item.Name} added to {destination.Name}");
                     }
                 }
                 else

@@ -11,10 +11,10 @@ namespace Shattered_Protocols.Puzzles
         private int attempts = 0;
         private readonly string correctCommand; // Correct command to bypass the firewall
 
-        public PuzzleCodeInjection() : base("\tBypass the firewall using a terminal command.")
+        public PuzzleCodeInjection() : base("\tDisable the firewall using a terminal command.")
         {
             // Set the correct command for the puzzle
-            correctCommand = "sudo firewall-bypass";
+            correctCommand = "sudo ufw disable";
         }
 
         public override void Start()
@@ -30,9 +30,8 @@ namespace Shattered_Protocols.Puzzles
 
             // Puzzle intro
             GameController.Output(@"
-    The servers have firewalls in place to repel intruders from entering the Heart of Operations. 
-    You are seen as a virus (and rightfully so). Find a way to bypass this terminal and become one 
-    step closer to your goal.
+    The servers have firewalls in place to repel intruders from entering the Heart of Operations (south). 
+    You are seen as a virus (and rightfully so). Find a way to bypass this terminal and become one step closer to your goal.
              ");
             GameController.Output(Description);
             GameController.Output("\tEnter the correct terminal command to bypass the firewall in Linux:");
@@ -82,7 +81,7 @@ namespace Shattered_Protocols.Puzzles
             }
             else if (attempts >= 6)
             {
-                GameController.Output("\tHint: You're bypassing a firewall. Consider common network-related commands.");
+                GameController.Output("\tHint: This firewall seems uncomplicated. Consider common network-related commands.");
             }
         }
     }
