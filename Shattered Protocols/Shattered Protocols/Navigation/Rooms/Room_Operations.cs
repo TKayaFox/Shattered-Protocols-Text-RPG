@@ -22,11 +22,6 @@ namespace Shattered_Protocols.Navigation.Rooms
     There seems to be a USB port in the casing. Huh... there is also a suspicious looking 
     avian symbol above the port...
              ";
-            RoomPuzzle = new PuzzleSQLInjection();
-
-            //Room Items
-            Inventory = new Inventory();
-
 
             //Define Neighboring Rooms
             //  DirectionEnum relative to current roon, type of room
@@ -39,8 +34,6 @@ namespace Shattered_Protocols.Navigation.Rooms
         /// <param name="originDirection"></param>
         public override void Enter(DirectionEnum originDirection)
         {
-            RoomPuzzle.Room = RoomType.Room_Operations;
-
             //Display room name and description using ToString
             GameController.Output(ToString());
         }
@@ -59,6 +52,7 @@ namespace Shattered_Protocols.Navigation.Rooms
                 if (name.Equals("ducky_flash_drive", StringComparison.OrdinalIgnoreCase))
                 {
                     //Run ShowPuzzle Logic if applicable
+                    RoomPuzzle = new PuzzleSQLInjection();
                     ShowPuzzle();
                 }
             }

@@ -24,9 +24,9 @@ namespace Shattered_Protocols
 
         /// <summary>
         /// Constructor overloaded to allow custom inventory naming
-        /// By default the Inventory is named "Room" but this can be overwritten with a string input
+        /// By default the Inventory is named "RoomUnlock" but this can be overwritten with a string input
         /// </summary>
-        /// <param name="name">String storing the name of the inventory, Room by default</param>
+        /// <param name="name">String storing the name of the inventory, RoomUnlock by default</param>
         public Inventory(string name = "Room")
         {
             this.name = name;
@@ -54,7 +54,7 @@ namespace Shattered_Protocols
             {
                 foreach (var item in inventory)
                 {
-                    result += $"    *{item.Name}*\n";
+                    result += $"    {item.Name}\n";
                 }
             }
             else
@@ -148,50 +148,45 @@ namespace Shattered_Protocols
         public static bool Transfer(string itemName, Inventory source, Inventory destination)
         {
             bool success = false;
-            if (source != null)
+
+            //Make sure source and destination are valid
+            if (source != null && destination != null)
             {
-                Item[] items = { };
                 //If user did not specify a specific item, or specified ALL then transfer all items
                 if (itemName == "" || itemName == "all" || itemName == "everything")
                 {
-                    //get all items from target inventory
-                    items = source.TakeAll();
+                    success = Transfer(source, destination);
                 }
                 else //Add singular item
                 {
                     //Attempt to get item source room (Will return null and display a message if unable)
                     Item item = source.TakeItem(itemName);
+
+                    //notify user of result
                     if (item != null)
                     {
-                        items = new[] { item };
+                        success = destination.Add(item);
+                        GameController.Output($"\n    {item.Name} added to {destination.Name}");
+                    }
+                    else
+                    {
+                        GameController.Output("    I dont see that!");
                     }
                 }
-
-
-                success = Transfer(destination, items);
             }
-
-            //notify user of result
-            if (success)
-            {
-                GameController.Output("    Added to Inventory");
-            }
-            else
-            {
-                GameController.Output("    I dont see that!");
-            }
-
             return success;
         }
 
         /// <summary>
-        /// Overloaded Static method that will transfer an array of items from one Inventory object to another
+        /// Overloaded Static method that will transfer all items from one Inventory object to another
         /// </summary>
         /// <param name="destination">destination inventory</param>
         /// <param name="items">an array of items to be transferred</param>
         /// <returns></returns>
-        private static bool Transfer(Inventory destination, Item[] items)
+        public static bool Transfer(Inventory source, Inventory destination)
         {
+            //get all items from target inventory
+            Item[] items = source.TakeAll();
 
             bool success = false;
             if (destination != null)
@@ -203,6 +198,7 @@ namespace Shattered_Protocols
                     foreach (Item item in items)
                     {
                         success = destination.Add(item);
+                        GameController.Output($"\n    {item.Name} added to {destination.Name}");
                     }
                 }
                 else

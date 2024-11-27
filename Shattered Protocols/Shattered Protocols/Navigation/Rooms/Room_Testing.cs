@@ -15,14 +15,14 @@ namespace Shattered_Protocols.Navigation.Rooms
             Name = "Testing Lab";
             Description = @"
     Welcome to the Testing Lab. Here, simulations of the behavior of the different 
-    AI were tested. It is mostly empty with a bunch of cameras on the ceiling. 
+    AIs were tested. It is mostly empty with a bunch of cameras on the ceiling. 
     There are a couple of props in the corner. They were probably used so that the 
-    AI could learn to recognize objects. 
+    AIs could learn to recognize objects. 
              ";
             RoomPuzzle = new PuzzleCaesarCipher();
 
-            //Room Items
-            Inventory = new Inventory();
+            //Tell Puzzle to unlock all doors to THIS room
+            RoomPuzzle.RoomUnlock = RoomType.Room_Testing;
 
             //Define Neighboring Rooms
             //  DirectionEnum relative to current roon, type of room
@@ -31,9 +31,7 @@ namespace Shattered_Protocols.Navigation.Rooms
             NewDoor(DirectionEnum.West, RoomType.Room_Break);
 
             //Lock appropriate rooms
-            SetLock(DirectionEnum.South, true);
             SetLock(DirectionEnum.West, true);
-            SetLock(DirectionEnum.East, true);
         }
     }
 }

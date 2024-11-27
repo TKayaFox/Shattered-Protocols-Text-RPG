@@ -13,12 +13,14 @@ namespace Shattered_Protocols.Puzzles
         public string Description { get; set; }
         public bool IsSolved { get; protected set; } = false;
         public int AttemptCount { get; set; } = 0;
-        public RoomType Room { get; set; }
+        public RoomType RoomUnlock { get; set; } = RoomType.Null;
+        public Inventory Rewards { get; set; }
 
         // Constructor to initialize description and required item
         protected Puzzle(string description)
         {
             Description = description;
+            Rewards = new Inventory("Puzzle Rewards");
         }
 
         /// <summary>
@@ -65,13 +67,33 @@ namespace Shattered_Protocols.Puzzles
             //mark solved
             IsSolved = true;
 
-            //raise event that puzzle has been solved
-            RoomArgs args = new RoomArgs();
-            args.RoomType = Room;
-            GameController.Publish(EventType.UnlockRoom, args);
-
             //Display resolution message
             GameController.Output("\tCorrect! Puzzle solved. \n" + resolutionMsg);
+            EventPublisher();
+        }
+
+        /// <summary>
+        /// Event Publisher raises needed events
+        ///     If RoomUnlock is not null, unlock all doors to and from that roomtype
+        ///     if rewards inventory is not empty drop all reward items
+        /// </summary>
+        public virtual void EventPublisher()
+        {
+            //raise event that puzzle has been solved IF a room was stored
+            if (RoomUnlock != RoomType.Null)
+            {
+                RoomArgs args = new RoomArgs();
+                args.RoomType = RoomUnlock;
+                GameController.Publish(EventType.UnlockRoom, args);
+            }
+
+            //raise rewards Inventory holds any items, drop the into room
+            if (!Rewards.IsEmpty())
+            {
+                InventoryArgs args = new InventoryArgs();
+                args.Inventory = Rewards;
+                GameController.Publish(EventType.DropInventory, args);
+            }
         }
     }
 }

@@ -191,7 +191,7 @@ namespace Shattered_Protocols
                     GameController.Output("    Exiting Game- Thank you for Playing!");
                     getInput = true;
                     break;
-                case "solve":
+                case "smartypants": //Super secret password to autosolve a puzzle
                     if (map.CurrentRoom.RoomPuzzle != null)
                     {
                         map.CurrentRoom.RoomPuzzle.PuzzleSolved();
@@ -261,8 +261,6 @@ namespace Shattered_Protocols
         Look - Reloads room information and if there are items in room.
         Exit - Close the game
                 ");
-
-            //Edit: Display current puzzle information and commands
         }
 
         /// <summary>
@@ -294,7 +292,7 @@ namespace Shattered_Protocols
         /// <param name="itemName"></param>
         private void Drop(string itemName)
         {
-            //Attempt to transfer item from Player inventory to Room
+            //Attempt to transfer item from Player inventory to RoomUnlock
             Inventory.Transfer(itemName, player.Inventory, map.CurrentRoom.Inventory);
         }
 
@@ -309,7 +307,6 @@ namespace Shattered_Protocols
             Inventory playerInventory = player.Inventory;
             Inventory roomInventory = map.CurrentRoom.Inventory;
 
-            bool used = false;
             Item item = playerInventory.GetItem(itemName);
 
             //if item is null then check the room player is in

@@ -15,6 +15,7 @@ namespace Shattered_Protocols.Enumerations
         GameEnd,
         Input,
         UnlockRoom,
-        Output
+        Output,
+        DropInventory
     }
 }

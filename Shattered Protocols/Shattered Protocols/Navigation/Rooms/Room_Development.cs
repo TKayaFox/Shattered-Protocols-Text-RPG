@@ -12,6 +12,7 @@ namespace Shattered_Protocols.Navigation.Rooms
     {
         public Room_Development() : base(RoomType.Room_Development)
         {
+            //TEST
             Name = "Development Labs";
             Description = @"
     Welcome to the Development Labs. Here, there are computers scattered across desks. 
@@ -19,9 +20,12 @@ namespace Shattered_Protocols.Navigation.Rooms
     This room was used to make many general-purpose AI for the task of gathering information, 
     and generating advice based on the data.
              ";
-            RoomPuzzle = new PuzzlePasswordCracker();
+            RoomPuzzle = new PuzzlePortScan();
 
-            //Room Items
+            //Tell Puzzle to unlock all doors to THIS room
+            RoomPuzzle.RoomUnlock = RoomType.Room_Development;
+
+            //RoomUnlock Items
             Inventory = new Inventory();
 
             //Define Neighboring Rooms
@@ -31,7 +35,6 @@ namespace Shattered_Protocols.Navigation.Rooms
 
             //Lock appropriate rooms
             SetLock(DirectionEnum.North, true);
-            SetLock(DirectionEnum.East, true);
         }
     }
 }

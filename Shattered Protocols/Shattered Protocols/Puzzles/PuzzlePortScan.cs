@@ -13,14 +13,15 @@ using System.Text;
 
 namespace Shattered_Protocols.Puzzles
 {
-    public class PortScanPuzzle : Puzzle
+    public class PuzzlePortScan : Puzzle
     {
         private int attemptCount = 0;
         private List<string> userInputs = new List<string>(); // Track user's inputs for each part of the command
         private readonly string[] correctParts = { "-n", "-v", "-p-", "-A" }; // Correct parts of the command
         private readonly string fullCommand = "nmap -n -v -p- -A 192.126.98.10"; // Full correct command
+        private bool awaitingFullCommand = false; // Tracks if the puzzle is waiting for the full command
 
-        public PortScanPuzzle() : base("Conduct a port scan") { }
+        public PuzzlePortScan() : base("\tConduct a port scan") { }
 
         public override void Start()
         {
@@ -31,9 +32,19 @@ namespace Shattered_Protocols.Puzzles
                 return;
             }
 
-            // Reset attempt count and user inputs when starting the puzzle for the first time
+            // Puzzle intro
+            GameController.Output(@"
+    There is a door terminal keeping access to the Break Room (north) that says, 
+    “In pursuit of deterring the constant snack breaks, we put a simple lock here.” 
+    Unfortunately, the “password” is actually a port scan, so this simple password 
+    might be a bit more complicated. Seems you have to “identify” if the port to 
+    the breakroom is “open”… what a bunch of nerds…
+            ");
+
+            // Reset state when starting the puzzle for the first time
             ResetAttemptCount();
             userInputs.Clear();
+            awaitingFullCommand = false;
 
             Console.WriteLine(Description);
             Console.WriteLine("\tEnter the first part of the command to conduct a thorough port scan at IP address 192.126.98.10:");
@@ -48,65 +59,81 @@ namespace Shattered_Protocols.Puzzles
                 return;
             }
 
-            Console.WriteLine($"User input: '{command}'"); // Debugging
+            Console.WriteLine($"\tUser input: '{command}'"); // Debugging
 
-            // Trim and store the user input
-            string userInput = command.Trim().ToLower();
+            string userInput = command.Trim();
 
-            // Check if the user input matches the next part of the command
-            if (userInput == correctParts[userInputs.Count])
+            if (awaitingFullCommand)
             {
-                // Correct input, add to the list
-                userInputs.Add(userInput);
-                Console.WriteLine("Correct part entered!");
+                ValidateFullCommand(userInput);
+                return;
+            }
 
-                // If all parts have been entered, check the full command
+            // Check if the user input matches the next part of the command (case-insensitive)
+            if (string.Equals(userInput, correctParts[userInputs.Count], StringComparison.OrdinalIgnoreCase))
+            {
+                userInputs.Add(userInput);
+                Console.WriteLine("\tCorrect part entered!");
+
                 if (userInputs.Count == correctParts.Length)
                 {
-                    // Check if the full command is correct
-                    if (string.Equals(string.Join(" ", userInputs) + " 192.126.98.10", fullCommand, StringComparison.OrdinalIgnoreCase))
-                    {
-                        Console.WriteLine("Access granted! Puzzle solved.");
-                        IsSolved = true; // Mark the puzzle as solved
-                    }
-                    else
-                    {
-                        Console.WriteLine("Something is wrong with the command. Try again.");
-                        ResetAttemptCount();
-                        userInputs.Clear(); // Reset the inputs for the next attempt
-                    }
+                    awaitingFullCommand = true;
+                    Console.WriteLine("\tNow, enter the full command in one line:");
                 }
                 else
                 {
-                    // Continue prompting for the next part of the command
-                    Console.WriteLine($"Enter the next part of the command:");
+                    Console.WriteLine("\tEnter the next part of the command:");
                 }
             }
             else
             {
                 attemptCount++;
-                Console.WriteLine("Incorrect part of the command. Try again.");
+                Console.WriteLine("\tIncorrect part of the command. Try again.");
 
                 // Provide hints after specific incorrect attempts
                 if (attemptCount >= 1)
                 {
-                    Console.WriteLine("\tHint: The first part of the command is '-n' (no domain resolution).");
+                    Console.WriteLine("\tHint: The first part of the command is for (no domain resolution).");
                 }
 
                 if (attemptCount >= 2)
                 {
-                    Console.WriteLine("\tHint: The second part is '-v' (verbose mode).");
+                    Console.WriteLine("\tHint: The second part is for (verbose mode).");
                 }
 
                 if (attemptCount >= 3)
                 {
-                    Console.WriteLine("\tHint: The third part is '-p-' (scan all ports).");
+                    Console.WriteLine("\tHint: The third part is for (scan all ports).");
                 }
 
                 if (attemptCount >= 4)
                 {
-                    Console.WriteLine("\tHint: The last part is '-A' (for OS and service detection).");
+                    Console.WriteLine("\tHint: The last part is for (OS and service detection).");
                 }
+            }
+        }
+
+        private void ValidateFullCommand(string command)
+        {
+            string trimmedCommand = command.Trim();
+
+            if (string.Equals(trimmedCommand, fullCommand, StringComparison.OrdinalIgnoreCase))
+            {
+                // Puzzle outro
+                PuzzleSolved(@"
+    PORT     STATE    SERVICE
+    21/tcp   open     FTP (File Transfer Protocol is ready for user to be uploaded into Break Room)
+
+    Wow… too much thought was put into this lock. Anyway, this port scan was no match for the skills 
+    of the top computer scientist in the Rebel Alliance. Time to take a break in the break room!
+                ");
+                IsSolved = true; // Mark the puzzle as solved
+                ResetAttemptCount();
+            }
+            else
+            {
+                Console.WriteLine("\tThe full command is incorrect. Try again.");
+                Console.WriteLine("\tHint: The full command starts with 'nmap' and ends with the target IP address.");
             }
         }
 

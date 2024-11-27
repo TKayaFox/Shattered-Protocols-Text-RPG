@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Shattered_Protocols
 {
@@ -86,7 +87,7 @@ namespace Shattered_Protocols
         private void OnNewOutput(EventArgs args)
         {
             //Set default line as an error message that displays if there is issue with input
-            String line = "[ERROR: Line Not Found!]";
+            string line = "[ERROR: Line Not Found!]";
 
             //Get string from event args
             line = LineEventString(args);
@@ -100,25 +101,30 @@ namespace Shattered_Protocols
 
         private void OnNewInput(EventArgs args)
         {
-            //Set default line as an error message that displays if there is issue with input
-            String line = "[ERROR: Input Not Found!]";
-
             //Get string from event args
-            line = LineEventString(args);
+            string line = LineEventString(args);
 
             //Log output into the gamelog document
             AddLine(line, logPath);
             AddLine(line, inputLogPath);
+
+            //print an empty line to console
+            Console.WriteLine();
         }
 
         private static string LineEventString(EventArgs args)
         {
-            String line = "";
+            string line = "";
 
             //Make sure correct eventtype
             if (args is NewLineArgs lineArgs)
             {
                 line = lineArgs.Line;
+            }
+            else
+            {
+                //error message that displays if there is issue with input
+                line = "[ERROR: Input Not Found!]";
             }
 
             return line;

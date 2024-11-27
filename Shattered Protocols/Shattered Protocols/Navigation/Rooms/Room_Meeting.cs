@@ -20,18 +20,20 @@ namespace Shattered_Protocols.Navigation.Rooms
              ";
             RoomPuzzle = new PuzzleRegex();
 
-            //Room Items
+            //Tell Puzzle to unlock all doors to THIS room
+            RoomPuzzle.RoomUnlock = RoomType.Room_Meeting;
+
+            //RoomUnlock Items
             Inventory = new Inventory();
 
             //Define Neighboring Rooms
             //  DirectionEnum relative to current roon, type of room
             NewDoor(DirectionEnum.North, RoomType.Room_Testing);
-            NewDoor(DirectionEnum.South, RoomType.Room_Start);
             NewDoor(DirectionEnum.West, RoomType.Room_Development);
+            NewDoor(DirectionEnum.South, RoomType.Room_Start);
 
             //Lock appropriate rooms
             SetLock(DirectionEnum.North, true);
-            SetLock(DirectionEnum.West, true);
         }
     }
 }

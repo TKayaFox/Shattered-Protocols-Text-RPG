@@ -26,9 +26,6 @@ namespace Shattered_Protocols.Puzzles
                 return;
             }
 
-            // Debugging: Output the current state of IsSolved for testing purposes
-            GameController.Output($"\t[DEBUG] Puzzle solved state: {IsSolved}");
-
             // Puzzle intro message
             GameController.Output(@"
     The receptionists here thought that since this is the front desk, they would be cheeky and implement 
@@ -43,16 +40,7 @@ namespace Shattered_Protocols.Puzzles
             GameController.Output(Description);
             GameController.Output("\tEnter the binary representation of the number 42:");
         }
-
-        // Method to mark the puzzle as solved
-        private void PuzzleSolved(string successMessage)
-        {
-            GameController.Output(successMessage);
-            IsSolved = true; // Mark the puzzle as solved
-            AttemptCount = 0; // Reset attempt count when solved
-            GameController.Output("\t[DEBUG] Puzzle solved state updated to true.");
-        }
-
+        
         // Check the user input to see if it is correct.
         // If the input is correct, the puzzle is solved.
         private void CheckInput(string input)
@@ -67,6 +55,8 @@ namespace Shattered_Protocols.Puzzles
     The receptionists thought it was so clever to have this as the code… 
     Too bad it was not clever enough to keep you from getting in… Time to head inside… 
                 ");
+                IsSolved = true;
+                ResetAttemptCount(); // Reset attempt count when solved
             }
             else
             {
@@ -114,7 +104,6 @@ namespace Shattered_Protocols.Puzzles
         private void ResetAttemptCount()
         {
             AttemptCount = 0;
-            GameController.Output("\t[DEBUG] Attempt count reset to 0.");
         }
     }
 }
