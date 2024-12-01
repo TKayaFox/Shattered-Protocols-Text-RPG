@@ -67,6 +67,11 @@ namespace Shattered_Protocols.Puzzles
         public override void ReadCommand(string command)
         {
             attemptCount++;
+            if (IsSolved)
+            {
+                GameController.Output("\tThis puzzle has already been solved. No need to input anything further.");
+                return;
+            }
 
             // Check if the entered regex matches one of the valid patterns
             if (Regex.IsMatch(command, $"^{Regex.Escape(correctRegexPattern1)}$") || 
