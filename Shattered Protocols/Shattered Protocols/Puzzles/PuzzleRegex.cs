@@ -23,8 +23,6 @@ namespace Shattered_Protocols.Puzzles
         private string correctRegexPattern1 = ".*admin";
         private string correctRegexPattern2 = "admin$";
 
-
-
         public PuzzleRegex() : base("\tDecrypt data using Python-style regex patterns.")
         {
             // Sample data that players will filter
@@ -44,7 +42,7 @@ namespace Shattered_Protocols.Puzzles
             if (IsSolved)
             {
                 GameController.Output("\tThis puzzle has already been solved. You can proceed further.");
-                return;
+                return; // Stop further processing for solved puzzles
             }
 
             // Puzzle introduction
@@ -67,47 +65,41 @@ namespace Shattered_Protocols.Puzzles
         }
 
         public override void ReadCommand(string command)
-{
-    attemptCount++;
-
-    // Check if the entered regex matches one of the valid patterns
-    if (Regex.IsMatch(command, $"^{Regex.Escape(correctRegexPattern1)}$") || 
-        Regex.IsMatch(command, $"^{Regex.Escape(correctRegexPattern2)}$"))
-    {
-        // Use the pattern to filter the data
-        List<string> filteredResults = FilterDataWithRegex(command, dataToFilter.ToArray());
-
-        // Display the filtered results
-        GameController.Output("\tFiltered results:");
-        foreach (var result in filteredResults)
         {
-            GameController.Output(result);
-        }
+            attemptCount++;
 
-        // Ensure the filtered results match one of the correct patterns
-        if (filteredResults.All(result =>
-                Regex.IsMatch(result, correctRegexPattern1, RegexOptions.IgnoreCase) ||
-                Regex.IsMatch(result, correctRegexPattern2, RegexOptions.IgnoreCase)))
-        {
-            PuzzleSolved(@"
+            // Check if the entered regex matches one of the valid patterns
+            if (Regex.IsMatch(command, $"^{Regex.Escape(correctRegexPattern1)}$") || 
+                Regex.IsMatch(command, $"^{Regex.Escape(correctRegexPattern2)}$"))
+            {
+                // Use the pattern to filter the data
+                List<string> filteredResults = FilterDataWithRegex(command, dataToFilter.ToArray());
+
+                // Display the filtered results
+                GameController.Output("\tFiltered results:");
+                foreach (var result in filteredResults)
+                {
+                    GameController.Output(result);
+                }
+
+                // Ensure the filtered results match one of the correct patterns
+                if (filteredResults.All(result =>
+                        Regex.IsMatch(result, correctRegexPattern1, RegexOptions.IgnoreCase) ||
+                        Regex.IsMatch(result, correctRegexPattern2, RegexOptions.IgnoreCase)))
+                {
+                    PuzzleSolved(@"
     Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
     Time to go see what they were testing…
-            ");
-            IsSolved = true; // Mark the puzzle as solved
-            return;
+                    ");
+                    IsSolved = true; // Mark the puzzle as solved
+                    return;
+                }
+            }
+
+            // If the pattern is incorrect or filtered results don't match
+            GameController.Output("\tPattern not correct or did not filter correctly. Try again.");
+            ProvideHint(command); // Pass the command for targeted feedback
         }
-    }
-
-    // If the pattern is incorrect or filtered results don't match
-    GameController.Output("\tPattern not correct or did not filter correctly. Try again.");
-    ProvideHint(command); // Pass the command for targeted feedback
-}
-
-
-
-
-
-
 
         private void ProvideHint(string command = "")
         {
@@ -141,8 +133,6 @@ namespace Shattered_Protocols.Puzzles
                 GameController.Output("\tHint 5: Think carefully about where to put . and * in the pattern.");
             }
         }
-
-
 
         // Filter data using the provided regex pattern
         // Using the built in Regex class in C#
