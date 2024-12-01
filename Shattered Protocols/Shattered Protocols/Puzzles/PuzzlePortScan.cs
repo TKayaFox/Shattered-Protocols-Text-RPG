@@ -47,7 +47,18 @@ namespace Shattered_Protocols.Puzzles
             awaitingFullCommand = false;
 
             Console.WriteLine(Description);
-            Console.WriteLine("\tEnter the first part of the command to conduct a thorough port scan at IP address 192.126.98.10:");
+            // Specific and detailed instruction for the puzzle
+            GameController.Output(@"
+    We need to perform the following nmap scan:
+      - No DNS resolution
+      - Verbose output
+      - Scan all 65,535 ports
+      - Detect operating system and services
+
+    Enter the first part of the nmap command to conduct this thorough scan.
+    The target IP address is: 192.126.98.10
+
+    Example: nmap <your arguments here> 192.126.98.10");
         }
 
         public override void ReadCommand(string command)
@@ -59,7 +70,7 @@ namespace Shattered_Protocols.Puzzles
                 return;
             }
 
-            Console.WriteLine($"\tUser input: '{command}'"); 
+            Console.WriteLine($"\tUser input: '{command}'");
 
             string userInput = command.Trim();
 
