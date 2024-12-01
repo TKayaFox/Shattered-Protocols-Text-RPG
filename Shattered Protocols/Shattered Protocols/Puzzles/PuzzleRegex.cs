@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -109,12 +110,19 @@ namespace Shattered_Protocols.Puzzles
 
 
 
-        private void ProvideHint()
+        private void ProvideHint(string command = "")
         {
+            // Check if the user entered "admin" literally
+            if (command.Trim().Equals("admin", StringComparison.OrdinalIgnoreCase))
+            {
+                GameController.Output("\tHint: While 'admin' works as a literal match, remember to use regex-specific characters like .* or $ to make it more versatile.");
+                return; // Skip other hints for this specific case
+            }
+
             // Progressive hint system based on the attempt count
             if (attemptCount == 3)
             {
-                GameController.Output("\tHint 1: Focus on removing characters");
+                GameController.Output("\tHint 1: Focus on removing characters.");
             }
             else if (attemptCount == 4)
             {
@@ -133,7 +141,6 @@ namespace Shattered_Protocols.Puzzles
                 GameController.Output("\tHint 5: Think carefully about where to put . and * in the pattern.");
             }
         }
-
 
         // Filter data using the provided regex pattern
         // Using the built in Regex class in C#
