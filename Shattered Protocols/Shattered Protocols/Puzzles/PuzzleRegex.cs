@@ -67,39 +67,42 @@ namespace Shattered_Protocols.Puzzles
         }
 
         public override void ReadCommand(string command)
+{
+    attemptCount++;
+
+    // Check if the entered regex matches one of the valid patterns
+    if (Regex.IsMatch(command, $"^{Regex.Escape(correctRegexPattern1)}$") || 
+        Regex.IsMatch(command, $"^{Regex.Escape(correctRegexPattern2)}$"))
+    {
+        // Use the pattern to filter the data
+        List<string> filteredResults = FilterDataWithRegex(command, dataToFilter.ToArray());
+
+        // Display the filtered results
+        GameController.Output("\tFiltered results:");
+        foreach (var result in filteredResults)
         {
-            attemptCount++;
+            GameController.Output(result);
+        }
 
-            // Check if the entered regex matches one of the valid patterns
-            if (command.Trim().Equals(correctRegexPattern1, StringComparison.OrdinalIgnoreCase) ||
-                command.Trim().Equals(correctRegexPattern2, StringComparison.OrdinalIgnoreCase))
-            {
-                // Use the pattern to filter the data
-                List<string> filteredResults = FilterDataWithRegex(command, dataToFilter.ToArray());
-
-                // Display the filtered results
-                GameController.Output("\tFiltered results:");
-                foreach (var result in filteredResults)
-                {
-                    GameController.Output(result);
-                }
-
-                // Ensure the filtered results contain only admin roles
-                if (filteredResults.All(result => Regex.IsMatch(result, @"Role:\s*admin", RegexOptions.IgnoreCase)))
-                {
-                    PuzzleSolved(@"
+        // Ensure the filtered results match one of the correct patterns
+        if (filteredResults.All(result =>
+                Regex.IsMatch(result, correctRegexPattern1, RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(result, correctRegexPattern2, RegexOptions.IgnoreCase)))
+        {
+            PuzzleSolved(@"
     Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
     Time to go see what they were testing…
             ");
-                    IsSolved = true; // Mark the puzzle as solved
-                    return;
-                }
-            }
-
-            // If the pattern is incorrect or filtered results don't match
-            GameController.Output("\tPattern not correct or did not filter correctly. Try again.");
-            ProvideHint(command); // Pass the command for targeted feedback
+            IsSolved = true; // Mark the puzzle as solved
+            return;
         }
+    }
+
+    // If the pattern is incorrect or filtered results don't match
+    GameController.Output("\tPattern not correct or did not filter correctly. Try again.");
+    ProvideHint(command); // Pass the command for targeted feedback
+}
+
 
 
 
@@ -108,29 +111,36 @@ namespace Shattered_Protocols.Puzzles
 
         private void ProvideHint(string command = "")
         {
-            // Progressive hint system based on the attempt count
-            if (attemptCount == 3 || command.Trim().Equals("admin", StringComparison.OrdinalIgnoreCase))
+            // Check if the user entered "admin" literally
+            if (command.Trim().Equals("admin", StringComparison.OrdinalIgnoreCase))
             {
-                GameController.Output("\tHint 1: Focus on removing characters");
+                GameController.Output("\tHint: While 'admin' works as a literal match, remember to use regex-specific characters like .* or $ to make it more versatile.");
+                return; // Skip other hints for this specific case
             }
-            else if (attemptCount == 4 || command.Trim().Equals("admin", StringComparison.OrdinalIgnoreCase))
+
+            // Progressive hint system based on the attempt count
+            if (attemptCount == 3)
+            {
+                GameController.Output("\tHint 1: Focus on removing characters.");
+            }
+            else if (attemptCount == 4)
             {
                 GameController.Output("\tHint 2: Try removing characters except for what you are searching for. Consider spaces.");
             }
-            else if (attemptCount == 5 || command.Trim().Equals("admin", StringComparison.OrdinalIgnoreCase))
+            else if (attemptCount == 5)
             {
                 GameController.Output("\tHint 3: Remember what * means in regex. It means any number of the previous character.");
             }
-            else if (attemptCount == 6 || command.Trim().Equals("admin", StringComparison.OrdinalIgnoreCase))
+            else if (attemptCount == 6)
             {
                 GameController.Output("\tHint 4: Remember what . means in regex. It can match any character except a newline.");
             }
-            else if (attemptCount >= 7 || command.Trim().Equals("admin", StringComparison.OrdinalIgnoreCase))
+            else if (attemptCount >= 7)
             {
                 GameController.Output("\tHint 5: Think carefully about where to put . and * in the pattern.");
             }
-
         }
+
 
 
         // Filter data using the provided regex pattern
