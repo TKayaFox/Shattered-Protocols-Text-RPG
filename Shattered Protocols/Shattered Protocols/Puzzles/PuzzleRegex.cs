@@ -18,8 +18,10 @@ namespace Shattered_Protocols.Puzzles
         private List<string> dataToFilter;
         private int attemptCount = 0;
 
-        // Correct regex pattern required to solve the puzzle
-        private readonly string correctRegexPattern = ".*admin.*";
+        // Multiple Correct regex pattern required to solve the puzzle one being .*admin and the other being admin$
+        private string correctRegexPattern = @".*admin|admin$";
+
+       
 
         public PuzzleRegex() : base("\tDecrypt data using Python-style regex patterns.")
         {
