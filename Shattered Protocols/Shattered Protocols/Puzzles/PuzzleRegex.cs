@@ -61,6 +61,7 @@ namespace Shattered_Protocols.Puzzles
                 GameController.Output(item);
             }
             GameController.Output("\n\tEnter a regex pattern to filter the data to find only admin:");
+            GameController.Output("\tExample: Pattern = r(Your pattern here)");
         }
 
         public override void ReadCommand(string command)
