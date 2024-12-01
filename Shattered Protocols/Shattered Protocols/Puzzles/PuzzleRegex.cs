@@ -115,6 +115,7 @@ namespace Shattered_Protocols.Puzzles
             if (command.Trim().Equals("admin", StringComparison.OrdinalIgnoreCase))
             {
                 GameController.Output("\tHint: While 'admin' works as a literal match, remember to use regex-specific characters like .* or $ to make it more versatile.");
+                attemptCount--; // Decrement the attempt count for this specific case
                 return; // Skip other hints for this specific case
             }
 
