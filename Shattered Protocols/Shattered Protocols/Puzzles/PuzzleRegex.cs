@@ -19,9 +19,10 @@ namespace Shattered_Protocols.Puzzles
         private int attemptCount = 0;
 
         // Multiple Correct regex pattern required to solve the puzzle one being .*admin and the other being admin$
-        private string correctRegexPattern = @".*admin|admin$";
+        private string correctRegexPattern1 = ".*admin";
+        private string correctRegexPattern2 = "admin$";
 
-       
+
 
         public PuzzleRegex() : base("\tDecrypt data using Python-style regex patterns.")
         {
@@ -69,34 +70,44 @@ namespace Shattered_Protocols.Puzzles
             attemptCount++;
 
             // Check if the entered regex matches the required pattern
-            if (command.Trim().Equals(correctRegexPattern, StringComparison.OrdinalIgnoreCase))
+            // Check if the entered regex matches one of the valid patterns
+            if (command.Trim().Equals(correctRegexPattern1, StringComparison.OrdinalIgnoreCase) ||
+                command.Trim().Equals(correctRegexPattern2, StringComparison.OrdinalIgnoreCase))
+            { }
+            // Use the pattern to filter the data
+            List<string> filteredResults = FilterDataWithRegex(command, dataToFilter.ToArray());
+
+            // Display the filtered results
+            GameController.Output("\tFiltered results:");
+            foreach (var result in filteredResults)
             {
-                // Use the pattern to filter the data
-                List<string> filteredResults = FilterDataWithRegex(command, dataToFilter.ToArray());
+                GameController.Output(result);
+            }
 
-                // Display the filtered results
-                GameController.Output("\tFiltered results:");
-                foreach (var result in filteredResults)
-                {
-                    GameController.Output(result);
-                }
+            // Ensure the filtered results contain only admin roles
+            // Check if the entered regex matches one of the valid patterns
+            if (command.Trim().Equals(correctRegexPattern1, StringComparison.OrdinalIgnoreCase) ||
+                command.Trim().Equals(correctRegexPattern2, StringComparison.OrdinalIgnoreCase))
 
-                // Ensure the filtered results contain only admin roles
-                if (filteredResults.All(result => Regex.IsMatch(result, correctRegexPattern, RegexOptions.IgnoreCase)))
-                {
-                    PuzzleSolved(@"
+            {
+                PuzzleSolved(@"
     Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
     Time to go see what they were testing…
                     ");
-                    IsSolved = true; // Mark the puzzle as solved
-                    return;
-                }
+                IsSolved = true; // Mark the puzzle as solved
+                return;
             }
-
-            // If the pattern is incorrect or filtered results don't match
-            GameController.Output("\tPattern not correct or did not filter correctly. Try again.");
-            ProvideHint();
+            else
+            {
+                // If the pattern is incorrect or filtered results don't match
+                GameController.Output("\tPattern not correct or did not filter correctly. Try again.");
+                ProvideHint();
+            }
         }
+
+
+
+
 
         private void ProvideHint()
         {
@@ -111,7 +122,7 @@ namespace Shattered_Protocols.Puzzles
             }
             else if (attemptCount == 5)
             {
-                GameController.Output("\tHint 3: Remember what * means in regex. It means any number of the previous character."); 
+                GameController.Output("\tHint 3: Remember what * means in regex. It means any number of the previous character.");
             }
             else if (attemptCount == 6)
             {
@@ -119,10 +130,10 @@ namespace Shattered_Protocols.Puzzles
             }
             else if (attemptCount >= 7)
             {
-                GameController.Output("\tHint 5: Think carefully about where to put . and * in the pattern.");      
+                GameController.Output("\tHint 5: Think carefully about where to put . and * in the pattern.");
             }
         }
-            
+
 
         // Filter data using the provided regex pattern
         // Using the built in Regex class in C#
