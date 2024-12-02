@@ -63,6 +63,10 @@ namespace Shattered_Protocols.Puzzles
                 IsSolved = true;
                 ResetAttemptCount();
             }
+            else if (command.Trim().Equals("sudo disable ufw", StringComparison.OrdinalIgnoreCase))
+            {
+                GameController.Output("\tClose, wrong order of commands");
+            }
             else
             {
                 GameController.Output("\tIncorrect command.");
@@ -88,7 +92,7 @@ namespace Shattered_Protocols.Puzzles
             }
             else if (attempts >= 6)
             {
-                GameController.Output("\tHint: This firewall seems uncomplicated. Consider common network-related commands.");
+                GameController.Output("\tHint: This firewall seems \"uncomplicated.\" Consider common network-related commands.");
             }
         }
     }

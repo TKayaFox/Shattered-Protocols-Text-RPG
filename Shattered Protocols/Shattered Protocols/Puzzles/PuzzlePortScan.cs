@@ -49,16 +49,16 @@ namespace Shattered_Protocols.Puzzles
             Console.WriteLine(Description);
             // Specific and detailed instruction for the puzzle
             GameController.Output(@"
-    We need to perform the following nmap scan:
-      1. No DNS resolution
-      2. Verbose output
-      3. Scan all 65,535 ports
-      4. Detect operating system and services
+        We need to perform the following nmap scan:
+            1. No DNS resolution
+            2. Verbose output
+            3. Scan all 65,535 ports
+            4. Detect operating system and services
 
-    Enter the first part of the nmap command to conduct this thorough scan.
-    The target IP address is: 192.126.98.10
+        Start with 1. above of the nmap command to conduct this thorough scan.
+        The target IP address is: 192.126.98.10
 
-    Example: nmap <your arguments here> 192.126.98.10");
+        Example: nmap <your arguments here> 192.126.98.10");
         }
 
         public override void ReadCommand(string command)
@@ -105,11 +105,22 @@ namespace Shattered_Protocols.Puzzles
                             Console.WriteLine("\tCorrect! Enter the third part, which is scan ALL ports:");
                             break;
                         case 3:
-                            Console.WriteLine("\tCorrect! Enter the last part, which is OS AND service detection together:");
+                            Console.WriteLine("\tCorrect! Enter the fourth part, which is OS AND service detection together:");
                             break;
                     }
                 }
             }
+            //These prompts are if the user is close to the right answer
+            else if (userInputs.Count == 2 && string.Equals(userInput, "-p", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Special case for -p in the third part
+                    Console.WriteLine("\t-p is correct if you want to look through a range of ports, give the command that scan ALL ports");
+                }
+            else if (userInputs.Count == 3 && string.Equals(userInput, "-O -sV", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Special case for -O -sV in the fourth part
+                    Console.WriteLine("\tAlthough '-O -sV' is correct, try using the single command -<letter>, which encapsulates both.");
+                }
             else
             {
                 attemptCount++;
@@ -133,7 +144,7 @@ namespace Shattered_Protocols.Puzzles
 
                 if (attemptCount >= 4)
                 {
-                    Console.WriteLine("\tHint: The last part is for command for (OS AND service detection) together.");
+                    Console.WriteLine("\tHint: The fourth part is for command for (OS AND service detection) together.");
                 }
             }
         }
