@@ -99,13 +99,13 @@ namespace Shattered_Protocols.Puzzles
                     switch (userInputs.Count)
                     {
                         case 1:
-                            Console.WriteLine("\tCorrect! Enter the next part, which is verbose mode:");
+                            Console.WriteLine("\tCorrect! Enter the second part, which is verbose mode:");
                             break;
                         case 2:
-                            Console.WriteLine("\tCorrect! Enter the next part, which is scan all ports:");
+                            Console.WriteLine("\tCorrect! Enter the third part, which is scan ALL ports:");
                             break;
                         case 3:
-                            Console.WriteLine("\tCorrect! Enter the next part, which is OS and service detection:");
+                            Console.WriteLine("\tCorrect! Enter the last part, which is OS AND service detection together:");
                             break;
                     }
                 }
@@ -128,12 +128,12 @@ namespace Shattered_Protocols.Puzzles
 
                 if (attemptCount >= 3)
                 {
-                    Console.WriteLine("\tHint: The third part is for (scan all ports).");
+                    Console.WriteLine("\tHint: The third part is for (scan ALL ports).");
                 }
 
                 if (attemptCount >= 4)
                 {
-                    Console.WriteLine("\tHint: The last part is for (OS and service detection).");
+                    Console.WriteLine("\tHint: The last part is for command for (OS AND service detection) together.");
                 }
             }
         }
