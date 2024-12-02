@@ -161,7 +161,7 @@ namespace Shattered_Protocols.Puzzles
             else
             {
                 Console.WriteLine("\tThe full command is incorrect. Try again.");
-                Console.WriteLine("\tHint: The full command starts with 'nmap' and ends with the target IP address. The commands you found earlier include -p-, -v, -A, -n, but not necessarily in that order.");
+                Console.WriteLine("\tHint: The full command starts with 'nmap' and ends with the target IP address(192.126.98.10). The commands you found earlier include -p-, -v, -A, -n, but not necessarily in that order.");
             }
         }
 
