@@ -17,7 +17,7 @@ namespace Shattered_Protocols.Puzzles
         private int attempts = 0;
         private readonly string correctCommand; 
 
-        public PuzzleCodeInjection() : base("\tDisable the firewall using a terminal command.")
+        public PuzzleCodeInjection() : base("\tDisable the firewall using a Linux terminal command.")
         {
             // Set the correct command for the puzzle
             correctCommand = "sudo ufw disable";

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,8 +19,9 @@ namespace Shattered_Protocols.Puzzles
         private List<string> dataToFilter;
         private int attemptCount = 0;
 
-        // Correct regex pattern required to solve the puzzle
-        private readonly string correctRegexPattern = ".*admin.*";
+        // Multiple Correct regex pattern required to solve the puzzle one being .*admin and the other being admin$
+        private string correctRegexPattern1 = ".*admin";
+        private string correctRegexPattern2 = "admin$";
 
         public PuzzleRegex() : base("\tDecrypt data using Python-style regex patterns.")
         {
@@ -40,7 +42,7 @@ namespace Shattered_Protocols.Puzzles
             if (IsSolved)
             {
                 GameController.Output("\tThis puzzle has already been solved. You can proceed further.");
-                return;
+                return; // Stop further processing for solved puzzles
             }
 
             // Puzzle introduction
@@ -59,14 +61,21 @@ namespace Shattered_Protocols.Puzzles
                 GameController.Output(item);
             }
             GameController.Output("\n\tEnter a regex pattern to filter the data to find only admin:");
+            GameController.Output("\tExample: Pattern = r(Your pattern here)");
         }
 
         public override void ReadCommand(string command)
         {
             attemptCount++;
+            if (IsSolved)
+            {
+                GameController.Output("\tThis puzzle has already been solved. No need to input anything further.");
+                return;
+            }
 
-            // Check if the entered regex matches the required pattern
-            if (command.Trim().Equals(correctRegexPattern, StringComparison.OrdinalIgnoreCase))
+            // Check if the entered regex matches one of the valid patterns
+            if (Regex.IsMatch(command, $"^{Regex.Escape(correctRegexPattern1)}$") || 
+                Regex.IsMatch(command, $"^{Regex.Escape(correctRegexPattern2)}$"))
             {
                 // Use the pattern to filter the data
                 List<string> filteredResults = FilterDataWithRegex(command, dataToFilter.ToArray());
@@ -78,8 +87,10 @@ namespace Shattered_Protocols.Puzzles
                     GameController.Output(result);
                 }
 
-                // Ensure the filtered results contain only admin roles
-                if (filteredResults.All(result => Regex.IsMatch(result, correctRegexPattern, RegexOptions.IgnoreCase)))
+                // Ensure the filtered results match one of the correct patterns
+                if (filteredResults.All(result =>
+                        Regex.IsMatch(result, correctRegexPattern1, RegexOptions.IgnoreCase) ||
+                        Regex.IsMatch(result, correctRegexPattern2, RegexOptions.IgnoreCase)))
                 {
                     PuzzleSolved(@"
     Once the profiles were filtered out, picking one and putting it into the door terminal was a piece of cake. 
@@ -92,15 +103,23 @@ namespace Shattered_Protocols.Puzzles
 
             // If the pattern is incorrect or filtered results don't match
             GameController.Output("\tPattern not correct or did not filter correctly. Try again.");
-            ProvideHint();
+            ProvideHint(command); // Pass the command for targeted feedback
         }
 
-        private void ProvideHint()
+        private void ProvideHint(string command = "")
         {
+            // Check if the user entered "admin" literally
+            if (command.Trim().Equals("admin", StringComparison.OrdinalIgnoreCase))
+            {
+                GameController.Output("\tHint: While 'admin' works as a literal match, remember to use regex-specific characters like .* or $ to make it more versatile.");
+                attemptCount--; // Decrement the attempt count for this specific case
+                return; // Skip other hints for this specific case
+            }
+
             // Progressive hint system based on the attempt count
             if (attemptCount == 3)
             {
-                GameController.Output("\tHint 1: Focus on removing characters");
+                GameController.Output("\tHint 1: Focus on removing characters.");
             }
             else if (attemptCount == 4)
             {
@@ -108,7 +127,7 @@ namespace Shattered_Protocols.Puzzles
             }
             else if (attemptCount == 5)
             {
-                GameController.Output("\tHint 3: Remember what * means in regex. It means any number of the previous character."); 
+                GameController.Output("\tHint 3: Remember what * means in regex. It means any number of the previous character.");
             }
             else if (attemptCount == 6)
             {
@@ -116,10 +135,9 @@ namespace Shattered_Protocols.Puzzles
             }
             else if (attemptCount >= 7)
             {
-                GameController.Output("\tHint 5: Think carefully about where to put . and * in the pattern.");      
+                GameController.Output("\tHint 5: Think carefully about where to put . and * in the pattern.");
             }
         }
-            
 
         // Filter data using the provided regex pattern
         // Using the built in Regex class in C#
