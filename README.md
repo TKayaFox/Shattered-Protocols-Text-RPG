@@ -49,7 +49,8 @@ This text-based RPG immerses players in a post-apocalyptic world where AI has ta
   git clone https://github.com/TKayaFox/Shattered-Protocols-Text-RPG
   cd Shattered_Protocols
   ```  
-  
+- Find the Executable file and run the executable file.
+ ***If the executable file does not work on your environment, follow step 2 - 4.***
 
 ### 2. Install Dependencies  
 - Ensure you have the .NET SDK installed on your system.  
