@@ -50,10 +50,10 @@ namespace Shattered_Protocols.Puzzles
             // Specific and detailed instruction for the puzzle
             GameController.Output(@"
     We need to perform the following nmap scan:
-      - No DNS resolution
-      - Verbose output
-      - Scan all 65,535 ports
-      - Detect operating system and services
+      1. No DNS resolution
+      2. Verbose output
+      3. Scan all 65,535 ports
+      4. Detect operating system and services
 
     Enter the first part of the nmap command to conduct this thorough scan.
     The target IP address is: 192.126.98.10
@@ -99,13 +99,13 @@ namespace Shattered_Protocols.Puzzles
                     switch (userInputs.Count)
                     {
                         case 1:
-                            Console.WriteLine("\tCorrect! Enter the next part, which is verbose mode (-v):");
+                            Console.WriteLine("\tCorrect! Enter the next part, which is verbose mode:");
                             break;
                         case 2:
-                            Console.WriteLine("\tCorrect! Enter the next part, which is scan all ports (-p-):");
+                            Console.WriteLine("\tCorrect! Enter the next part, which is scan all ports:");
                             break;
                         case 3:
-                            Console.WriteLine("\tCorrect! Enter the next part, which is OS and service detection (-A):");
+                            Console.WriteLine("\tCorrect! Enter the next part, which is OS and service detection:");
                             break;
                     }
                 }
@@ -161,7 +161,7 @@ namespace Shattered_Protocols.Puzzles
             else
             {
                 Console.WriteLine("\tThe full command is incorrect. Try again.");
-                Console.WriteLine("\tHint: The full command starts with 'nmap' and ends with the target IP address.");
+                Console.WriteLine("\tHint: The full command starts with 'nmap' and ends with the target IP address. The commands you found earlier include -p-, -v, -A, -n, but not necessarily in that order.");
             }
         }
 
