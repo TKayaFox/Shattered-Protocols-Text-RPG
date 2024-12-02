@@ -95,7 +95,19 @@ namespace Shattered_Protocols.Puzzles
                 }
                 else
                 {
-                    Console.WriteLine("\tEnter the next part of the command:");
+                    // Modify the prompt to be more specific after each correct part
+                    switch (userInputs.Count)
+                    {
+                        case 1:
+                            Console.WriteLine("\tCorrect! Enter the next part, which is verbose mode (-v):");
+                            break;
+                        case 2:
+                            Console.WriteLine("\tCorrect! Enter the next part, which is scan all ports (-p-):");
+                            break;
+                        case 3:
+                            Console.WriteLine("\tCorrect! Enter the next part, which is OS and service detection (-A):");
+                            break;
+                    }
                 }
             }
             else
@@ -125,6 +137,7 @@ namespace Shattered_Protocols.Puzzles
                 }
             }
         }
+
 
         // Validate the full command entered by the user
         // User must enter the full command in one line
